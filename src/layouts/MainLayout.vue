@@ -1,102 +1,81 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
-
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
+  <q-layout view="hHh 1pr fff">
+    <q-header flat pined>
+      <q-toolbar class="bg-white text-dark row items-center q-pa-sm">
+        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
+        <div class="row items-center q-ml-md">
+          <q-img
+            :src="logo"
+            fit="contain"
+            style="height: 35px; width: 35px"
+            class="q-mt-sm cursor-pointer"
+            @click="goToMain"
+          />
+          <span class="cursor-pointer q-ma-sm" @click="goToMain">ZeroDay Lab</span>
+        </div>
+        <q-space />
+        <q-icon name="person" size="md" class="cursor-pointer q-pr-md" @click="goToLogin" />
+        <q-avatar class="cursor-pointer" @click="goToMyPage">
+          <img src="https://cdn.quasar.dev/img/avatar.png" />
+        </q-avatar>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
+        <q-item-label header class="q-my-md"> ZeroDay Lab </q-item-label>
 
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
+        <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />
       </q-list>
     </q-drawer>
 
     <q-page-container>
       <router-view />
     </q-page-container>
+
+    <q-footer class="bg-grey-2 text-black">
+      <div class="text-center q-pa-md">© 2025 ZeroDay Lab. All Rights Reserved.</div>
+    </q-footer>
   </q-layout>
 </template>
 
 <script setup>
+import logo from 'src/assets/logo.png'
 import { ref } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
+import { useRouter } from 'vue-router'
+
+const $router = useRouter()
+
+const goToMain = () => {
+  $router.push('/main')
+}
+const goToLogin = () => {
+  $router.push('/login')
+}
+const goToMyPage = () => {
+  $router.push('/mypage')
+}
 
 const linksList = [
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
+    title: '웹 기초',
   },
   {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
+    title: '웹 취약점',
+    path: '/study',
   },
   {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
+    title: 'War Game',
   },
   {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
+    title: '커뮤니티',
   },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
 ]
 
 const leftDrawerOpen = ref(false)
 
-function toggleLeftDrawer () {
+function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
 </script>
