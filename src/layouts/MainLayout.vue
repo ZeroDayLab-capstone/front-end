@@ -60,6 +60,7 @@ const goToMyPage = () => {
 const linksList = [
   {
     title: '웹 기초',
+    path: '/webbasic',
   },
   {
     title: '웹 취약점',

@@ -22,10 +22,13 @@
 
 <script>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'VulnerabilitiesGallery',
   setup() {
+    const router = useRouter()
+
     const vulnerabilities = ref([
       {
         id: 'sql-injection',
@@ -50,8 +53,15 @@ export default {
     ])
 
     function startCourse(id) {
-      // 실제 라우팅 예: this.$router.push(`/course/${id}`)
-      alert(`${id} 과목 수강 페이지로 이동합니다.`)
+      if (id === 'sql-injection') {
+        router.push('/sqlinjection')
+      } else if (id === 'xss') {
+        router.push('/xss')
+      } else if (id === 'csrf') {
+        router.push('/csrf')
+      } else if (id === 'idor') {
+        router.push('/idor')
+      }
     }
 
     return {

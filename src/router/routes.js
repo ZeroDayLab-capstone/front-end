@@ -8,6 +8,11 @@ const routes = [
       { path: 'main', component: () => import('pages/IndexPage.vue') },
       { path: 'mypage', component: () => import('pages/MyPage.vue') },
       { path: 'study', component: () => import('pages/StudyPage.vue') },
+      { path: 'sqlinjection', component: () => import('pages/SQLinjectionPage.vue') },
+      { path: 'xss', component: () => import('pages/XssPage.vue') },
+      { path: 'idor', component: () => import('pages/IdorPage.vue') },
+      { path: 'csrf', component: () => import('pages/CsrfPage.vue') },
+      { path: 'webbasic', component: () => import('pages/WebBasicPage.vue') },
     ],
   },
 
