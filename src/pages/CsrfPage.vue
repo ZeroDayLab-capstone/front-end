@@ -1,141 +1,111 @@
 <template>
   <q-page class="q-pa-md">
-    <!-- 설명 내용 영역 -->
-    <div class="explanation-content q-mb-xl">
-      <!-- 단순 반복문으로 보여줄 내용 -->
-      <div v-for="(content, index) in visibleContent" :key="index" class="q-mb-lg">
-        <div v-html="content"></div>
-      </div>
+    <!-- 중앙 정렬된 콘텐츠 영역 -->
+    <div class="explanation-content">
+      <!-- 현재 페이지 제목 -->
+      <h2>{{ currentContent.title }}</h2>
+
+      <!-- 본문: DOMPurify로 sanitize한 뒤 v-html로 표시 -->
+      <div v-html="sanitizedHTML(currentContent.content)"></div>
     </div>
 
-    <!-- 오른쪽 하단에 버튼 그룹 -->
+    <!-- 오른쪽 하단 버튼 그룹 -->
     <div class="bottom-right-buttons">
       <q-btn
-        v-if="currentPage > 1"
-        label="이전 페이지"
+        v-if="currentPage > 0"
+        label="이전"
         color="primary"
         class="q-mr-sm"
         @click="loadPreviousPage"
       />
-      <q-btn v-if="hasMorePages" label="다음 페이지" color="primary" @click="loadNextPage" />
+      <q-btn
+        v-if="currentPage < contentPages.length - 1"
+        label="다음"
+        color="primary"
+        @click="loadNextPage"
+      />
     </div>
   </q-page>
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed } from 'vue'
+import DOMPurify from 'dompurify'
 
-// 다단계 콘텐츠 예시 (필요에 따라 추가 내용 구현)
+// 4종류 취약점 예시 (title + content 구조)
 const contentPages = [
-  `<h2>취약점 개요</h2>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   `,
-  `<h2>세부 설명</h2>
-   <p>취약점이 발생하는 원인 및 기술적 세부 사항을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   `,
-  `<h2>영향 및 대응</h2>
-   <p>취약점의 영향을 분석하고 대응 방안을 서술합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   <p>이 부분은 취약점의 개요 및 핵심 개념을 설명합니다.</p>
-   `,
+  {
+    title: '1. 취약점 개요',
+    content: `
+      <p>이 페이지는 첫 번째 취약점에 대한 개요를 설명합니다.</p>
+      <p>기본 개념과 위험성, 예시를 간단히 다룹니다.</p>
+    `,
+  },
+  {
+    title: '2. 세부 설명',
+    content: `
+      <p>두 번째 취약점에 대한 상세 원인과 공격 기법 등을 설명합니다.</p>
+      <p>코드 예시나 구체적인 문제 상황을 첨부할 수 있습니다.</p>
+    `,
+  },
+  {
+    title: '3. 영향 및 피해 사례',
+    content: `
+      <p>세 번째 취약점이 어떤 영향을 끼치는지, 피해 사례는 어떤 것들이 있는지 다룹니다.</p>
+      <p>구체적인 통계나 실제 보안 사고 사례를 예로 들면 좋습니다.</p>
+    `,
+  },
+  {
+    title: '4. 대응 및 방어 전략',
+    content: `
+      <p>마지막 네 번째 취약점에 대한 방어 방법, 코드 레벨 해결책을 설명합니다.</p>
+      <p>웹 방화벽 설정, 입력 검증, 아키텍처 설계 등 다양한 보안 모범사례를 함께 다룹니다.</p>
+    `,
+  },
 ]
 
-// 처음에 1페이지 내용만 보임
-const currentPage = ref(1)
+// 현재 페이지 인덱스 (0부터 시작)
+const currentPage = ref(0)
 
-// 보여질 콘텐츠 : 첫 페이지부터 currentPage값까지의 내용
-const visibleContent = computed(() => contentPages.slice(0, currentPage.value))
+// 현재 페이지 데이터
+const currentContent = computed(() => contentPages[currentPage.value])
 
-// 남은 페이지가 있는지 여부
-const hasMorePages = computed(() => currentPage.value < contentPages.length)
-
-// "다음 페이지" 버튼 클릭 시 호출되는 함수
+// 다음 페이지 이동
 function loadNextPage() {
-  if (hasMorePages.value) {
+  if (currentPage.value < contentPages.length - 1) {
     currentPage.value++
   }
 }
 
-// "이전 페이지" 버튼 클릭 시 호출되는 함수
+// 이전 페이지 이동
 function loadPreviousPage() {
-  if (currentPage.value > 1) {
+  if (currentPage.value > 0) {
     currentPage.value--
   }
 }
 
-// currentPage 변경 시 콘솔 로그 확인 (디버깅용)
-watch(currentPage, (val) => {
-  console.log('currentPage changed to:', val)
-})
+// XSS 방지를 위해 DOMPurify 사용
+function sanitizedHTML(htmlString) {
+  return DOMPurify.sanitize(htmlString)
+}
 </script>
 
 <style scoped>
-/* 설명 콘텐츠 중앙 정렬 및 최대 폭 지정 */
 .explanation-content {
   max-width: 800px;
   width: 100%;
   margin: 0 auto;
 }
 
-/* 오른쪽 하단에 버튼 그룹을 고정 위치에 배치 */
 .bottom-right-buttons {
   position: fixed;
-  bottom: 80px; /* 푸터와 겹치지 않도록 80px */
+  bottom: 80px;
   right: 16px;
   z-index: 9999;
   display: flex;
   flex-direction: row;
 }
 
-/* 버튼 간격 */
 .q-mr-sm {
   margin-right: 8px;
 }

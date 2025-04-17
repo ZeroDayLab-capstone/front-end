@@ -1,6 +1,7 @@
 <template>
-  <q-layout view="hHh 1pr fff">
-    <q-header flat pined>
+  <q-layout view="hHh lpr fFf">
+    <!-- Header -->
+    <q-header flat pinned>
       <q-toolbar class="bg-white text-dark row items-center q-pa-sm">
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
         <div class="row items-center q-ml-md">
@@ -21,18 +22,22 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
+    <!-- Drawer -->
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered class="drawer-over-toc">
       <q-list>
         <q-item-label header class="q-my-md"> ZeroDay Lab </q-item-label>
 
-        <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />
+        <!-- 동적으로 변하는 drawerLinks를 렌더링 -->
+        <EssentialLink v-for="link in drawerLinks" :key="link.title" v-bind="link" />
       </q-list>
     </q-drawer>
 
+    <!-- Page Container -->
     <q-page-container>
       <router-view />
     </q-page-container>
 
+    <!-- Footer -->
     <q-footer class="bg-grey-2 text-black">
       <div class="text-center q-pa-md">© 2025 ZeroDay Lab. All Rights Reserved.</div>
     </q-footer>
@@ -41,23 +46,27 @@
 
 <script setup>
 import logo from 'src/assets/logo.png'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
+// 라우터 훅
 const $router = useRouter()
+const $route = useRoute()
 
-const goToMain = () => {
+// 이동 함수들
+function goToMain() {
   $router.push('/main')
 }
-const goToLogin = () => {
+function goToLogin() {
   $router.push('/login')
 }
-const goToMyPage = () => {
+function goToMyPage() {
   $router.push('/mypage')
 }
 
-const linksList = [
+// (1) 기본 Drawer 메뉴 (메타에 없는 라우트용 Fallback)
+const defaultLinks = [
   {
     title: '웹 기초',
     path: '/webbasic',
@@ -68,15 +77,28 @@ const linksList = [
   },
   {
     title: 'War Game',
+    path: '/wargame',
   },
   {
     title: '커뮤니티',
+    path: '/community',
   },
 ]
 
-const leftDrawerOpen = ref(false)
+// (2) 현재 라우트에서 meta.drawerLinks를 읽고, 없으면 defaultLinks
+const drawerLinks = computed(() => {
+  return $route.meta.drawerLinks || defaultLinks
+})
 
+// Drawer 열림/닫힘
+const leftDrawerOpen = ref(false)
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
 </script>
+
+<!-- <style scoped>
+.drawer-over-toc {
+  /* 필요 시 z-index, width 등 커스텀 */
+}
+</style> -->
