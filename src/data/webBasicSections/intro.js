@@ -3,13 +3,7 @@ export default {
   navTitle: '웹',
   title: '1. 웹',
   content: `
-    <section
-      style="
-        padding: 16px;
-        margin-left: 80px;  /* 좌측에 80px 여백 -> 목차와 떨어져 보이도록 */
-        font-family: sans-serif;
-      "
-    >
+
 
       <!-- [1] 웹의 기본 구성 요소 -->
       <h2 style="margin-bottom: 8px; font-size: 1.2rem;">웹(web)이란?</h2>

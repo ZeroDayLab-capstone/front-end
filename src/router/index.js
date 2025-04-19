@@ -1,3 +1,4 @@
+// src/router/index.js
 import { defineRouter } from '#q-app/wrappers'
 import {
   createRouter,
@@ -6,11 +7,10 @@ import {
   createWebHashHistory,
 } from 'vue-router'
 
-// 위에서 만든 routes.js
+// 라우트 목록 (routes.js) 불러오기
 import routes from './routes'
 
-// Quasar가 SSR/SPA/HASH 모드를 자동 인식하는 로직
-export default defineRouter(function (/* { store, ssrContext } */) {
+export default defineRouter(function () {
   const createHistory = process.env.SERVER
     ? createMemoryHistory
     : process.env.VUE_ROUTER_MODE === 'history'
@@ -18,9 +18,20 @@ export default defineRouter(function (/* { store, ssrContext } */) {
       : createWebHashHistory
 
   const Router = createRouter({
-    scrollBehavior: () => ({ left: 0, top: 0 }),
     routes,
     history: createHistory(process.env.VUE_ROUTER_BASE),
+    // 스크롤 동작
+    scrollBehavior(to, from, savedPosition) {
+      // 기본적으로 맨 위로 스크롤
+      if (savedPosition) {
+        return savedPosition
+      } else if (to.hash) {
+        // 해시가 있으면 해당 앵커로 이동
+        return { el: to.hash, behavior: 'smooth' }
+      } else {
+        return { left: 0, top: 0 }
+      }
+    },
   })
 
   return Router

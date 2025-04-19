@@ -23,7 +23,14 @@
     </q-header>
 
     <!-- Drawer -->
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered class="drawer-over-toc">
+    <q-drawer
+      v-model="leftDrawerOpen"
+      show-if-above
+      no-scroll
+      persistent
+      bordered
+      class="drawer-over-toc"
+    >
       <q-list>
         <q-item-label header class="q-my-md"> ZeroDay Lab </q-item-label>
 
@@ -90,15 +97,11 @@ const drawerLinks = computed(() => {
   return $route.meta.drawerLinks || defaultLinks
 })
 
-// Drawer 열림/닫힘
-const leftDrawerOpen = ref(false)
+// (3) Drawer 열림/닫힘 상태: 기본 true => 항상 처음엔 열림
+const leftDrawerOpen = ref(true)
+
+// 토글 함수 (헤더의 메뉴버튼)
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
 </script>
-
-<!-- <style scoped>
-.drawer-over-toc {
-  /* 필요 시 z-index, width 등 커스텀 */
-}
-</style> -->
