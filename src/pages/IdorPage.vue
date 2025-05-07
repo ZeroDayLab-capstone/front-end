@@ -14,14 +14,14 @@
       <q-btn
         v-if="currentPage > 0"
         label="이전"
-        color="primary"
+        color="black"
         class="q-mr-sm"
         @click="loadPreviousPage"
       />
       <q-btn
         v-if="currentPage < contentPages.length - 1"
         label="다음"
-        color="primary"
+        color="black"
         @click="loadNextPage"
       />
     </div>
