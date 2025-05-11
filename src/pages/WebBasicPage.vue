@@ -1,13 +1,13 @@
 <template>
-  <q-page style="padding: 0">
+  <q-page class="q-pa-md">
     <div class="centered-container">
       <!-- 현재 섹션 제목 -->
       <h2>{{ currentSection.title }}</h2>
 
-      <!-- 본문 HTML (DOMPurify) -->
-      <div v-html="sanitizedHTML(currentSection.content)"></div>
+      <!-- QMarkdown 으로 MD 파일 렌더링 -->
+      <q-markdown :src="currentSection.src" class="q-mt-md" />
 
-      <!-- '이전 / 다음' 버튼 -->
+      <!-- 이전/다음 버튼 -->
       <div class="bottom-right-buttons">
         <q-btn
           v-if="currentIndex > 0"
@@ -32,49 +32,29 @@
 <script setup>
 import { ref, computed, watchEffect } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import DOMPurify from 'dompurify'
-import sections from 'src/data/webBasicSections/index.js'
+import sections from '../data/webBasicSections/index.js'
 
-// 예: sections = [ { title, content }, { title, content }, ... ]
-// (총 8개 섹션이라고 가정)
-
-// 라우터 훅
 const router = useRouter()
 const route = useRoute()
 
-// 현재 인덱스
 const currentIndex = ref(0)
-
-// 현재 섹션
 const currentSection = computed(() => sections[currentIndex.value])
 
-// 쿼리 파라미터 sec와 currentIndex 동기화
+// 쿼리 파라미터 sec 와 동기화
 watchEffect(() => {
-  const secParam = parseInt(route.query.sec, 10)
-  if (!isNaN(secParam) && secParam >= 0 && secParam < sections.length) {
-    currentIndex.value = secParam
-  } else {
-    currentIndex.value = 0
-  }
+  const sec = parseInt(route.query.sec, 10)
+  currentIndex.value = !isNaN(sec) && sec >= 0 && sec < sections.length ? sec : 0
 })
 
-// 이전/다음 버튼 로직
 function goPrevious() {
-  const nextIdx = currentIndex.value - 1
-  if (nextIdx >= 0) {
-    router.push({ path: '/webbasic', query: { sec: nextIdx } })
+  if (currentIndex.value > 0) {
+    router.push({ path: '/webbasic', query: { sec: currentIndex.value - 1 } })
   }
 }
 function goNext() {
-  const nextIdx = currentIndex.value + 1
-  if (nextIdx < sections.length) {
-    router.push({ path: '/webbasic', query: { sec: nextIdx } })
+  if (currentIndex.value < sections.length - 1) {
+    router.push({ path: '/webbasic', query: { sec: currentIndex.value + 1 } })
   }
-}
-
-// v-html용 DOMPurify
-function sanitizedHTML(htmlString) {
-  return DOMPurify.sanitize(htmlString)
 }
 </script>
 
@@ -88,10 +68,9 @@ function sanitizedHTML(htmlString) {
 
 .bottom-right-buttons {
   position: fixed;
-  bottom: 80px; /* 푸터 높이+여유 */
+  bottom: 80px; /* 푸터 높이 + 여유 */
   right: 32px;
   display: flex;
-  flex-direction: row;
 }
 
 .q-mr-sm {
