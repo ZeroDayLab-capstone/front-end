@@ -39,7 +39,7 @@ const routes = [
       {
         // 웹 기초 페이지 (8개 섹션)
         path: 'webbasic',
-        component: () => import('pages/WebBasicPage.vue'),
+        component: () => import('src/pages/webBasic/WebBasicPage.vue'),
         meta: {
           hasDrawer: true,
           drawerLinks: [
