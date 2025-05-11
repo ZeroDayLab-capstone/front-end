@@ -3,7 +3,13 @@ export default {
   navTitle: '웹',
   title: '1. 웹',
   content: `
-
+<section>
+      <div style="text-align:center; margin:24px 0;">
+      <img
+        src="~assets/web1.png"
+        style="max-width:100%; height:auto; border:1px solid #ddd; border-radius:8px;"
+      />
+    </div>
 
       <!-- [1] 웹의 기본 구성 요소 -->
       <h2 style="margin-bottom: 8px; font-size: 1.2rem;">웹(web)이란?</h2>
