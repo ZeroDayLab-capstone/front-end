@@ -32,7 +32,7 @@ const idInput = ref()
 const pwInput = ref()
 
 const toSignUp = () => {
-  $router.push('/signup')
+  $router.push('/register')
 }
 
 const toFindPwd = () => {

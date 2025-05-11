@@ -6,10 +6,15 @@ const routes = [
       {
         path: '',
         component: () => import('pages/IndexPage.vue'),
+        meta: { hasDrawer: false },
       },
       {
         path: 'login',
         component: () => import('pages/LoginPage.vue'),
+      },
+      {
+        path: 'register',
+        component: () => import('pages/RegisterPage.vue'),
       },
       {
         path: 'main',
@@ -36,6 +41,7 @@ const routes = [
         path: 'webbasic',
         component: () => import('pages/WebBasicPage.vue'),
         meta: {
+          hasDrawer: true,
           drawerLinks: [
             { title: 'Back to Home', path: '/main' },
             { title: '1. 웹 소개', path: '/webbasic?sec=0' },
