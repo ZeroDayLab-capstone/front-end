@@ -1,5 +1,5 @@
 <template>
-  <q-layout>
+  <q-layout view="hhh Lpr fff">
     <q-drawer v-if="hasDrawer" v-model="leftDrawerOpen" show-if-above bordered>
       <q-list padding>
         <q-item-label header>ZeroDay Lab</q-item-label>

@@ -7,7 +7,7 @@
       <div v-for="vuln in clientVulns" :key="vuln.id" class="my-card-container">
         <q-card flat bordered class="my-card">
           <!-- 상단 이미지 (고정 높이) -->
-          <q-img :src="vuln.image" style="width: 100%; height: 150px; object-fit: cover" />
+          <q-img :src="vuln.image" style="width: 310px; object-fit: cover" />
 
           <!-- 하단 영역: 취약점 이름 + 수강하기 버튼 -->
           <div class="row items-center justify-between q-pa-sm">
@@ -23,7 +23,7 @@
       <div v-for="vuln in serverVulns" :key="vuln.id" class="my-card-container">
         <q-card flat bordered class="my-card">
           <!-- 상단 이미지 (고정 높이) -->
-          <q-img :src="vuln.image" style="width: 100%; height: 150px; object-fit: cover" />
+          <q-img :src="vuln.image" style="width: 310px; object-fit: cover" />
 
           <!-- 하단 영역: 취약점 이름 + 수강하기 버튼 -->
           <div class="row items-center justify-between q-pa-sm">
@@ -59,14 +59,16 @@ export default {
     ])
 
     function startCourse(id) {
-      if (id === 'sql-injection') {
-        router.push('/sqlinjection')
-      } else if (id === 'xss') {
+      if (id === 'xss') {
         router.push('/xss')
       } else if (id === 'csrf') {
         router.push('/csrf')
-      } else if (id === 'idor') {
-        router.push('/idor')
+      } else if (id === 'sql-injection') {
+        router.push('/sqlinjection')
+      } else if (id === 'command-injection') {
+        router.push('/commandinjection')
+      } else if (id === 'file-vulnerability') {
+        router.push('/file vulnerability')
       }
     }
 
@@ -88,6 +90,6 @@ export default {
 /* 카드 내부에서 width:100%로 카드 컨테이너에 맞춤 */
 .my-card {
   width: 100%;
-  height: 200px;
+  height: 220px;
 }
 </style>

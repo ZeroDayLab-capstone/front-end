@@ -78,7 +78,7 @@ const routes = [
       },
       {
         path: 'idor',
-        component: () => import('pages/IdorPage.vue'),
+        component: () => import('src/pages/FileVulnerabilityPage.vue'),
         meta: {
           drawerLinks: [{ title: 'Back to Study', path: '/study' }],
         },
