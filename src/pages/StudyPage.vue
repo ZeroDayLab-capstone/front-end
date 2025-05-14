@@ -55,7 +55,7 @@ export default {
     const serverVulns = ref([
       { id: 'sql-injection', name: 'SQL Injection', image: '...' },
       { id: 'command-injection', name: 'Command Injection', image: '...' },
-      { id: 'file-vuln', name: 'File Vulnerability', image: '...' },
+      { id: 'file-vulnerability', name: 'File Vulnerability', image: '...' },
     ])
 
     function startCourse(id) {
@@ -68,7 +68,7 @@ export default {
       } else if (id === 'command-injection') {
         router.push('/commandinjection')
       } else if (id === 'file-vulnerability') {
-        router.push('/file vulnerability')
+        router.push('/filevuln')
       }
     }
 
