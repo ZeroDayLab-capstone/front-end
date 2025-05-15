@@ -32,6 +32,11 @@ const routes = [
       },
 
       {
+        path: 'wargamelist',
+        component: () => import('pages/WarGameListPage.vue'),
+      },
+
+      {
         path: 'wargameexplanation',
         component: () => import('pages/WarGameExplanationPage.vue'),
       },

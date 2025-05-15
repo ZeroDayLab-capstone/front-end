@@ -151,7 +151,7 @@ const mainMenu = [
   },
   {
     label: 'War Game',
-    path: '/wargame',
+    path: '/wargamelist',
     children: [
       {
         title: '문제 목록',
