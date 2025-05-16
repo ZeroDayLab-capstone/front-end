@@ -69,7 +69,7 @@ const routes = [
       // 취약점 페이지들 (예시)
       {
         path: 'sqlinjection',
-        component: () => import('src/pages/sqlInjection/SQLinjectionLayoutPage.vue'),
+        component: () => import('src/pages/sqlInjection/SqlInjectionLayoutPage.vue'),
         meta: {
           hasDrawer: true,
           drawerLinks: [

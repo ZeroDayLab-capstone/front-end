@@ -25,7 +25,7 @@ import { defineAsyncComponent } from 'vue'
 const sections = [
   {
     title: '1️⃣ 취약점 소개/작동 원리',
-    component: defineAsyncComponent(() => import('./sections/sqlIntro.vue')),
+    component: defineAsyncComponent(() => import('./sections/SqlIntro.vue')),
   },
   {
     title: '2️⃣ 취약점이 발생하는 위치',
@@ -36,7 +36,7 @@ const sections = [
     component: defineAsyncComponent(() => import('./sections/ReasonWhy.vue')),
   },
   {
-    title: '4️⃣ 실제 보안 사고 사례례',
+    title: '4️⃣ 실제 보안 사고 사례',
     component: defineAsyncComponent(() => import('./sections/ActualEx.vue')),
   },
   {
