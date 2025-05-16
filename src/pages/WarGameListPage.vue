@@ -3,7 +3,13 @@
     <!-- 고정 크기 카드들을 감싸는 row -->
     <div class="row wrap q-gutter-md justify-start">
       <div v-for="vuln in problems" :key="vuln.id" class="my-card-container">
-        <q-card flat bordered class="my-card">
+        <q-card
+          flat
+          bordered
+          class="my-card"
+          @click.stop="solveProblem(vuln.id)"
+          style="cursor: pointer"
+        >
           <!-- 상단 이미지 (고정 높이) -->
           <q-img :src="vuln.image" style="width: 230px; object-fit: cover" />
 
@@ -48,34 +54,23 @@ export default {
       { id: 'command-injection', name: 'Command Injection', image: command },
       { id: 'xss-stored1', name: 'XSS Stored_1', image: xss1 },
       { id: 'xss-stored2', name: 'XSS Stored_2', image: xss2 },
-      { id: 'xss-stored3', name: 'XSS Stored 3', image: xss3 },
-      { id: 'xss-reflected', name: 'XSS Redflected', image: xss4 },
+      { id: 'xss-stored3', name: 'XSS Stored_3', image: xss3 },
+      { id: 'xss-reflected', name: 'XSS Reflected', image: xss4 },
       { id: 'file-vulnerability', name: 'File Vulnerability', image: filevuln },
     ])
 
+    // + 각 문제 클릭 시 War Game 설명 페이지로 이동
     function solveProblem(id) {
-      // 각 문제별 설명 페이지로 라우팅 (임의 경로 예시)
-      if (id === 'csrf') {
-        router.push('/problem/csrf')
-      } else if (id === 'sql-injection1') {
-        router.push('/problem/sql1')
-      } else if (id === 'sql-injection2') {
-        router.push('/problem/sql2')
-      } else if (id === 'sql-injection3') {
-        router.push('/problem/sql3')
-      } else if (id === 'command-injection') {
-        router.push('/problem/command')
-      } else if (id === 'xss-stored1') {
-        router.push('/problem/xss-stored1')
-      } else if (id === 'xss-stored2') {
-        router.push('/problem/xss-stored2')
-      } else if (id === 'xss-stored3') {
-        router.push('/problem/xss-stored3')
-      } else if (id === 'xss-reflected') {
-        router.push('/problem/xss-reflected')
-      } else if (id === 'file-vulnerability') {
-        router.push('/problem/file-vulnerability')
-      }
+      if (id === 'csrf') router.push('/gamecsrf')
+      else if (id === 'sql-injection1') router.push('/gamesqlinjection1')
+      else if (id === 'sql-injection2') router.push('/gamesqlinjection2')
+      else if (id === 'sql-injection3') router.push('/gamesqlinjection3')
+      else if (id === 'command-injection') router.push('/gamecommandinjection')
+      else if (id === 'xss-stored1') router.push('/gamexssstored1')
+      else if (id === 'xss-stored2') router.push('/gamexssstored2')
+      else if (id === 'xss-stored3') router.push('/gamexssstored3')
+      else if (id === 'xss-reflected') router.push('/gamexssreflected')
+      else if (id === 'file-vulnerability') router.push('/gamefilevuln')
     }
 
     return {

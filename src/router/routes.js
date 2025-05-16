@@ -28,9 +28,60 @@ const routes = [
 
       {
         path: 'problemexplanation',
-        component: () => import('pages/ProblemExplanationPage.vue'),
+        component: () => import('src/pages/wargame/ProblemExplanationPage.vue'),
       },
 
+      // wargame
+      {
+        path: 'gamecsrf',
+        component: () => import('src/pages/wargame/GameCsrf.vue'),
+      },
+      {
+        path: 'gamesqlinjection1',
+        component: () => import('src/pages/wargame/GameSql1.vue'),
+      },
+
+      {
+        path: 'gamesqlinjection2',
+        component: () => import('src/pages/wargame/GameSql2.vue'),
+      },
+
+      {
+        path: 'gamesqlinjection3',
+        component: () => import('src/pages/wargame/GameSql3.vue'),
+      },
+
+      {
+        path: 'gamecommandinjection',
+        component: () => import('src/pages/wargame/GameCmdInjection.vue'),
+      },
+
+      {
+        path: 'gamexssstored1',
+        component: () => import('src/pages/wargame/GameXssStored1.vue'),
+      },
+
+      {
+        path: 'gamexssstored2',
+        component: () => import('src/pages/wargame/GameXssStored2.vue'),
+      },
+
+      {
+        path: 'gamexssstored3',
+        component: () => import('src/pages/wargame/GameXssStored3.vue'),
+      },
+
+      {
+        path: 'gamexssreflected',
+        component: () => import('src/pages/wargame/GameXssReflected.vue'),
+      },
+
+      {
+        path: 'gamefilevuln',
+        component: () => import('src/pages/wargame/GameFileVuln.vue'),
+      },
+
+      //
       {
         path: 'wargamelist',
         component: () => import('pages/WarGameListPage.vue'),

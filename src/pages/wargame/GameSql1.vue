@@ -20,11 +20,35 @@
           <!-- 문제 목표 / 시나리오 설명 -->
           <q-separator spaced />
           <q-card-section>
-            <h6>문제 목표 설명</h6>
-            <p class="text-body1">{{ problemObjective }}</p>
+            <h6>1️⃣실습 목표🎯</h6>
+            <div class="text-body1 q-pl-md">
+              <div style="display: list-item; list-style-type: disc">
+                SQL Injection(인젝션) 공격의 원리를 이해합니다.
+              </div>
+              <div style="display: list-item; list-style-type: disc">
+                로그인 로직이 사용자 입력값을 검증하지 않을 때 발생하는 위험성을 체험합니다.
+              </div>
+              <div style="display: list-item; list-style-type: disc">
+                SQL 쿼리 조작을 통해 비밀번호 없이 관리자 계정으로 로그인하는 인증 우회 기법을
+                실습합니다.
+              </div>
+              <div style="display: list-item; list-style-type: disc">
+                공격자가 어떻게 시스템에 침투하여 민감 정보를 획득하는지를 학습합니다.
+              </div>
+            </div>
 
-            <h6 class="q-mt-md">문제 시나리오</h6>
-            <p class="text-body1">{{ problemScenario }}</p>
+            <h6 class="q-mt-md">2️⃣문제 시나리오🎭</h6>
+            <div class="text-body1">
+              <div>
+                당신은 어느 웹서비스 NoteShare에서 우연히 관리자 전용 페이지가 있다는 소문을
+                들었습니다.
+              </div>
+              <div>해당 서비스는 로그인 후 개인 노트를 확인할 수 있는 구조입니다.</div>
+              <div>
+                관리자의 계정에 로그인만 하면 "FLAG가 담긴 노트"를 확인할 수 있다는 정보도
+                입수했습니다.
+              </div>
+            </div>
           </q-card-section>
 
           <!-- 문제 난이도 표시 -->
@@ -42,7 +66,7 @@
           <q-separator spaced />
           <q-expansion-item group="hint" icon="help_outline" label="힌트" expand-separator>
             <div class="q-mt-sm">
-              <p>문제 해결이 어려운 경우: {{ hintText }}</p>
+              <p>{{ hintText }}</p>
             </div>
           </q-expansion-item>
 
@@ -51,7 +75,7 @@
           <q-card-section>
             <h6>문제 해결(정답) 입력</h6>
             <q-input v-model="userAnswer" filled placeholder="정답을 입력하세요" class="q-my-sm" />
-            <q-btn label="제출" color="primary" @click="onSubmitAnswer" />
+            <q-btn label="제출" color="black" @click="onSubmitAnswer" />
             <div v-if="submitResult" class="q-mt-sm">
               <q-banner
                 v-if="submitSuccess"
@@ -107,11 +131,9 @@ import { ref, computed } from 'vue'
 //import { QCard, QInput, QBtn, QBadge, QBanner, QExpansionItem } from 'quasar'
 
 // 예시: 문제 정보
-const problemTitle = ref('실습 문제 설명 페이지')
-const problemObjective = ref('해당 문제에서 학습할 보안 취약점과 목표 설명')
-const problemScenario = ref('실제 웹 환경에서 발생할 수 있는 시나리오 기반 문제 제공')
-const difficulty = ref('medium') // 예: 'easy' / 'medium' / 'hard'
-const hintText = ref('문제가 어렵다면... 서버 로그를 확인해 보세요.')
+const problemTitle = ref('비밀번호 없이 관리자 로그인')
+const difficulty = ref('easy') // 예: 'easy' / 'medium' / 'hard'
+const hintText = ref('--는 SQL에서 주석을 의미합니다. 이걸 활용하면 쿼리 뒷부분을 제거할 수 있어요')
 
 // 난이도 표시용
 const difficultyLabel = computed(() => {

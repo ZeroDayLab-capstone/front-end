@@ -135,16 +135,16 @@ const mainMenu = [
       {
         title: '클라이언트 사이드 취약점',
         items: [
-          { label: 'XSS', path: '/study/xss' },
-          { label: 'CSRF', path: '/study/csrf' },
+          { label: 'XSS', path: '/xss' },
+          { label: 'CSRF', path: '/csrf' },
         ],
       },
       {
         title: '서버 사이드 취약점',
         items: [
-          { label: 'SQL Injection', path: '/study/sqlinjection' },
-          { label: 'File Vulnerability', path: '/study/xss' },
-          { label: 'Command Injection', path: '/study/idor' },
+          { label: 'SQL Injection', path: '/sqlinjection' },
+          { label: 'File Vulnerability', path: '/filevuln' },
+          { label: 'Command Injection', path: '/commandinjection' },
         ],
       },
     ],
@@ -156,8 +156,16 @@ const mainMenu = [
       {
         title: '문제 목록',
         items: [
-          { label: '문제1', path: '/wargame/p1' },
-          { label: '문제2', path: '/wargame/p2' },
+          { label: 'CSRF', path: '/gamecsrf' },
+          { label: 'SQL Injection_1', path: '/gamesqlinjection1' },
+          { label: 'SQL Injection_2', path: '/gamesqlinjection2' },
+          { label: 'SQL Injection_3', path: '/gamesqlinjection3' },
+          { label: 'Command Injection', path: '/gamecommandinjection' },
+          { label: 'XSS stored_1', path: '/gamexssstored1' },
+          { label: 'XSS stored_2', path: '/gamexssstored2' },
+          { label: 'XSS stored_3', path: '/gamexssstored3' },
+          { label: 'XSS Reflected', path: '/gamexssreflected' },
+          { label: 'File Vulnerability', path: '/gamefilevuln' },
         ],
       },
     ],
