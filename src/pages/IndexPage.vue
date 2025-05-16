@@ -1,29 +1,24 @@
 <template>
   <q-page class="q-mb-xl">
     <div>
-      <q-carousel
-        animated
-        v-model="slide"
-        navigation
-        infinite
-        :autoplay="autoplay"
-        arrows
-        transition-prev="slide-right"
-        transition-next="slide-left"
-        @mouseenter="autoplay = false"
-        @mouseleave="autoplay = true"
-      >
-        <q-carousel-slide :name="1" img-src="https://cdn.quasar.dev/img/mountains.jpg" />
-        <q-carousel-slide :name="2" img-src="https://cdn.quasar.dev/img/parallax1.jpg" />
-        <q-carousel-slide :name="3" img-src="https://cdn.quasar.dev/img/parallax2.jpg" />
-        <q-carousel-slide :name="4" img-src="https://cdn.quasar.dev/img/quasar.jpg" />
-      </q-carousel>
+      <div class="row justify-center q-my-lg">
+        <q-img :src="mainlogo" style="width: 500px"></q-img>
+      </div>
     </div>
 
     <div class="q-pa-xl q-ma-xl text-center">
-      <div class="text-h5 q-mb-sm">ZeroDay Lab 소개</div>
-      <div class="text-body1">ZeroDay Lab은 웹 보안 교육을 제공하는 플랫폼으로,</div>
-      <div class="text-body1">다양한 웹 취약점을 학습하고 실습할 수 있는 환경을 제공합니다.</div>
+      <div class="text-h5 q-pb-lg">What is ZeroDay Lab</div>
+      <div class="text-body1">
+        <div>제로데이 랩에 오신 것을 환영합니다!</div>
+        <div>
+          제로데이 랩은 웹 보안에 입문한 공학도들이 SQL Injection, XSS, CSRF 등의 핵심 취약점을
+          이론과 실습을
+        </div>
+        <div>통해 쉽고 빠르게 학습할 수 있도록 설계된 온라인 플랫폼입니다.</div>
+        <div>현실과 같은 웹 애플리케이션 환경에서 직접 공격 기법을 시도해보고,</div>
+        <div>그 원리와 해결 방안을 단계별로 익히며 보안 전문가로 성장하는 여정을 지원합니다.</div>
+        <div class="q-pt-md">안전한 웹 세상을 만드는 첫걸음, 제로데이 랩과 함께 시작하세요!</div>
+      </div>
     </div>
 
     <div class="q-pa-md row q-gutter-xl flex flex-center">
@@ -68,12 +63,10 @@
 
 <script>
 import { ref } from 'vue'
+import mainlogo from 'src/assets/mainpagelogo.jpg'
 
 export default {
   setup() {
-    const slide = ref(1)
-    const autoplay = ref(true)
-
     const cards = ref([
       {
         title: 'Title 1',
@@ -126,10 +119,9 @@ export default {
     }
 
     return {
-      slide,
-      autoplay,
       cards,
       toggleExpanded,
+      mainlogo,
     }
   },
 }
