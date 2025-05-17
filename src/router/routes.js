@@ -26,11 +26,6 @@ const routes = [
         component: () => import('pages/MyPage.vue'),
       },
 
-      {
-        path: 'problemexplanation',
-        component: () => import('src/pages/wargame/ProblemExplanationPage.vue'),
-      },
-
       // wargame
       {
         path: 'gamecsrf',

@@ -34,7 +34,7 @@
               </div>
             </div>
 
-            <h6 class="q-mt-md">3️2️⃣문제 시나리오🎭</h6>
+            <h6 class="q-mt-md">2️⃣문제 시나리오🎭</h6>
             <p class="text-body1">{{ problemScenario }}</p>
             <div text-body1>
               <div>

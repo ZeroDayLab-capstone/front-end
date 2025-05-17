@@ -23,7 +23,7 @@
             <h6>1️⃣실습 목표🎯</h6>
             <p class="text-body1">{{ problemObjective }}</p>
 
-            <h6 class="q-mt-md">3️2️⃣문제 시나리오🎭</h6>
+            <h6 class="q-mt-md">2️⃣문제 시나리오🎭</h6>
             <div class="text-body1">
               <p>{{ problemScenario }}</p>
               <p>이 시스템은 관리자만 접근할 수 있는 비밀 기능과 플래그를 가지고 있습니다.</p>
