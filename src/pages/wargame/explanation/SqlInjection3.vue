@@ -12,39 +12,32 @@
           <!-- 해설 본문 -->
           <q-card-section>
             <div class="text-body1 q-pl-md">
-              <div class="text-h6 text-weight-bold">1. 컬럼 개수 파악</div>
-              <li class="q-pl-lg">
-                <code style="color: red">ORDER BY 1--</code>,
+              <div style="display: list-item; list-style-type: disc">
+                컬럼 개수 파악: <code style="color: red">ORDER BY 1--</code>,
                 <code style="color: red">ORDER BY 3--</code> 등을 시도하여 컬럼 개수가 3개임을
                 확인합니다.
-              </li>
-
-              <div class="text-weight-bold text-h6 q-pt-md">2. 데이터 타입 매핑</div>
-              <!-- <div style="display: list-item; list-style-type: disc"> -->
-              <ul>
-                <li><code style="color: red">name</code> 컬럼: 문자열(VARCHAR)</li>
-                <li><code style="color: red">description</code> 컬럼: 텍스트(TEXT)</li>
-                <li><code style="color: red">price</code> 컬럼: 숫자(DECIMAL)</li>
-              </ul>
-              <!-- </div> -->
-
-              <div class="text-weight-bold text-h6 q-pt-md">3. UNION SELECT 구성</div>
-              <ui>
-                <li class="q-pl-lg">
-                  위 타입에 맞춰 더미값(<code style="color: red">'dummy'</code>,
-                  <code style="color: red">0</code>)을 채우고,
-                  <code style="color: red">flags</code> 테이블의
-                  <code style="color: red">flag</code> 컬럼을 세 번째 컬럼에 매핑합니다.
-                </li>
-              </ui>
-
-              <div class="text-h6 text-weight-bold q-pt-md">4. 플래그 노출</div>
-              <li class="q-pl-lg">
-                최종 페이로드로
+              </div>
+              <div style="display: list-item; list-style-type: disc">
+                데이터 타입 매핑:
+                <ul>
+                  <li><code style="color: red">name</code> 컬럼: 문자열(VARCHAR)</li>
+                  <li><code style="color: red">description</code> 컬럼: 텍스트(TEXT)</li>
+                  <li><code style="color: red">price</code> 컬럼: 숫자(DECIMAL)</li>
+                </ul>
+              </div>
+              <div style="display: list-item; list-style-type: disc">
+                <strong>UNION SELECT 구성:</strong> 위 타입에 맞춰 더미값(<code style="color: red"
+                  >'dummy'</code
+                >, <code style="color: red">0</code>)을 채우고,
+                <code style="color: red">flags</code> 테이블의
+                <code style="color: red">flag</code> 컬럼을 세 번째 컬럼에 매핑합니다.
+              </div>
+              <div style="display: list-item; list-style-type: disc">
+                플래그 노출: 최종 페이로드로
                 <code style="color: red"
                   >/product.php?id=1 UNION SELECT flag,'dummy',0 FROM flags--</code
                 >를 전송하면, 웹 페이지에 <strong>FLAG{…}</strong> 형태의 플래그가 출력됩니다.
-              </li>
+              </div>
             </div>
           </q-card-section>
 

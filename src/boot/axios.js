@@ -1,24 +1,33 @@
+// src/boot/axios.js
 import { defineBoot } from '#q-app/wrappers'
 import axios from 'axios'
+import { createPinia } from 'pinia'
+import { useAuthStore } from 'src/stores/auth'
 
-// Be careful when using SSR for cross-request state pollution
-// due to creating a Singleton instance here;
-// If any client changes this (global) instance, it might be a
-// good idea to move this instance creation inside of the
-// "export default () => {}" function below (which runs individually
-// for each client)
-const api = axios.create({ baseURL: 'http://localhost:8000' })
-
-export default defineBoot(({ app }) => {
-  // for use inside Vue files (Options API) through this.$axios and this.$api
-
-  app.config.globalProperties.$axios = axios
-  // ^ ^ ^ this will allow you to use this.$axios (for Vue Options API form)
-  //       so you won't necessarily have to import axios in each vue file
-
-  app.config.globalProperties.$api = api
-  // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)
-  //       so you can easily perform requests against your app's API
+// 모듈 최상위에 api 인스턴스 정의 (module scope)
+const api = axios.create({
+  // 환경 변수에 설정된 API URL 우선, 없으면 하드코딩된 백엔드 IP 사용
+  baseURL: process.env.API_BASE_URL || 'http://100.126.147.123:8000',
 })
 
+// 요청 인터셉터: Pinia 스토어의 토큰을 헤더에 자동 추가
+api.interceptors.request.use((config) => {
+  const auth = useAuthStore()
+  if (auth.token) {
+    config.headers.Authorization = `Bearer ${auth.token}`
+  }
+  return config
+})
+
+// defineBoot는 파일당 한 번만 호출
+export default defineBoot(({ app }) => {
+  // 1) Pinia 등록
+  app.use(createPinia())
+
+  // 2) Vue 컴포넌트에서 this.$axios, this.$api로 사용
+  app.config.globalProperties.$axios = axios
+  app.config.globalProperties.$api = api
+})
+
+// 다른 파일에서 import { api } 가능
 export { api }

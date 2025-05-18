@@ -23,7 +23,6 @@
 
         <q-space />
         <!-- (B) 메인 메뉴 -->
-        <!-- 주의: @mouseleave 제거! -->
         <div
           v-for="(item, idx) in mainMenu"
           :key="idx"
@@ -37,9 +36,15 @@
         <q-space />
 
         <!-- (C) 오른쪽 로그인 등 -->
-        <q-btn flat dense icon="person" label="로그인" class="q-ml-md" @click="goToLogin" />
-        <q-btn flat dense label="회원가입" class="q-ml-md" @click="goRegister" />
-        <q-btn flat dense label="마이페이지" class="q-ml-md" @click="goMyPage" />
+        <template v-if="!auth.isLoggedIn">
+          <q-btn flat dense icon="person" label="로그인" class="q-ml-md" @click="goToLogin" />
+          <q-btn flat dense label="회원가입" class="q-ml-md" @click="goRegister" />
+          <q-btn flat dense label="마이페이지" class="q-ml-md" @click="goToLogin" />
+        </template>
+        <template v-else>
+          <q-btn flat dense label="로그아웃" class="q-ml-md" @click="onLogout" />
+          <q-btn flat dense label="마이페이지" class="q-ml-md" @click="goMyPage" />
+        </template>
       </div>
     </q-header>
 
@@ -81,6 +86,7 @@
 import { ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import logo from 'src/assets/logo.png'
+import { useAuthStore } from 'src/stores/auth'
 
 // 라우터
 const router = useRouter()
@@ -174,6 +180,15 @@ const mainMenu = [
 
 // hoverIndex => 어느 메뉴에 마우스 올라갔는지
 const hoverIndex = ref(null)
+
+// + Auth store 인스턴스
+const auth = useAuthStore()
+
+// + 로그아웃 핸들러
+function onLogout() {
+  auth.logout()
+  router.push('/login')
+}
 </script>
 
 <style scoped>

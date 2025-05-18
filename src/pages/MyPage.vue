@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="text-center">
-        <div class="text-h5">Zman</div>
+        <div class="text-h5">{{ userInfo.username }}</div>
       </div>
 
       <!-- 내 정보 카드 -->
@@ -23,13 +23,19 @@
               <q-btn v-if="!editMode" flat color="primary" label="편집" @click="startEdit" />
               <div v-else>
                 <q-btn flat color="negative" label="취소" @click="cancelEdit" />
-                <q-btn flat color="positive" label="저장하기" class="q-ml-sm" @click="saveEdit" />
+                <q-btn
+                  flat
+                  color="positive"
+                  label="저장하기"
+                  class="q-ml-sm"
+                  @click="saveEdit"
+                  :loading="saving"
+                />
               </div>
             </div>
           </div>
 
-          <!-- 내 정보 내용 -->
-          <!-- 편집 모드가 아닐 때: 일반 텍스트로 표시 -->
+          <!-- 읽기 모드 -->
           <div class="q-mt-sm" v-if="!editMode">
             <div>ID: {{ userInfo.id }}</div>
             <div>성별: {{ userInfo.gender }}</div>
@@ -37,9 +43,9 @@
             <div>Email: {{ userInfo.email }}</div>
           </div>
 
-          <!-- 편집 모드일 때: QInput 폼으로 표시 -->
+          <!-- 편집 모드 -->
           <div class="q-mt-sm" v-else>
-            <q-input v-model="editData.id" label="ID" filled />
+            <q-input v-model="editData.id" label="ID" filled readonly />
             <q-input v-model="editData.gender" label="성별" filled class="q-mt-sm" />
             <q-input v-model="editData.nationality" label="국적" filled class="q-mt-sm" />
             <q-input v-model="editData.email" label="Email" filled class="q-mt-sm" />
@@ -47,7 +53,7 @@
         </q-card-section>
       </q-card>
 
-      <!-- 수강 중인 과목 카드 -->
+      <!-- 수강 중인 과목 카드 (기존 그대로) -->
       <q-card flat bordered>
         <q-card-section>
           <div class="text-subtitle1 q-mb-sm">수강 중인 과목</div>
@@ -78,50 +84,35 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { api } from 'src/boot/axios'
 
 export default {
   name: 'MyPage',
   setup() {
     const router = useRouter()
 
-    // 1) 내 정보(더미 데이터)
+    // TODO: 실제 사용자 ID 로 대체하세요
+    const userId = 2
+
+    // 1) 서버에서 받아 올 내 정보
     const userInfo = ref({
-      id: 'Zman123',
-      gender: '남성',
-      nationality: '한국',
-      email: 'example@example.com',
+      id: '',
+      username: '',
+      gender: '',
+      nationality: '',
+      email: '',
     })
 
-    // 편집 모드 상태
+    // 편집 모드 / 임시 데이터
     const editMode = ref(false)
-
-    // 편집용 임시 데이터
     const editData = ref({ ...userInfo.value })
 
-    // 편집 시작
-    function startEdit() {
-      // userInfo 내용을 editData에 복사
-      editData.value = { ...userInfo.value }
-      editMode.value = true
-    }
+    // 저장 중 로딩 표시
+    const saving = ref(false)
 
-    // 편집 취소
-    function cancelEdit() {
-      // editData를 버리고 편집 모드 해제
-      editMode.value = false
-    }
-
-    // 편집 저장
-    function saveEdit() {
-      // editData의 내용을 userInfo에 반영
-      userInfo.value = { ...editData.value }
-      editMode.value = false
-      // TODO: 서버에 저장 로직이 있다면 이곳에서 처리
-    }
-
-    // 2) 수강 중인 과목
+    // 2) 수강 중인 과목 (기존)
     const courses = ref([
       { id: 1, name: 'Web Basic', progress: 30 },
       { id: 2, name: 'SQL injection', progress: 34 },
@@ -129,9 +120,55 @@ export default {
       { id: 4, name: 'CSRF', progress: 0 },
     ])
 
-    // 과목 카드 클릭 시 해당 학습 페이지로 이동
+    // 페이지 로드 시 내 정보 GET
+    async function fetchProfile() {
+      try {
+        const res = await api.get(`/mypage/mypage/profile/${userId}`)
+        // { username, email, gender, nationality, job } 형태 리턴 가정
+        userInfo.value = {
+          id: res.data.username, // 만약 id가 따로 있으면 그걸 쓰세요
+          username: res.data.username,
+          gender: res.data.gender,
+          nationality: res.data.nationality,
+          email: res.data.email,
+        }
+      } catch (err) {
+        console.error('프로필 조회 실패', err)
+      }
+    }
+    onMounted(fetchProfile)
+
+    // 편집 시작
+    function startEdit() {
+      editData.value = { ...userInfo.value }
+      editMode.value = true
+    }
+    function cancelEdit() {
+      editMode.value = false
+    }
+
+    // 편집 저장 (PUT or PATCH)
+    async function saveEdit() {
+      saving.value = true
+      try {
+        await api.put(`/mypage/mypage/profile/${userId}`, {
+          username: editData.value.username,
+          gender: editData.value.gender,
+          nationality: editData.value.nationality,
+          email: editData.value.email,
+        })
+        // 반영
+        userInfo.value = { ...editData.value }
+        editMode.value = false
+      } catch (err) {
+        console.error('프로필 저장 실패', err)
+      } finally {
+        saving.value = false
+      }
+    }
+
+    // 과목 클릭
     function goToCourse(courseId) {
-      // 예: /course/1 이런 식으로 라우팅
       router.push(`/course/${courseId}`)
     }
 
@@ -139,11 +176,12 @@ export default {
       userInfo,
       editMode,
       editData,
+      courses,
       startEdit,
       cancelEdit,
       saveEdit,
-      courses,
       goToCourse,
+      saving,
     }
   },
 }

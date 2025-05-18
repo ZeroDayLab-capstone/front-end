@@ -3,11 +3,15 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
+      // 루트 접속 시 /main 으로 리디렉트
+      { path: '', redirect: '/main' },
+      // 메인 페이지
       {
-        path: '',
+        path: 'main',
         component: () => import('pages/IndexPage.vue'),
         meta: { hasDrawer: false },
       },
+
       {
         path: 'login',
         component: () => import('pages/LoginPage.vue'),
@@ -16,11 +20,6 @@ const routes = [
         path: 'register',
         component: () => import('pages/RegisterPage.vue'),
       },
-      {
-        path: 'main',
-        component: () => import('pages/IndexPage.vue'),
-      },
-
       {
         path: 'mypage',
         component: () => import('pages/MyPage.vue'),
@@ -84,7 +83,7 @@ const routes = [
 
       {
         path: 'wargameexplanation',
-        component: () => import('pages/WarGameExplanationPage.vue'),
+        component: () => import('src/pages/WarGameExplanationPage.vue'),
       },
 
       {
@@ -192,6 +191,20 @@ const routes = [
             { title: '7. MITRE ATT&CK 프레임워크 연관', path: '/csrf?sec=6' },
           ],
         },
+      },
+
+      {
+        path: '/admin',
+        component: () => import('layouts/AdminLayout.vue'),
+        children: [
+          { path: 'users', component: () => import('pages/admin/AllUsers.vue') },
+          { path: 'labs', component: () => import('pages/admin/AddLabs.vue') },
+          { path: 'server-status', component: () => import('pages/admin/ServerStatus.vue') },
+          { path: 'user-results', component: () => import('pages/admin/UserResults.vue') },
+          { path: 'logs', component: () => import('pages/admin/SysLogs.vue') },
+          // 기본 /admin 로 접근 시 리다이렉트하려면 아래 한 줄 추가
+          { path: '', redirect: 'users' },
+        ],
       },
     ],
   },
