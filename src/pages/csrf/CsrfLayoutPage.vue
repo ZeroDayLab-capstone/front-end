@@ -9,8 +9,19 @@
 
       <!-- 이전/다음 버튼 -->
       <div class="bottom-right-buttons">
-        <q-btn v-if="currentIndex > 0" label="이전" class="q-mr-sm" @click="goPrevious" />
-        <q-btn v-if="currentIndex < sections.length - 1" label="다음" @click="goNext" />
+        <q-btn
+          v-if="currentIndex > 0"
+          label="이전"
+          class="q-mr-sm"
+          color="black"
+          @click="goPrevious"
+        />
+        <q-btn
+          v-if="currentIndex < sections.length - 1"
+          label="다음"
+          color="black"
+          @click="goNext"
+        />
       </div>
     </div>
   </q-page>

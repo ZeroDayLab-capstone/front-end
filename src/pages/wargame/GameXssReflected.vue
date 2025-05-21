@@ -94,7 +94,14 @@
           <q-card-section>
             <h6>문제 해결(정답) 입력</h6>
             <q-input v-model="userAnswer" filled placeholder="정답을 입력하세요" class="q-my-sm" />
-            <q-btn label="제출" color="black" @click="onSubmitAnswer" />
+            <div class="colunm q-gutter-x-sm">
+              <q-btn label="제출" color="black" @click="onSubmitAnswer" />
+              <q-btn
+                label="해설"
+                color="black"
+                :to="{ name: 'WargameExplanationXssReflected' }"
+              ></q-btn>
+            </div>
             <div v-if="submitResult" class="q-mt-sm">
               <q-banner
                 v-if="submitSuccess"

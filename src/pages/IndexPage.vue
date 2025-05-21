@@ -1,12 +1,17 @@
 <template>
-  <q-page class="q-mb-xl">
-    <div class="row justify-center q-my-lg">
-      <q-img :src="mainlogo" style="width: 500px" />
+  <q-page class="q-pb-xl">
+    <div class="row justify-center q-pb-lg">
+      <!-- <q-img :src="mainlogo1"  width="100%" height="600px" /> -->
+      <q-img
+        :src="mainlogo1"
+        style="width: 100%; max-width: 1900px; height: 500px"
+        :img-props="{ style: 'width: 100%; height: 100%; object-fit: fill;' }"
+      />
     </div>
 
     <div class="q-pa-xl q-ma-xl text-center">
-      <div class="text-h5 q-pb-lg">What is ZeroDay Lab</div>
-      <div class="text-body1">
+      <div class="text-h3 q-pb-lg">What is ZeroDay Lab?</div>
+      <div class="text-h6">
         <div>제로데이 랩에 오신 것을 환영합니다!</div>
         <div>
           제로데이 랩은 웹 보안에 입문한 공학도들이 SQL Injection, XSS, CSRF 등의 핵심 취약점을
@@ -21,38 +26,23 @@
     </div>
 
     <div class="q-pa-md row q-gutter-xl flex flex-center">
-      <q-card v-for="(card, index) in cards" :key="index" class="my-card" flat bordered>
-        <q-img :src="card.img" />
-
+      <q-card
+        v-for="(card, index) in cards"
+        :key="index"
+        class="my-card"
+        flat
+        bordered
+        clickable
+        :href="card.link"
+        target="_blank"
+      >
+        <!-- ① 이미지 컨테이너에 클래스 추가 -->
+        <div class="my-card-img">
+          <q-img :src="card.img" />
+        </div>
         <q-card-section>
           <div class="text-h5 q-mt-sm q-mb-xs">{{ card.title }}</div>
-          <div class="text-caption text-grey">{{ card.description }}</div>
         </q-card-section>
-
-        <q-card-actions>
-          <q-btn flat color="primary" label="Share" />
-          <q-btn flat color="secondary" label="Book" />
-
-          <q-space />
-
-          <q-btn
-            color="grey"
-            round
-            flat
-            dense
-            :icon="card.expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
-            @click="toggleExpanded(card)"
-          />
-        </q-card-actions>
-
-        <q-slide-transition>
-          <div v-show="card.expanded">
-            <q-separator />
-            <q-card-section class="text-subtitle2">
-              {{ card.lorem }}
-            </q-card-section>
-          </div>
-        </q-slide-transition>
       </q-card>
     </div>
   </q-page>
@@ -61,7 +51,15 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useAuthStore } from 'src/stores/auth'
-import mainlogo from 'src/assets/mainpagelogo.jpg'
+// import mainlogo from 'src/assets/mainpagelogo.jpg'
+import mainlogo1 from 'src/assets/mainlogo1.png'
+
+import securityimg1 from 'src/assets/securityimg1.jpeg'
+import securityimg2 from 'src/assets/securityimg2.jpg'
+import securityimg3 from 'src/assets/securityimg3.jpg'
+import securityimg4 from 'src/assets/securityimg4.jpg'
+import securityimg5 from 'src/assets/securityimg5.PNG'
+import securityimg6 from 'src/assets/securityimg6.png'
 
 // Pinia 스토어 인스턴스 가져오기
 const auth = useAuthStore()
@@ -74,57 +72,44 @@ onMounted(() => {
 // 카드 데이터
 const cards = ref([
   {
-    title: 'Title 1',
-    description: 'Lorem ipsum dolor sit amet...',
-    img: 'https://cdn.quasar.dev/img/parallax1.jpg',
-    lorem: '추가 설명 1...',
-    expanded: false,
+    title: 'Global Cybersecurity',
+    img: securityimg1,
   },
   {
-    title: 'Title 2',
-    description: 'Sed do eiusmod tempor...',
-    img: 'https://cdn.quasar.dev/img/parallax2.jpg',
-    lorem: '추가 설명 2...',
-    expanded: false,
+    title: 'SOC Investigation',
+    img: securityimg2,
   },
   {
-    title: 'Title 3',
-    description: 'Ut enim ad minim veniam...',
-    img: 'https://cdn.quasar.dev/img/mountains.jpg',
-    lorem: '추가 설명 3...',
-    expanded: false,
+    title: 'PSA-국가 사이버보안',
+    img: securityimg3,
   },
   {
-    title: 'Title 4',
-    description: 'Consectetur adipiscing elit...',
-    img: 'https://cdn.quasar.dev/img/parallax1.jpg',
-    lorem: '추가 설명 4...',
-    expanded: false,
+    title: '보안뉴스',
+    img: securityimg4,
   },
   {
-    title: 'Title 5',
-    description: 'Excepteur sint occaecat...',
-    img: 'https://cdn.quasar.dev/img/parallax2.jpg',
-    lorem: '추가 설명 5...',
-    expanded: false,
+    title: 'KISIA',
+    img: securityimg5,
   },
   {
-    title: 'Title 6',
-    description: 'Duis aute irure dolor...',
-    img: 'https://cdn.quasar.dev/img/mountains.jpg',
-    lorem: '추가 설명 6...',
-    expanded: false,
+    title: 'Cybersecurity Dive',
+    img: securityimg6,
   },
 ])
-
-// 카드 확장 토글 함수
-function toggleExpanded(card) {
-  card.expanded = !card.expanded
-}
 </script>
 
-<style lang="sass" scoped>
-.my-card
-  width: 100%
-  max-width: 250px
+<style scoped>
+.my-card {
+  width: 250px; /* 카드 너비 고정 */
+  height: 300px; /* 카드 높이 고정 */
+  display: flex;
+  flex-direction: column;
+}
+
+/* ② 이미지 영역을 flex-grow로 채우거나, 고정 높이 지정 */
+.my-card-img {
+  flex: 1; /* 남는 공간을 이미지가 차지 */
+  width: 100%;
+  height: 160px;
+}
 </style>

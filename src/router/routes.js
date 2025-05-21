@@ -75,6 +75,58 @@ const routes = [
         component: () => import('src/pages/wargame/GameFileVuln.vue'),
       },
 
+      //wargame explanation
+      {
+        path: 'cmd-injection',
+        name: 'WargameExplanationCmdInjection',
+        component: () => import('pages/wargame/explanation/CmdInjection.vue'),
+      },
+      {
+        path: 'csrf-ex',
+        name: 'WargameExplanationCsrfEx',
+        component: () => import('pages/wargame/explanation/CsrfEx.vue'),
+      },
+      {
+        path: 'file-vuln',
+        name: 'WargameExplanationFileVuln',
+        component: () => import('pages/wargame/explanation/FileVuln.vue'),
+      },
+      {
+        path: 'sql-injection-1',
+        name: 'WargameExplanationSqlInjection1',
+        component: () => import('pages/wargame/explanation/SqlInjection1.vue'),
+      },
+      {
+        path: 'sql-injection-2',
+        name: 'WargameExplanationSqlInjection2',
+        component: () => import('pages/wargame/explanation/SqlInjection2.vue'),
+      },
+      {
+        path: 'sql-injection-3',
+        name: 'WargameExplanationSqlInjection3',
+        component: () => import('pages/wargame/explanation/SqlInjection3.vue'),
+      },
+      {
+        path: 'xss-reflected',
+        name: 'WargameExplanationXssReflected',
+        component: () => import('pages/wargame/explanation/XssRdflected.vue'),
+      },
+      {
+        path: 'xss-stored-1',
+        name: 'WargameExplanationXssStored1',
+        component: () => import('pages/wargame/explanation/XssStored1.vue'),
+      },
+      {
+        path: 'xss-stored-2',
+        name: 'WargameExplanationXssStored2',
+        component: () => import('pages/wargame/explanation/XssStored2.vue'),
+      },
+      {
+        path: 'xss-stored-3',
+        name: 'WargameExplanationXssStored3',
+        component: () => import('pages/wargame/explanation/XssStored3.vue'),
+      },
+
       //
       {
         path: 'wargamelist',
@@ -157,7 +209,8 @@ const routes = [
             { title: '2. 취약점이 발생하는 위치', path: '/xss?sec=1' },
             { title: '3. 발생 이유', path: '/xss?sec=2' },
             { title: '4. Stored XSS와 Reflected XSS', path: '/xss?sec=3' },
-            { title: '5. MITRE ATT&CK 프레임워크 연관', path: '/xss?sec=4' },
+            { title: '5. 실제 보안 사고 사례', path: '/xss?sec=4' },
+            { title: '6. MITRE ATT&CK 프레임워크 연관', path: '/xss?sec=5' },
           ],
         },
       },
@@ -172,6 +225,7 @@ const routes = [
             { title: '2. File Upload Vulnerability', path: '/filevuln?sec=1' },
             { title: '3. File Download Vulnerability', path: '/filevuln?sec=2' },
             { title: '4. 실제 보안 사고 사례', path: '/filevuln?sec=3' },
+            { title: '5. MITRE ATT&CK 프레임워크 연관', path: '/filevuln?sec=4' },
           ],
         },
       },
