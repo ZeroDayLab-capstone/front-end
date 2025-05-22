@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-pa-md problem-explanation-page">
-    <div class="row items-start q-gutter-md">
+    <div class="row justify-center">
       <!-- 왼쪽: 문제 설명 카드 -->
       <div class="col-12 col-md-7">
         <q-card flat class="bg-grey-1 text-dark q-px-sm q-pb-sm">
@@ -106,19 +106,14 @@
               <q-banner v-else type="negative" icon="warning" label="실패! 다시 시도해 보세요." />
             </div>
           </q-card-section>
-        </q-card>
-      </div>
-
-      <!-- 오른쪽: 추가 액션 (서버 생성 버튼 등) -->
-      <div class="col-12 col-md-5">
-        <q-card flat class="bg-white text-dark q-px-md q-pt-md q-pb-xl shadow-1">
+          <q-separator spaced />
           <q-card-section>
             <div class="text-h6">문제 관련 액션</div>
             <p class="text-body2 text-grey q-mt-sm">
               실습 환경을 생성하고, 문제를 직접 풀어볼 수 있습니다.
             </p>
           </q-card-section>
-          <q-separator spaced />
+
           <q-card-section>
             <!-- 서버 생성 버튼 -->
             <q-btn

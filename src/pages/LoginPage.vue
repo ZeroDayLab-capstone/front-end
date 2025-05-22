@@ -23,34 +23,26 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
 import { ref } from 'vue'
-import { api } from 'src/boot/axios'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from 'src/stores/auth'
 
-const $router = useRouter()
+const router = useRouter()
+const auth = useAuthStore()
+
 const idInput = ref('')
 const pwInput = ref('')
 
-// + 로그인 처리 함수 추가
 async function login() {
-  // 입력값 검증
   if (!idInput.value.trim() || !pwInput.value) {
     alert('이메일과 비밀번호를 모두 입력하세요.')
     return
   }
 
   try {
-    // API 호출 (명세서: POST /auth/login)
-    const res = await api.post('/auth/login', {
-      email: idInput.value,
-      password: pwInput.value,
-    })
-
-    // 토큰 저장 및 메인 페이지 이동
-    localStorage.setItem('token', res.data.token)
-    $router.push('/main')
+    await auth.login(idInput.value, pwInput.value)
+    router.push('/main')
   } catch (err) {
-    // 인증 실패 처리
     if (err.response?.status === 401 && err.response?.data?.errorcode === 'AUTH_401') {
       alert('이메일 또는 비밀번호가 올바르지 않습니다.')
     } else {
@@ -60,11 +52,6 @@ async function login() {
   }
 }
 
-const toSignUp = () => {
-  $router.push('/register')
-}
-
-const toFindPwd = () => {
-  $router.push('/findpwd')
-}
+const toSignUp = () => router.push('/register')
+const toFindPwd = () => router.push('/findpwd')
 </script>

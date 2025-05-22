@@ -45,18 +45,26 @@
 
           <!-- 편집 모드 -->
           <div class="q-mt-sm" v-else>
-            <q-input v-model="editData.id" label="ID" filled readonly />
+            <q-input v-model="editData.id" label="ID" filled />
             <q-input v-model="editData.gender" label="성별" filled class="q-mt-sm" />
             <q-input v-model="editData.nationality" label="국적" filled class="q-mt-sm" />
             <q-input v-model="editData.email" label="Email" filled class="q-mt-sm" />
+            <q-input
+              v-model="editData.password"
+              label="Password"
+              type="password"
+              filled
+              class="q-mt-sm"
+            />
+            <q-input v-model="editData.job" label="직업" filled class="q-mt-sm" />
           </div>
         </q-card-section>
       </q-card>
 
       <!-- 수강 중인 과목 카드 (기존 그대로) -->
-      <q-card flat bordered>
+      <q-card flat bordered class="q-mb-md">
         <q-card-section>
-          <div class="text-subtitle1 q-mb-sm">수강 중인 과목</div>
+          <div class="text-subtitle1 q-mb-sm">진행 중인 실습 목록</div>
           <div class="row q-gutter-md">
             <div
               v-for="course in courses"
@@ -72,7 +80,31 @@
               >
                 <q-card-section>
                   <div class="text-subtitle1">{{ course.name }}</div>
-                  <div class="text-caption text-grey-7 q-mt-xs">수강률: {{ course.progress }}%</div>
+                </q-card-section>
+              </q-card>
+            </div>
+          </div>
+        </q-card-section>
+      </q-card>
+
+      <q-card flat bordered>
+        <q-card-section>
+          <div class="text-subtitle1 q-mb-sm">완료된 실습 목록</div>
+          <div class="row q-gutter-md">
+            <div
+              v-for="course in completedLabs"
+              :key="course.id"
+              class="col-12 col-sm-6 col-md-6 col-lg-4"
+            >
+              <q-card
+                flat
+                bordered
+                class="q-pa-sm my-course-card"
+                clickable
+                @click="goToCourse(course.id)"
+              >
+                <q-card-section>
+                  <div class="text-subtitle1">{{ course.name }}</div>
                 </q-card-section>
               </q-card>
             </div>
@@ -84,17 +116,23 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from 'src/boot/axios'
+import jwtDecode from 'jwt-decode/dist/jwt-decode.esm.js'
+import { useAuthStore } from 'src/stores/auth'
 
 export default {
   name: 'MyPage',
   setup() {
     const router = useRouter()
+    const auth = useAuthStore()
 
-    // TODO: 실제 사용자 ID 로 대체하세요
-    const userId = 2
+    const userId = computed(() => {
+      if (!auth.token) return null
+      const decoded = jwtDecode(auth.token)
+      return decoded.user_id || decoded.sub || null
+    })
 
     // 1) 서버에서 받아 올 내 정보
     const userInfo = ref({
@@ -103,6 +141,8 @@ export default {
       gender: '',
       nationality: '',
       email: '',
+      password: '',
+      job: '',
     })
 
     // 편집 모드 / 임시 데이터
@@ -113,17 +153,15 @@ export default {
     const saving = ref(false)
 
     // 2) 수강 중인 과목 (기존)
-    const courses = ref([
-      { id: 1, name: 'Web Basic', progress: 30 },
-      { id: 2, name: 'SQL injection', progress: 34 },
-      { id: 3, name: 'XSS', progress: 37 },
-      { id: 4, name: 'CSRF', progress: 0 },
-    ])
+    const courses = ref([])
+
+    // 완료된 실습 목록 상태
+    const completedLabs = ref([])
 
     // 페이지 로드 시 내 정보 GET
     async function fetchProfile() {
       try {
-        const res = await api.get(`/mypage/mypage/profile/${userId}`)
+        const res = await api.get(`/mypage/mypage/profile/${userId.value}`)
         // { username, email, gender, nationality, job } 형태 리턴 가정
         userInfo.value = {
           id: res.data.username, // 만약 id가 따로 있으면 그걸 쓰세요
@@ -131,12 +169,80 @@ export default {
           gender: res.data.gender,
           nationality: res.data.nationality,
           email: res.data.email,
+          password: '',
+          job: res.data.job,
         }
+        editData.value = { ...userInfo.value }
       } catch (err) {
         console.error('프로필 조회 실패', err)
       }
     }
-    onMounted(fetchProfile)
+
+    // 프로필 정보 수정
+    async function saveEdit() {
+      saving.value = true
+      try {
+        // 비밀번호가 있을 때만 포함하는 payload
+        const payload = {
+          username: editData.value.username,
+          email: editData.value.email,
+          gender: editData.value.gender,
+          nationality: editData.value.nationality,
+          job: editData.value.job,
+        }
+        if (editData.value.password) {
+          payload.password = editData.value.password
+        }
+        const res = await api.put(`/mypage/mypage/profile/${userId.value}`, payload)
+        // 성공 메시지 보여주기 (optional)
+        console.log(res.data.message)
+        // UI 반영
+        userInfo.value = { ...editData.value }
+        editMode.value = false
+      } catch (err) {
+        console.error('프로필 저장 실패', err)
+      } finally {
+        saving.value = false
+      }
+    }
+
+    // 진행 중인 실습 목록 조회
+    async function fetchOngoingLabs() {
+      if (!userId.value) return
+      try {
+        const res = await api.get(`/mypage/mypage/ongoing-labs/${userId.value}`)
+        // { additionalProp1: [...], additionalProp2: [...], … }
+        const lists = Object.values(res.data).flat()
+        // 예시: lab_id 만 있으므로 name/ progress 기본값 설정
+        courses.value = lists.map((item) => ({
+          id: item.lab_id,
+          name: `실습 ${item.lab_id}`,
+          progress: 0,
+        }))
+      } catch (err) {
+        console.error('진행 중인 실습 조회 실패', err)
+      }
+    }
+
+    async function fetchCompletedLabs() {
+      if (!userId.value) return
+      try {
+        const res = await api.get(`/mypage/mypage/completed-labs/${userId.value}`)
+        const lists = Object.values(res.data).flat()
+        completedLabs.value = lists.map((item) => ({
+          id: item.lab_id,
+          name: `실습 ${item.lab_id}`,
+        }))
+      } catch (err) {
+        console.error('완료된 실습 조회 실패', err)
+      }
+    }
+
+    onMounted(async () => {
+      await fetchProfile()
+      await fetchOngoingLabs()
+      await fetchCompletedLabs()
+    })
 
     // 편집 시작
     function startEdit() {
@@ -145,26 +251,6 @@ export default {
     }
     function cancelEdit() {
       editMode.value = false
-    }
-
-    // 편집 저장 (PUT or PATCH)
-    async function saveEdit() {
-      saving.value = true
-      try {
-        await api.put(`/mypage/mypage/profile/${userId}`, {
-          username: editData.value.username,
-          gender: editData.value.gender,
-          nationality: editData.value.nationality,
-          email: editData.value.email,
-        })
-        // 반영
-        userInfo.value = { ...editData.value }
-        editMode.value = false
-      } catch (err) {
-        console.error('프로필 저장 실패', err)
-      } finally {
-        saving.value = false
-      }
     }
 
     // 과목 클릭
@@ -177,6 +263,7 @@ export default {
       editMode,
       editData,
       courses,
+      completedLabs,
       startEdit,
       cancelEdit,
       saveEdit,

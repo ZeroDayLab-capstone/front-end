@@ -1,3 +1,4 @@
+<!-- src/pages/admin/Logs.vue -->
 <template>
   <q-page class="q-pa-md">
     <div class="text-h6 q-mb-md">시스템 로그</div>
@@ -7,6 +8,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { api } from 'src/boot/axios'
 
 const columns = [
   { name: 'timestamp', label: '시간', field: 'timestamp' },
@@ -16,11 +18,23 @@ const columns = [
 ]
 const rows = ref([])
 
-onMounted(() => {
-  // TODO: api.get('/admin/logs').then(r=>rows.value=r.data)
-  rows.value = [
-    { timestamp: '2025-05-18 12:00', user: '홍길동', action: '로그인', detail: '-' },
-    { timestamp: '2025-05-18 12:05', user: '김철수', action: '실습제출', detail: 'Lab #2' },
-  ]
+onMounted(async () => {
+  try {
+    // 실제 엔드포인트로 로그 조회
+    const res = await api.get('/admin/admin/logs')
+
+    // additionalProp1, additionalProp2… 의 배열들을 모두 담아서 1차원 배열로 합침
+    rows.value = Object.values(res.data)
+      .flat()
+      .map((item) => ({
+        // 만약 detail 필드가 없다면 빈 문자열로 기본값 설정
+        timestamp: item.timestamp,
+        user: item.user,
+        action: item.action,
+        detail: item.detail ?? '',
+      }))
+  } catch (err) {
+    console.error('시스템 로그 조회 실패', err)
+  }
 })
 </script>

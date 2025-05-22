@@ -22,6 +22,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { api } from 'src/boot/axios'
 
 const userId = ref(null)
 const rows = ref([])
@@ -31,15 +32,21 @@ const columns = [
   { name: 'score', label: '점수', field: 'score' },
 ]
 
-function fetchResults() {
+async function fetchResults() {
   if (!userId.value) return
-  rows.value = [] // 로딩 초기화
-  // TODO: api.get('/admin/user-results', { params:{ user_id:userId.value } }).then(r=>rows.value=r.data)
-  setTimeout(() => {
-    rows.value = [
-      { lab_id: 1, status: '완료', score: 100 },
-      { lab_id: 2, status: '미제출', score: 0 },
-    ]
-  }, 300)
+  rows.value = [] // 초기화
+  try {
+    if (!userId.value) return
+    // axios.request 를 사용해야 브라우저에서도 GET 바디가 전송됩니다
+    const res = await api.request({
+      method: 'get',
+      url: '/admin/admin/user-results',
+      data: { user_id: userId.value },
+    })
+    // 응답 예시: { results: [ { lab_id, status, score }, … ] }
+    rows.value = res.data.results
+  } catch (err) {
+    console.error('사용자 실습 결과 조회 실패', err)
+  }
 }
 </script>

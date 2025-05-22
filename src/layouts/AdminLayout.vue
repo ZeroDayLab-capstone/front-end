@@ -11,6 +11,9 @@
     <q-drawer show-if-above v-model="drawer" side="left" bordered>
       <q-list padding>
         <q-item to="/admin/users" clickable v-ripple
+          ><q-item-section>더미 데이터</q-item-section></q-item
+        >
+        <q-item to="/admin/users" clickable v-ripple
           ><q-item-section>사용자 목록</q-item-section></q-item
         >
         <q-item to="/admin/labs" clickable v-ripple

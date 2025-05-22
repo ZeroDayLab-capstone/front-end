@@ -14,15 +14,20 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { api } from 'src/boot/axios'
 
 const status = ref(null)
 
-function fetchStatus() {
+async function fetchStatus() {
   status.value = null
-  // TODO: api.get('/admin/server-status').then(r => status.value = r.data)
-  setTimeout(() => {
-    status.value = '{ server: "running", containers: 3 }'
-  }, 500)
+  try {
+    const res = await api.get('/admin/admin/server-status')
+    // 응답이 단순 string 이면 그대로, 객체/배열이면 JSON.stringify 로 포맷
+    status.value = typeof res.data === 'string' ? res.data : JSON.stringify(res.data, null, 2)
+  } catch (err) {
+    console.error('서버 상태 조회 실패', err)
+    status.value = '서버 상태를 가져오는 중 오류가 발생했습니다.'
+  }
 }
 
 onMounted(fetchStatus)

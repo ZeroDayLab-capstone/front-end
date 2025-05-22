@@ -257,7 +257,7 @@ const routes = [
           { path: 'user-results', component: () => import('pages/admin/UserResults.vue') },
           { path: 'logs', component: () => import('pages/admin/SysLogs.vue') },
           // 기본 /admin 로 접근 시 리다이렉트하려면 아래 한 줄 추가
-          { path: '', redirect: 'users' },
+          { path: '', redirect: '/admin/users' },
         ],
       },
     ],

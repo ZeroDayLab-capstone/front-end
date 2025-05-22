@@ -47,9 +47,6 @@
       <div style="display: list-item; list-style-type: disc">
         이 사건은 생체 인증 시스템조차도 SQL Injection에 취약할 수 있음을 보여줌
       </div>
-      <div style="display: list-item; list-style-type: disc">
-        <a href="https://techrecipe.co.kr/posts/10074">https://techrecipe.co.kr/posts/10074</a>
-      </div>
     </div>
   </q-page>
 </template>

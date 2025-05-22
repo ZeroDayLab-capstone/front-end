@@ -23,9 +23,10 @@ const rows = ref([])
 
 onMounted(async () => {
   try {
-    const res = await api.get('/admin/users')
+    const res = await api.get('/admin/admin/users')
     // 응답이 { data: [ { id, email, username, ... }, ... ] } 형태라고 가정
-    rows.value = res.data
+    const allLists = Object.values(res.data)
+    rows.value = allLists.flat()
   } catch (err) {
     console.error('사용자 목록 가져오기 실패', err)
   }

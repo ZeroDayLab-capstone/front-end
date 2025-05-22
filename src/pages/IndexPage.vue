@@ -54,11 +54,11 @@ import { useAuthStore } from 'src/stores/auth'
 // import mainlogo from 'src/assets/mainpagelogo.jpg'
 import mainlogo1 from 'src/assets/mainlogo1.png'
 
-import securityimg1 from 'src/assets/securityimg1.jpeg'
-import securityimg2 from 'src/assets/securityimg2.jpg'
-import securityimg3 from 'src/assets/securityimg3.jpg'
-import securityimg4 from 'src/assets/securityimg4.jpg'
-import securityimg5 from 'src/assets/securityimg5.PNG'
+import securityimg1 from 'src/assets/securityimg1.png'
+import securityimg2 from 'src/assets/securityimg2.png'
+import securityimg3 from 'src/assets/securityimg3.png'
+import securityimg4 from 'src/assets/securityimg4.png'
+import securityimg5 from 'src/assets/securityimg5.png'
 import securityimg6 from 'src/assets/securityimg6.png'
 
 // Pinia 스토어 인스턴스 가져오기
@@ -74,26 +74,32 @@ const cards = ref([
   {
     title: 'Global Cybersecurity',
     img: securityimg1,
+    link: 'https://globalcybersecuritynetwork.com/blog/latest-cyber-security-news/',
   },
   {
     title: 'SOC Investigation',
     img: securityimg2,
+    link: 'https://www.socinvestigation.com/latest-cyber-security-news-hacker-news/',
   },
   {
     title: 'PSA-국가 사이버보안',
     img: securityimg3,
+    link: 'https://www.psa-gov.ie/',
   },
   {
     title: '보안뉴스',
     img: securityimg4,
+    link: 'https://www.boannews.com/',
   },
   {
     title: 'KISIA',
     img: securityimg5,
+    link: 'https://www.kisia.or.kr/announcement/today_news/',
   },
   {
     title: 'Cybersecurity Dive',
     img: securityimg6,
+    link: 'https://www.cybersecuritydive.com/',
   },
 ])
 </script>

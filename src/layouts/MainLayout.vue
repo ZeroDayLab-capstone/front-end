@@ -26,7 +26,8 @@
         <div
           v-for="(item, idx) in mainMenu"
           :key="idx"
-          class="menu-item q-ml-xl cursor-pointer"
+          class="menu-item cursor-pointer"
+          :style="{ 'margin-left': idx === 0 ? '0' : '13%' }"
           @mouseover="hoverIndex = idx"
           @click="goPage(item.path)"
         >
