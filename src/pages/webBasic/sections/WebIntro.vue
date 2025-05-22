@@ -10,7 +10,7 @@
     </div>
 
     <div class="text-h5 q-mt-xl"><span class="text-weight-bold">웹의 기본 구성 요소</span></div>
-    <q-img :src="web2" class="q-my-lg q-mx-auto" style="width: 500px" />
+    <q-img :src="web2" class="q-my-lg q-mx-auto" style="width: 550px" />
     <div class="text-h5 q-mt-xl"><strong>1. 웹 서버</strong></div>
     <ul>
       <li class="text-h6">정의: 정보를 제공하는 주체</li>
@@ -36,7 +36,7 @@
     </ul>
 
     <div class="text-h5 q-mt-xl"><strong>웹의 동작 방식</strong></div>
-    <q-img :src="web3" class="q-my-lg q-mx-auto" style="width: 500px" />
+    <q-img :src="web3" class="q-my-lg q-mx-auto" style="width: 550px" />
     <div class="text-h6">
       웹은 <strong>클라이언트-서버 모델</strong>을 기반으로 동작합니다. <br />
       사용자가 웹 브라우저에서 URL을 입력하면 다음과 같은 과정이 수행됩니다:
@@ -55,7 +55,7 @@
     </div>
 
     <div class="text-h5 q-pt-xl"><span class="text-weight-bold">웹 기술</span></div>
-    <q-img :src="web4" class="q-my-lg q-mx-auto" style="width: 500px"></q-img>
+    <q-img :src="web4" class="q-my-lg q-mx-auto" style="width: 550px"></q-img>
 
     <div class="text-h5 q-pt-lg"><strong>1. HTML</strong></div>
     <ul class="text-h6">
