@@ -2,9 +2,9 @@
   <q-page class="q-pa-md">
     <div class="text-weight-bold text-h5 q-mt-md">🔥 Gmail CSRF 공격 (2007년)</div>
     <div class="row justify-center q-my-lg">
-      <q-img :src="csrf3" style="width: 400px"></q-img>
+      <q-img :src="csrf3" style="width: 500px"></q-img>
     </div>
-    <div class="text-body1">
+    <div class="text-h6">
       <div style="display: list-item; list-style-type: disc">
         공격자가 Gmail 사용자에게 비밀번호 번경 요청을 자동으로 전송하는 CSRF 공격을 실행
       </div>
@@ -18,9 +18,9 @@
 
     <div class="text-weight-bold text-h5 q-mt-xl">🔥 온라인 뱅킹 CSRF 공격 (2007년)</div>
     <div class="row justify-center q-my-lg">
-      <q-img :src="csrf4" style="width: 400px"></q-img>
+      <q-img :src="csrf4" style="width: 500px"></q-img>
     </div>
-    <div class="text-body1">
+    <div class="text-h6">
       <div style="display: list-item; list-style-type: disc">
         사용자가 로그인한 상태에서 악성 링크를 클릭하면 공격자의 계좌로 돈이 자동 송금되는 공격이
         발생

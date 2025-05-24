@@ -2,7 +2,7 @@
   <q-page class="q-pa-md">
     <div class="centered-container">
       <!-- 섹션 제목 -->
-      <h2 class="text-h4 q-mb-md">{{ currentSection.title }}</h2>
+      <h2 class="text-h4 q-mb-md text-weight-bold">{{ currentSection.title }}</h2>
 
       <!-- 동적 컴포넌트 렌더링 -->
       <component :is="currentSection.component" />

@@ -2,9 +2,9 @@
   <q-page class="q-pa-md">
     <div class="text-h5 text-weight-bold">🔥2008년 Heartland Payment Systems 해킹 사건</div>
     <div class="row justify-center q-my-lg">
-      <q-img :src="sql3" style="width: 300px"></q-img>
+      <q-img :src="sql3" style="width: 450px"></q-img>
     </div>
-    <div class="text-body1">
+    <div class="text-h6">
       <div style="display: list-item; list-style-type: disc">
         해커들이 SQL Injection을 이용해 결제 정보 시스템을 해킹
       </div>
@@ -16,11 +16,11 @@
       </div>
     </div>
 
-    <div class="text-h5 text-weight-bold q-pt-lg">🔥2014년 eBay 데이터 유출</div>
+    <div class="text-h5 text-weight-bold q-pt-xl">🔥2014년 eBay 데이터 유출</div>
     <div class="row justify-center q-my-lg">
-      <q-img :src="sql4" style="width: 300px"></q-img>
+      <q-img :src="sql4" style="width: 450px"></q-img>
     </div>
-    <div class="text-body1">
+    <div class="text-h6">
       <div style="display: list-item; list-style-type: disc">
         공격자들이 SQL Injection을 통해 eBay의 데이터베이스에 접근
       </div>
@@ -33,11 +33,11 @@
       </div>
     </div>
 
-    <div class="text-h5 text-weight-bold q-pt-lg">🔥2019년 Suprema BioStar 2 데이터 유출</div>
+    <div class="text-h5 text-weight-bold q-pt-xl">🔥2019년 Suprema BioStar 2 데이터 유출</div>
     <div class="row justify-center q-my-lg">
-      <q-img :src="sql5" style="width: 300px"></q-img>
+      <q-img :src="sql5" style="width: 450px"></q-img>
     </div>
-    <div class="text-body1">
+    <div class="text-h6">
       <div style="display: list-item; list-style-type: disc">
         생체 인증 시스템(BioStar 2)이 SQL Injection 공격에 노출됨
       </div>

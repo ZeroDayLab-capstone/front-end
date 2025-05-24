@@ -1,11 +1,11 @@
 <template>
   <q-page class="q-pa-md">
     <div class="row justify-center q-my-lg">
-      <q-img :src="command5" style="width: 700px"></q-img>
+      <q-img :src="command5" style="width: 750px"></q-img>
     </div>
 
-    <div class="text-h5 q-pt-xl">✅후속 공격</div>
-    <div class="text-body1">
+    <div class="text-h5 q-pt-xl text-weight-bold">✅후속 공격</div>
+    <div class="text-h6">
       <div class="q-py-sm">
         1. 리버스 쉘 연결(<span style="color: red"> bash -i >& /dev/tcp... </span>)
       </div>
@@ -14,8 +14,8 @@
       <div class="q-py-sm">4. WAF 및 로그 삭제</div>
     </div>
 
-    <div class="text-h5 q-pt-xl">✅보완할 보안 포인트</div>
-    <div class="text-body1">
+    <div class="text-h5 q-pt-xl text-weight-bold">✅보완할 보안 포인트</div>
+    <div class="text-h6">
       <div class="q-py-sm">
         1. <span style="color: red">auditd, PowerShell Transcript </span>등으로 명령 실행 모니터링
       </div>

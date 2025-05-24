@@ -1,11 +1,11 @@
 <template>
   <q-page class="q-pa-md">
-    <div class="text-h6 text-weight-bold">🔥MySpace Samy 윔 (2005년)</div>
+    <div class="text-h5 text-weight-bold">🔥MySpace Samy 윔 (2005년)</div>
     <div class="row justify-center q-my-lg">
-      <q-img :src="xss3" style="width: 400px"></q-img>
+      <q-img :src="xss3" style="width: 500px"></q-img>
     </div>
 
-    <div class="q-pl-md tet-body1">
+    <div class="q-pl-md text-h6">
       <div style="display: list-item; list-style-type: disc">
         공격자가 {{ codeSnippet }}를 프로필에 삽입하여 방문자 브라우저에서 자동 실행되는 XSS 웜을
         배포
@@ -18,12 +18,12 @@
       </div>
     </div>
 
-    <div class="text-h6 text-weight-bold q-pt-xl">🔥트위터 XSS 자동 실행 공격 (2010년)</div>
+    <div class="text-h5 text-weight-bold q-pt-xl">🔥트위터 XSS 자동 실행 공격 (2010년)</div>
     <div class="row justify-center q-my-lg">
-      <q-img :src="xss4" style="width: 400px"></q-img>
+      <q-img :src="xss4" style="width: 500px"></q-img>
     </div>
 
-    <div class="q-pl-md text-body1">
+    <div class="q-pl-md text-h6">
       <div style="display: list-item; list-style-type: disc">
         특정 트윗에 onmouseover="..." 이벤트를 삽입하여 마우스 오버만 해도 코드 실행
       </div>

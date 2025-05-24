@@ -1,11 +1,11 @@
 <template>
   <q-page class="q-pa-md">
     <div class="row justify-center q-my-lg">
-      <q-img :src="sql7" style="width: 700px"></q-img>
+      <q-img :src="sql7" style="width: 750px"></q-img>
     </div>
 
     <div class="text-h5 q-pt-xl">✅후속 공격</div>
-    <div class="text-body1">
+    <div class="text-h6 q-pl-sm">
       <div class="q-py-sm">
         1. <span style="color: red">SELECT INTO OUTFILE, LOAD_FILE</span>을 통한 백도어 심기
       </div>
@@ -16,7 +16,7 @@
     </div>
 
     <div class="text-h5 q-pt-xl">✅보완할 보안 포인트</div>
-    <div class="text-body1">
+    <div class="text-h6 q-pl-md">
       <div class="q-py-sm">1. ORM 사용으로 쿼리 추상화</div>
       <div class="q-py-sm">
         2. DB 권한 최소화<span style="color: red">(READ ONLY, NO DELETE)</span>

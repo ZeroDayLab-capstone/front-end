@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-pa-md">
-    <div class="text-body1">
+    <div class="text-h6">
       <div>
         ➡️XSS는 HTML, JavaScript, 속성(attribute), URL 등 사용자 입력이 포함되는 모든 영역에서
         발생할 수 있습니다.

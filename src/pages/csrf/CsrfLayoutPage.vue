@@ -2,7 +2,7 @@
   <q-page class="q-pa-md">
     <div class="centered-container">
       <!-- 섹션 제목 -->
-      <h2 class="text-h4 q-mb-md">{{ currentSection.title }}</h2>
+      <h2 class="text-h4 text-weight-bold q-mb-md">{{ currentSection.title }}</h2>
 
       <!-- 동적 컴포넌트 렌더링 -->
       <component :is="currentSection.component" />
@@ -47,7 +47,7 @@ const sections = [
     component: defineAsyncComponent(() => import('./sections/ReasonWhy.vue')),
   },
   {
-    title: '4️⃣ 실제 보안 사고 사례례',
+    title: '4️⃣ 실제 보안 사고 사례',
     component: defineAsyncComponent(() => import('./sections/ActualEx.vue')),
   },
   {

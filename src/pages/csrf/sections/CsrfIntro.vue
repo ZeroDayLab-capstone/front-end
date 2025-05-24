@@ -2,9 +2,9 @@
   <q-page class="q-pa-md">
     <div class="text-h5 text-weight-bold">✅소개</div>
     <div class="row justify-center q-mb-lg">
-      <q-img :src="csrf1" style="width: 400px"></q-img>
+      <q-img :src="csrf1" style="width: 500px"></q-img>
     </div>
-    <div class="text-body1">
+    <div class="text-h6">
       <div class="q-mt-md" style="display: list-item; list-style-type: disc">
         CSRF(Cross-Site Request Forgery, 사이트 간 요청 위조)는 공격자가 사용자를 속여 원하지 않는
         요청을 특정 웹사이트에 보내도록 유도하는 공격 기법입니다.
@@ -19,7 +19,7 @@
     <div class="row justify-center q-mb-lg">
       <q-img :src="csrf2" style="width: 400px"></q-img>
     </div>
-    <div class="text-body1">
+    <div class="text-h6">
       <div>1. 사용자가 `example.com`에 로그인하면 브라우저에 세션 쿠키가 저장</div>
       <div>2. 사용자가 공격자가 만든 악성 페이지(`attacker.com`)를 방문</div>
       <div>3. 해당 페이지에서 `example.com`으로 자동 HTTP 요청을 보냄</div>

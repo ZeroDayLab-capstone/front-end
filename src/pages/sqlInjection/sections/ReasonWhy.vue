@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pa-md">
     <div class="text-h5 text-weight-bold q-pb-sm">✅주요 원인</div>
-    <div class="text-body1">
+    <div class="text-h6">
       <div class="q-py-sm">
         <span class="text-weight-bold">1. 입력값 검증 부족</span>: 사용자 입력을 검증하지 않고 SQL
         쿼리에 포함할 경우 취약점이 발생

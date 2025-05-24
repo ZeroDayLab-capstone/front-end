@@ -1,10 +1,10 @@
 <template>
   <q-page class="q-pa-md">
-    <div class="text-h5">✅소개</div>
+    <div class="text-h5 text-weight-bold">✅소개</div>
     <div class="row justify-center q-my-lg">
-      <q-img :src="command1" style="width: 400px"></q-img>
+      <q-img :src="command1" style="width: 500px"></q-img>
     </div>
-    <div class="text-body1">
+    <div class="text-h6">
       <div class="q-py-md" style="display: list-item; list-style-type: disc">
         웹 애플리케이션이
         <span class="text-weight-bold">사용자 입력을 검증하지 않고 시스템 명령어로 실행할 때</span>
@@ -12,16 +12,15 @@
       </div>
       <div style="display: list-item; list-style-type: disc">
         공격자는 이를 악용하여 서버에서 임의의 명령을 실행하고, 시스템 권한을 탈취하거나 데이터를
-        유출할
+        유출할 수 있습니다.
       </div>
-      <div>수 있습니다.</div>
     </div>
 
-    <div class="text-h5 q-pt-xl">✅Command-Injection 작동 원리</div>
+    <div class="text-h5 q-pt-xl text-weight-bold">✅Command-Injection 작동 원리</div>
     <div class="row justify-center q-my-lg">
       <q-img :src="command2" style="width: 400px"></q-img>
     </div>
-    <div class="text-body1">
+    <div class="text-h6">
       <div class="q-py-sm">
         1. 웹 애플리케이션이 시스템 명령어를 실행하는 기능을 제공하는지 확인
       </div>

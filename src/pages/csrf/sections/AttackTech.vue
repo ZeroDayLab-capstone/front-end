@@ -7,7 +7,7 @@
         <q-card flat bordered class="code-block">
           <pre><code>&lt;img src="http://bank.example.com/transfer?to=attacker&amp;amount=1000" width="0"&gt;</code></pre>
         </q-card>
-        <ul class="notes">
+        <ul class="notes text-h6">
           <li>이미지 태그의 <span class="keyword">src</span> 속성에 요청을 넣어 자동 실행</li>
         </ul>
       </div>
@@ -22,7 +22,7 @@
 &lt;/form&gt;
 &lt;script&gt;document.forms[0].submit();&lt;/script&gt;</code></pre>
         </q-card>
-        <ul class="notes">
+        <ul class="notes text-h6">
           <li>form을 자동 제출하여 요청을 실행</li>
         </ul>
       </div>
@@ -33,7 +33,7 @@
         <q-card flat bordered class="code-block">
           <pre><code>window.location.href = "http://bank.example.com/transfer?to=attacker&amp;amount=1000";</code></pre>
         </q-card>
-        <ul class="notes">
+        <ul class="notes text-h6">
           <li>사용자가 페이지에 접속하면 자동으로 요청을 보냄</li>
         </ul>
       </div>
