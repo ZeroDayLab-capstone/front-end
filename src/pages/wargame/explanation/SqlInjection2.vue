@@ -5,7 +5,7 @@
         <q-card flat bordered class="bg-white text-dark shadow-1">
           <!-- 해설 헤더 -->
           <q-card-section>
-            <div class="text-h5 text-weight-bold">해설📖</div>
+            <div class="text-h5 text-weight-bold">📖해설</div>
           </q-card-section>
 
           <!-- 해설 본문 + 선택적 코드 예시 -->

@@ -5,9 +5,9 @@
         <q-card flat bordered class="bg-white text-dark shadow-1">
           <!-- 해설 헤더 -->
           <q-card-section>
-            <div class="text-h5 text-weight-bold q-pb-md">해설📖</div>
+            <div class="text-h5 text-weight-bold q-pb-md">📖해설</div>
 
-            <div class="text-body1 q-pl-md">
+            <div class="text-h6 q-pl-md">
               <div>
                 1. 백앤드는 파일 확장자 제한 없이 모든 파일을
                 <code style="color: red">/upload/</code>에 저장
@@ -29,7 +29,7 @@
             <div class="text-h5 text-weight-bold">🌟File vulnerability 간단 요약</div>
             <!-- 요약약 본문 -->
 
-            <div class="text-body1 q-pl-md">
+            <div class="text-h6 q-pl-md">
               <div class="q-pt-md">
                 ✅ <strong>파일 업로드 취약점</strong>은
                 <strong>경로·확장자·MIME 검증 미흡</strong>으로 <code style="color: red">../</code>

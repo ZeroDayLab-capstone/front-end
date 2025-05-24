@@ -20,18 +20,16 @@
           <!-- 문제 목표 / 시나리오 설명 -->
           <q-separator spaced />
           <q-card-section>
-            <h6>1️⃣실습 목표🎯</h6>
-            <div class="text-body1 q-pl-md">
-              <div style="display: list-item; list-style-type: disc">
-                Stored XSS의 개념과 동작 원리를 이해합니다.
-              </div>
-              <div style="display: list-item; list-style-type: disc">
-                사용자 입력값이 저장되어 다른 사용자에게 자동 실행되는 상황을 실습합니다.
-              </div>
+            <div class="text-h5">1️⃣실습 목표🎯</div>
+            <div class="text-h6">
+              <ul>
+                <li>Stored XSS의 개념과 동작 원리를 이해합니다.</li>
+                <li>사용자 입력값이 저장되어 다른 사용자에게 자동 실행되는 상황을 실습합니다.</li>
+              </ul>
             </div>
 
-            <h6 class="q-mt-md">2️⃣문제 시나리오🎭</h6>
-            <div class="text-body1">
+            <div class="text-h5 q-my-sm">2️⃣문제 시나리오🎭</div>
+            <div class="text-h6 q-pl-md">
               <div>💡당신은 웹 게시판의 일반 사용자입니다.</div>
               <div>
                 다른 사용자가 글을 열람할 때 브라우저에서 JavaScript가 실행되는지 확인해보세요.

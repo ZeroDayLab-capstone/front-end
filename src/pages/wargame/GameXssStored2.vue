@@ -20,30 +20,30 @@
           <!-- 문제 목표 / 시나리오 설명 -->
           <q-separator spaced />
           <q-card-section>
-            <h6>1️⃣실습 목표🎯</h6>
-            <div class="text-body1 q-pl-md">
-              <div style="display: list-item; list-style-type: disc">
-                Stored XSS의 필터링 우회 기법을 이해합니다.
-              </div>
-              <div style="display: list-item; list-style-type: disc">
-                기본적인 <span style="color: red">{{ problemObjective }}</span> 공격이 차단된
-                환경에서 우회 페이로드를 사용해 JavaScript 실행과 FLAG 획득을
-              </div>
-              <div>실습합니다.</div>
+            <div class="text-h5">1️⃣실습 목표🎯</div>
+            <div class="text-h6">
+              <ul>
+                <li>Stored XSS의 필터링 우회 기법을 이해합니다.</li>
+                <li>
+                  기본적인 <span style="color: red">{{ problemObjective }}</span> 공격이 차단된
+                  환경에서 우회 페이로드를 사용해 JavaScript 실행과 FLAG 획득을 실습합니다.
+                </li>
+              </ul>
             </div>
 
-            <h6 class="q-mt-md">2️⃣문제 시나리오🎭</h6>
-            <div class="text-body1">
+            <div class="q-my-md text-h5">2️⃣문제 시나리오🎭</div>
+            <div class="text-h6 q-pl-md">
               <div>💡 당신은 웹 게시판의 일반 사용자입니다.</div>
               <div>
                 게시글 작성 시 <span style="color: red">{{ problemScenario }}</span> 같은 일반적인
-                XSS 페이로드는 필터링되어 실행되지 않습
+                XSS 페이로드는 필터링되어 실행되지 않습니다.
+                <div>
+                  하지만
+                  <span style="color: red">{{ problemScenari2 }}</span> 와 같은 우회형 페이로드는
+                  필터링을 통과합니다.
+                </div>
               </div>
-              <div>
-                니다. 하지만 <span style="color: red">{{ problemScenari2 }}</span> 와 같은 우회형
-                페이로드는 필터링을 통과합니다. 해당
-              </div>
-              <div>게시글을 열람하면 alert 창이 뜨고 FLAG가 표시됩니다.</div>
+              <div>해당 게시글을 열람하면 alert 창이 뜨고 FLAG가 표시됩니다.</div>
             </div>
           </q-card-section>
 

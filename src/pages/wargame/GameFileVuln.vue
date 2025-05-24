@@ -20,23 +20,22 @@
           <!-- 문제 목표 / 시나리오 설명 -->
           <q-separator spaced />
           <q-card-section>
-            <h6>1️⃣실습 목표🎯</h6>
-            <div class="text-body1 q-pl-md">
-              <div style="display: list-item; list-style-type: disc">
-                파일 업로드 기능을 악용한 RCE(Remote Code Execution) 시나리오를 실습합니다.
-              </div>
-              <div style="display: list-item; list-style-type: disc">
-                검증되지 않은 파일 업로드와 실행 경로 노출의 위험성을 이해합니다.
-              </div>
-              <div style="display: list-item; list-style-type: disc">
-                악성 PHP 스크립트를 업로드하여 서버 내부 FLAG 파일을 읽고, 이를 브라우저에서
-                출력되도록 만듭니다.
-              </div>
+            <div class="text-h5">1️⃣실습 목표🎯</div>
+            <div class="text-h6">
+              <ul>
+                <li>파일 업로드 기능을 악용한 RCE(Remote Code Execution) 시나리오를 실습합니다.</li>
+                <li>검증되지 않은 파일 업로드와 실행 경로 노출의 위험성을 이해합니다.</li>
+                <li>
+                  악성 PHP 스크립트를 업로드하여 서버 내부 FLAG 파일을 읽고, 이를 브라우저에서
+                  출력되도록 만듭니다.
+                </li>
+              </ul>
             </div>
 
-            <h6 class="q-mt-md">2️⃣문제 시나리오🎭</h6>
-            <p class="text-body1">{{ problemScenario }}</p>
-            <div text-body1>
+            <div class="text-h5 q-mt-md">2️⃣문제 시나리오🎭</div>
+
+            <div class="text-h6 q-pa-md">
+              <div>{{ problemScenario }}</div>
               <div>
                 백엔드 <span style="color: red">/upload</span> API는 업로드된 파일을 프론트엔드
                 서버의 <span style="color: red">/uploads/</span> 경로에 저장합니다. 이 경로는 웹에
@@ -45,8 +44,8 @@
                 서 접근 가능하며, 실행 권한도 부여되어 있습니다. 서버 내
                 <span style="color: red">/flag.txt</span> 파일을 읽는 PHP 스크립트를 만들어
               </div>
+              <div>업로드하고, 실행하여 FLAG를 획득하세요.</div>
             </div>
-            <div>업로드하고, 실행하여 FLAG를 획득하세요.</div>
           </q-card-section>
 
           <!-- 문제 난이도 표시 -->

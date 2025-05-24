@@ -5,9 +5,9 @@
         <q-card flat bordered class="bg-white text-dark shadow-1">
           <!-- 해설 헤더 -->
           <q-card-section>
-            <div class="text-h5 text-weight-bold q-pb-md">해설 📖</div>
+            <div class="text-h5 text-weight-bold q-pb-md">📖해설</div>
             <!-- 해설 본문 -->
-            <div class="text-body1">
+            <div class="text-h6">
               <span class="text-weight-bold">1. 컬럼 개수 파악</span>
               <div class="q-pl-md">
                 <code style="color: red">ORDER BY 1--</code>,
@@ -43,7 +43,7 @@
           <q-card-section>
             <div class="text-h5 text-weight-bold q-pb-md">🌟SQL Injection 간단 요약</div>
 
-            <div class="text-body1 q-pl-md">
+            <div class="text-h6 q-pl-md">
               <div>
                 ✅ SQL Injection은 웹 애플리케이션이
                 <strong>사용자 입력값을 검증 없이 SQL 쿼리에 포함</strong>시켜 공<br />격자가

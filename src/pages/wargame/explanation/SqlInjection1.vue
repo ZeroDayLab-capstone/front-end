@@ -5,8 +5,8 @@
         <q-card flat bordered class="bg-white text-dark shadow-1">
           <!-- 1) 헤더 -->
           <q-card-section>
-            <div class="text-h5 text-weight-bold q-pb-md">해설 📖</div>
-            <div class="text-body1">
+            <div class="text-h5 text-weight-bold q-pb-md">📖해설</div>
+            <div class="text-h6">
               <div class="q-pl-lg">
                 <div style="display: list-item; list-style-type: disc">
                   서버는 다음과 같은 SQL 쿼리를 사용합니다:
@@ -47,7 +47,7 @@ SELECT * FROM users WHERE username = 'admin' -- ' AND password = '';
             <div class="text-h5 text-weight-bold">🌟SQL Injection 간단 요약</div>
           </q-card-section>
 
-          <div class="text-body1 q-pl-md">
+          <div class="text-h6 q-pl-md">
             <div>
               ✅ SQL Injection은 웹 애플리케이션이 사용자 입력값을 검증 없이 SQL 쿼리에 포함시켜
               공<br />격자가 악의적 SQL 명령을 실행할 수 있는 취약점입니다.

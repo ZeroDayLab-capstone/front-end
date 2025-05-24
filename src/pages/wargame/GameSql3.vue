@@ -20,16 +20,18 @@
           <!-- 문제 목표 / 시나리오 설명 -->
           <q-separator spaced />
           <q-card-section>
-            <h6>1️⃣실습 목표🎯</h6>
-            <div class="text-body1 q-pl-md">
-              <div style="display: list-item; list-style-type: disc">
-                UNION 기반 SQL Injection 기법을 이용해
-                <span style="color: red">flags</span> 테이블의 플래그를 화면에 노출시키세요.
-              </div>
+            <div class="text-h5">1️⃣실습 목표🎯</div>
+            <div class="text-h6">
+              <ul>
+                <li>
+                  UNION 기반 SQL Injection 기법을 이용해
+                  <span style="color: red">flags</span> 테이블의 플래그를 화면에 노출시키세요.
+                </li>
+              </ul>
             </div>
 
-            <h6 class="q-mt-md">2️⃣문제 시나리오🎭</h6>
-            <div class="text-body1">
+            <div class="q-my-sm text-h6">2️⃣문제 시나리오🎭</div>
+            <div class="text-h6 q-pl-md">
               <div>
                 BookStore 웹 애플리케이션은 책 상세 정보를
                 <span style="color: red">/product.php?id=숫자</span> 경로로 보여줍니다.

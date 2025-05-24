@@ -20,11 +20,11 @@
           <!-- 문제 목표 / 시나리오 설명 -->
           <q-separator spaced />
           <q-card-section>
-            <h6>1️⃣실습 목표🎯</h6>
-            <p class="text-body1">{{ problemObjective }}</p>
+            <div class="text-h5 q-pb-sm">1️⃣실습 목표🎯</div>
+            <p class="text-h6 q-px-sm">{{ problemObjective }}</p>
 
-            <h6 class="q-mt-md">2️⃣문제 시나리오🎭</h6>
-            <div class="text-body1">
+            <div class="text-h5 q-my-sm">2️⃣문제 시나리오🎭</div>
+            <div class="text-h6 q-pa-sm">
               <p>{{ problemScenario }}</p>
               <p>이 시스템은 관리자만 접근할 수 있는 비밀 기능과 플래그를 가지고 있습니다.</p>
               <p>CSRF 취약점을 활용하여 관리자 권한을 탈취하고 플래그를 획득하세요.</p>

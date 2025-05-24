@@ -20,19 +20,19 @@
           <!-- 문제 목표 / 시나리오 설명 -->
           <q-separator spaced />
           <q-card-section>
-            <h6>1️⃣실습 목표🎯</h6>
+            <div class="text-h5">1️⃣실습 목표🎯</div>
 
-            <div class="text-body1 q-pl-md">
-              <div style="display: list-item; list-style-type: disc">
-                사용자가 입력값이 시스템 명령어에 직접 삽입되는 상황을 이해합니다.
-              </div>
-              <div style="display: list-item; list-style-type: disc">
-                <span style="color: red">{{ problemObjective }}</span> 등의 기법을 이용해 명령어
-                주입 공격을 수행합니다.
-              </div>
+            <div class="text-h6 q-pl-md">
+              <ul>
+                <li>사용자가 입력값이 시스템 명령어에 직접 삽입되는 상황을 이해합니다.</li>
+                <li>
+                  <span style="color: red">{{ problemObjective }}</span> 등의 기법을 이용해 명령어
+                  주입 공격을 수행합니다.
+                </li>
+              </ul>
             </div>
-            <h6 class="q-mt-md">2️⃣문제 시나리오🎭</h6>
-            <div class="text-body1">
+            <div class="q-pt-md text-h5">2️⃣문제 시나리오🎭</div>
+            <div class="q-pa-md text-h6">
               <div>
                 당신은 관리자로부터 내부 시스템의 파일 백업 여부를 확인해달라는 요청을 받았습니다.
               </div>

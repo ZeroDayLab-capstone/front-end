@@ -20,33 +20,33 @@
           <!-- 문제 목표 / 시나리오 설명 -->
           <q-separator spaced />
           <q-card-section>
-            <h6>1️⃣실습 목표🎯</h6>
-            <div class="text-body1 q-pl-md">
-              <div style="display: list-item; list-style-type: disc">
-                저장형 XSS를 통한 쿠키 탈취 시나리오를 이해합니다.
-              </div>
-              <div style="display: list-item; list-style-type: disc">
-                Selenium 봇의 동작을 유도하여 관리자 세션을 탈취하고, 이를 기반으로 FLAG에 접근하는
-                복합 공격을 실습합니다.
-              </div>
+            <div class="text-h5">1️⃣실습 목표🎯</div>
+            <div class="text-h6">
+              <ul>
+                <li>저장형 XSS를 통한 쿠키 탈취 시나리오를 이해합니다.</li>
+                <li>
+                  Selenium 봇의 동작을 유도하여 관리자 세션을 탈취하고, 이를 기반으로 FLAG에
+                  접근하는 복합 공격을 실습합니다.
+                </li>
+              </ul>
             </div>
 
-            <h6 class="q-mt-md">2️⃣문제 시나리오🎭</h6>
-            <div class="text-body1">
+            <div class="q-my-md text-h5">2️⃣문제 시나리오🎭</div>
+            <div class="text-h6 q-pl-md">
               <div class="q-pb-sm">💡 당신은 일반 사용자로 로그인한 상태입니다.</div>
               <div>
                 저장형 XSS 취약점을 이용해 악성 게시글을 작성하고, 관리자로 로그인된 Selenium 봇이
-                이를 열람하게 만드
+                이를 열람하게 만드세요.
+                <div>
+                  봇이 게시글을 열람하면, JavaScript가 실행되어 쿠키가
+                  <span style="color: red">attacker_server.php</span> 로 전송됩니다.
+                </div>
               </div>
               <div>
-                세요. 봇이 게시글을 열람하면, JavaScript가 실행되어 쿠키가
-                <span style="color: red">attacker_server.php</span> 로 전송됩니다. 이후 이
+                이후 이 쿠키 값을 <span style="color: red">claim_admin_session.php</span>를 통해
+                제출하면 관리자 권한을 획득할 수 있습니다.
               </div>
-              <div>
-                쿠키 값을 <span style="color: red">claim_admin_session.php</span>를 통해 제출하면
-                관리자 권한을 획득할 수 있습니다. 마지막으로 관리
-              </div>
-              <div>자 전용 게시글을 열람하여 FLAG를 획득하세요.</div>
+              <div>마지막으로 관리자 전용 게시글을 열람하여 FLAG를 획득하세요.</div>
             </div>
           </q-card-section>
 

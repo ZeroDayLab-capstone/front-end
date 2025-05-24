@@ -20,33 +20,28 @@
           <!-- 문제 목표 / 시나리오 설명 -->
           <q-separator spaced />
           <q-card-section>
-            <h6>1️⃣실습 목표🎯</h6>
-            <div class="text-body1 q-pl-md">
-              <div style="display: list-item; list-style-type: disc">
-                Reflected XSS의 원리와 위험성을 이해합니다.
-              </div>
-              <div style="display: list-item; list-style-type: disc">
-                입력값이 escape 없이 HTML에 반영될 때 발생하는 XSS를 실습합니다.
-              </div>
-              <div style="display: list-item; list-style-type: disc">
-                alert 실행 후 자동 리디렉션을 통해 보호된 페이지(flag.php)에 접근하여 FLAG를
-                획득하는 전체 흐름을 실습합니다.
-              </div>
+            <div class="text-h5">1️⃣실습 목표🎯</div>
+            <div class="text-h6">
+              <ul>
+                <li>Reflected XSS의 원리와 위험성을 이해합니다.</li>
+                <li>입력값이 escape 없이 HTML에 반영될 때 발생하는 XSS를 실습합니다.</li>
+                <li>
+                  alert 실행 후 자동 리디렉션을 통해 보호된 페이지(flag.php)에 접근하여 FLAG를
+                  획득하는 전체 흐름을 실습합니다.
+                </li>
+              </ul>
             </div>
 
-            <h6 class="q-mt-md">2️⃣문제 시나리오🎭</h6>
-            <div class="text-body1">
+            <div class="q-py-md text-h5">2️⃣문제 시나리오🎭</div>
+            <div class="text-h6">
               <div class="q-pb-sm">
                 💡 당신은 검색 기능이 있는 웹 페이지에서, 검색어가 escape 없이 출력되는 것을
                 발견했습니다.
               </div>
               <div>
                 이 취약점을 이용하여 JavaScript가 실행되도록 만들고, alert 실행 후 보호된 페이지인
-                <span style="color: red">flag.php</span>로 리디렉
-              </div>
-              <div>
-                션되도록 하세요. <span style="color: red">flag.php</span>는
-                <span style="color: red">Referer</span>가
+                <span style="color: red">flag.php</span>로 리디렉션 되도록 하세요.
+                <span style="color: red">flag.php</span>는 <span style="color: red">Referer</span>가
                 <span style="color: red">index.php</span>일 경우에만 FLAG를 보여줍니다. 목표는
                 검색어 입력
               </div>

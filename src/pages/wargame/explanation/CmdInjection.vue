@@ -5,9 +5,9 @@
         <q-card flat bordered class="bg-white text-dark shadow-1">
           <!-- 해설 헤더 -->
           <q-card-section>
-            <div class="text-h5 text-weight-bold q-pb-md">해설📖</div>
+            <div class="text-h5 text-weight-bold q-pb-md">📖해설</div>
 
-            <ul class="text-body1 q-mt-none q-pt-none">
+            <ul class="text-h6 q-mt-none q-pt-none">
               <li>서버는 사용자의 입력을 쉘 명령어에 직접 삽입하고 있습니다.</li>
               <li>
                 입력값 뒤에 <code style="color: red">;, |, &&</code> 등을 사용하면 추가 명령어를
@@ -27,7 +27,7 @@
             <div class="text-h5 text-weight-bold">🌟Command Injection 간단 요약</div>
             <!-- 요약약 본문 -->
 
-            <div class="text-body1 q-pl-md">
+            <div class="text-h6 q-pl-md">
               <div class="q-pt-md">
                 ✅ Command Injection은 웹 애플리케이션이 <strong>사용자 입력을 검증 없이</strong>
                 <code style="color: red">system(), exec()</code> 등의 함수로 직 <br />접 전달할 때

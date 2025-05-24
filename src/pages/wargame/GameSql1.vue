@@ -20,25 +20,23 @@
           <!-- 문제 목표 / 시나리오 설명 -->
           <q-separator spaced />
           <q-card-section>
-            <h6>1️⃣실습 목표🎯</h6>
-            <div class="text-body1 q-pl-md">
-              <div style="display: list-item; list-style-type: disc">
-                SQL Injection(인젝션) 공격의 원리를 이해합니다.
-              </div>
-              <div style="display: list-item; list-style-type: disc">
-                로그인 로직이 사용자 입력값을 검증하지 않을 때 발생하는 위험성을 체험합니다.
-              </div>
-              <div style="display: list-item; list-style-type: disc">
-                SQL 쿼리 조작을 통해 비밀번호 없이 관리자 계정으로 로그인하는 인증 우회 기법을
-                실습합니다.
-              </div>
-              <div style="display: list-item; list-style-type: disc">
-                공격자가 어떻게 시스템에 침투하여 민감 정보를 획득하는지를 학습합니다.
-              </div>
+            <div class="text-h5">1️⃣실습 목표🎯</div>
+            <div class="text-h6">
+              <ul>
+                <li>SQL Injection(인젝션) 공격의 원리를 이해합니다.</li>
+                <li>
+                  로그인 로직이 사용자 입력값을 검증하지 않을 때 발생하는 위험성을 체험합니다.
+                </li>
+                <li>
+                  SQL 쿼리 조작을 통해 비밀번호 없이 관리자 계정으로 로그인하는 인증 우회 기법을
+                  실습합니다.
+                </li>
+                <li>공격자가 어떻게 시스템에 침투하여 민감 정보를 획득하는지를 학습합니다.</li>
+              </ul>
             </div>
 
-            <h6 class="q-mt-md">2️⃣문제 시나리오🎭</h6>
-            <div class="text-body1">
+            <div class="q-my-md text-h5">2️⃣문제 시나리오🎭</div>
+            <div class="text-h6 q-pl-md">
               <div>
                 당신은 어느 웹서비스 NoteShare에서 우연히 관리자 전용 페이지가 있다는 소문을
                 들었습니다.

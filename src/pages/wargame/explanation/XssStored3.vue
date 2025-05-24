@@ -5,8 +5,8 @@
         <q-card flat bordered class="bg-white text-dark shadow-1">
           <!-- 해설 헤더 -->
           <q-card-section>
-            <div class="text-h5 text-weight-bold q-pb-md">해설📖</div>
-            <div class="text-body1 q-pl-lg">
+            <div class="text-h5 text-weight-bold q-pb-md">📖해설</div>
+            <div class="text-h6 q-pl-lg">
               <div>
                 1.
                 <strong>저장형 XSS</strong>를 이용하여 <code style="color: red">view.php</code>에서
@@ -35,7 +35,7 @@
             <div class="text-h5 text-weight-bold">🌟XSS 간단 요약</div>
             <!-- 요약약 본문 -->
 
-            <div class="text-body1 q-pl-md">
+            <div class="text-h6 q-pl-md">
               <div class="q-pt-md">
                 ✅ XSS는 공격자가 <strong>악의적인 스크립트를 웹 페이지에 삽입</strong>하여 사용자의
                 브라우저에서 실행되도록 유도하는 <br />클라이언트 측 코드 인젝션 취약점입니다.
