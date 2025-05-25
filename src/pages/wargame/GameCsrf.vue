@@ -21,13 +21,22 @@
           <q-separator spaced />
           <q-card-section>
             <div class="text-h5 q-pb-sm">1️⃣실습 목표🎯</div>
-            <p class="text-h6 q-px-sm">{{ problemObjective }}</p>
+            <p class="text-h6 q-px-sm">
+              CSRF 토큰 검증 메커니즘의 일반적인 결함을 이해하고, <br />개발자 도구 콘솔에서 제공된
+              JS 스니펫을 한 번만 실행해 취약점을 우회해 봅니다.
+            </p>
 
             <div class="text-h5 q-my-sm">2️⃣문제 시나리오🎭</div>
-            <div class="text-h6 q-pa-sm">
+            <div class="text-h6 q-px-sm">
               <p>{{ problemScenario }}</p>
-              <p>이 시스템은 관리자만 접근할 수 있는 비밀 기능과 플래그를 가지고 있습니다.</p>
-              <p>CSRF 취약점을 활용하여 관리자 권한을 탈취하고 플래그를 획득하세요.</p>
+              <p>
+                정상 UI( <span style="color: red">chage_role.php</span> )에는 관리자 승격 버튼이
+                숨겨져 있어 권한 상승이 불가능 합니다.
+              </p>
+              <p>
+                따라서, 개발자 도구 콘솔에서 제공된 JS 스니펫을 이용해 CSRF 취약점을 이용해 관리자
+                권한을 탈취하고, 플래그를 획득하세요.
+              </p>
             </div>
           </q-card-section>
 
@@ -111,9 +120,6 @@ import { ref, computed } from 'vue'
 
 // 예시: 문제 정보
 const problemTitle = ref('관리자 권한 탈취 작전')
-const problemObjective = ref(
-  'CSRF 토큰 검증 메커니즘의 일반적인 결함을 이해하고 이를 우회하는 방법을 경험해 봅니다.',
-)
 const problemScenario = ref('당신은 학교 성적 관리 시스템에 일반 학생으로 가입했습니다.')
 const difficulty = ref('medium') // 예: 'easy' / 'medium' / 'hard'
 const hintText = ref(

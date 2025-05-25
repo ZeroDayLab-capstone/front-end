@@ -29,6 +29,7 @@
       <q-card
         v-for="(card, index) in cards"
         :key="index"
+        tag="a"
         class="my-card"
         flat
         bordered
@@ -51,7 +52,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useAuthStore } from 'src/stores/auth'
-// import mainlogo from 'src/assets/mainpagelogo.jpg'
 import mainlogo1 from 'src/assets/mainlogo1.png'
 
 import securityimg1 from 'src/assets/securityimg1.png'

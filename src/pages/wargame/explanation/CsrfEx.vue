@@ -7,21 +7,73 @@
           <div class="text-h5 text-weight-bold">📖해설</div>
         </q-card-section>
 
-        <!-- 해설 본문 + 선택적 코드 예시 -->
         <!-- 1) 수동 마크업된 해설 -->
-        <ul class="text-h6">
-          <li>서버는 사용자의 입력을 쉘 명령어에 직접 삽입하고 있습니다.</li>
-          <li>
-            입력값 뒤에 <span style="color: red">;, |, &&</span> 등을 사용하면 추가 명령어를 실행할
-            수 있습니다.
-          </li>
-          <li>
-            <span style="color: red">
-              /flag.txt는 플래그가 저장된 파일이며, 이를 읽기 위해 명령어 주입이 활용됩니다.
-            </span>
-          </li>
-          <li>필터링 미비는 웹쉘 업로드, 시스템 파괴 등 치명적인 공격으로 이어질 수 있습니다.</li>
-        </ul>
+        <div class="text-h6 q-pl-md">
+          <strong>1. 세션·토큰 발급</strong> (
+          <span style="color: red">/api/login</span>
+          )
+          <ul class="q-mt-none">
+            <li>
+              로그인 성공 시 <span style="color: red">session_id</span> (HttpOnly)와
+              <span style="color: red">csrf_token</span> (JS에서 읽을 수 있는 쿠키)를 발급합니다.
+            </li>
+          </ul>
+          <strong>2. 취약점 핵심</strong> ( <span style="color: red">/api/change_role</span> )
+          <ul class="q-mt-none">
+            <li>CSRF 토큰이 없는 요청은 검증 블록을 <strong>스킵</strong>하도록 구현되어 있어,</li>
+            <li>
+              토큰 필드 자체가 존재하지 않으면
+              <span style="color: red"> if token: </span>
+              분기로 진입하지 않고 관리자 권한을 부여합니다.
+            </li>
+          </ul>
+          <strong>3. 공격 코드</strong>
+          <q-card flat bordered class="code-block">
+            <pre><code>let csrfRes = await fetch('/api/change_role', {
+  method: 'POST',
+  credentials: 'include',
+  headers: {'Content-Type':'application/json'},
+  body: JSON.stringify({ dummy: 1 })
+});
+if (!csrfRes.ok) throw new Error('권한 상승 실패: ' + csrfRes.status);</code></pre>
+          </q-card>
+          <ul>
+            <li>
+              <span style="color: red">fetch('/api/change_role', …): change_role</span> API
+              엔드포인트로 POST오쳥을 보냄
+            </li>
+            <li>
+              <span style="color: red">credentials: 'include’</span>: 이미 발급된 세션 쿠키를 함께
+              전송해 "로그인 된 상태"임을 서버에 알림
+            </li>
+            <li>
+              <span style="color: red">headers: {'Content-Type':'application/json'}</span>: 요청
+              본문이 JSON 임을 명시
+            </li>
+            <li>
+              <span style="color: red">body: JSON.stringify({ dummy: 1 })</span>: 실제 CSRF 토큰
+              대신 <span style="color: red">dummy</span> 필드만 보내도록 구성
+            </li>
+          </ul>
+
+          <strong>4. 플래그 획득</strong>
+          <ul class="q-mt-none">
+            <li>
+              마지막에 <span style="color: red">/flag.php</span> 로 이동해
+              <span style="color: red">/api/flag</span> 호출 시 권한 체크를 통과하고 플래그를
+              출력합니다.
+            </li>
+          </ul>
+
+          <strong>5. 보안 교훈</strong>
+          <ul class="q-mt-none">
+            <li>CSRF 보호 로직은 “토큰이 <strong>없으면</strong> 무조건 실패”해야 하며,</li>
+            <li>
+              <span style="color: red">if token:</span> 같은 조건문으로 검증을 건너뛰면 치명적
+              취약점이 발생합니다.
+            </li>
+          </ul>
+        </div>
         <q-separator spaced />
 
         <q-card-section>
@@ -73,5 +125,11 @@ function goBack() {
 .war-game-explanation-page {
   background-color: #f4f4f4;
   min-height: 100vh;
+}
+
+.code-block {
+  background-color: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 4px;
 }
 </style>
