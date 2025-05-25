@@ -69,9 +69,13 @@ const routes = [
         path: 'gamexssreflected',
         component: () => import('src/pages/wargame/GameXssReflected.vue'),
       },
+      {
+        path: 'gamefilevuln2',
+        component: () => import('src/pages/wargame/GamePahtTraversal.vue'),
+      },
 
       {
-        path: 'gamefilevuln',
+        path: 'gamefilevuln1',
         component: () => import('src/pages/wargame/GameFileVuln.vue'),
       },
 
@@ -126,16 +130,16 @@ const routes = [
         name: 'WargameExplanationXssStored3',
         component: () => import('pages/wargame/explanation/XssStored3.vue'),
       },
+      {
+        path: 'path-traversal',
+        name: 'WargameExplanationPathTraserval',
+        component: () => import('pages/wargame/explanation/PathTraversal.vue'),
+      },
 
       //
       {
         path: 'wargamelist',
         component: () => import('pages/WarGameListPage.vue'),
-      },
-
-      {
-        path: 'wargameexplanation',
-        component: () => import('src/pages/WarGameExplanationPage.vue'),
       },
 
       {

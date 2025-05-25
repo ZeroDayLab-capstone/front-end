@@ -147,7 +147,7 @@ import { ref, computed } from 'vue'
 //import { QCard, QInput, QBtn, QBadge, QBanner, QExpansionItem } from 'quasar'
 
 // 예시: 문제 정보
-const problemTitle = ref('관리자 권한 탈취 작전')
+const problemTitle = ref('검색어 기반 XSS 실행을 통한 FLAG 획득')
 const difficulty = ref('medium') // 예: 'easy' / 'medium' / 'hard'
 const payloadScript = '<script>alert(1)<' + '/script>'
 // 일반 태그도 분할하여 안전하게 처리

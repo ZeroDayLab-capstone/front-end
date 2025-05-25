@@ -158,7 +158,7 @@ import { ref, computed } from 'vue'
 //import { QCard, QInput, QBtn, QBadge, QBanner, QExpansionItem } from 'quasar'
 
 // 예시: 문제 정보
-const problemTitle = ref('VIP 넥네임을 훔쳐라')
+const problemTitle = ref('VIP 닉네임을 훔쳐라')
 const difficulty = ref('hard') // 예: 'easy' / 'medium' / 'hard'
 
 // 난이도 표시용
