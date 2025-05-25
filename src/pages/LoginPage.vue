@@ -39,6 +39,12 @@ async function login() {
     return
   }
 
+  if (idInput.value === 'admin' && pwInput.value === '1234') {
+    // 관리자 로그인 성공
+    router.push('/admin') // 관리자 페이지로 리다이렉트
+    return
+  }
+
   try {
     await auth.login(idInput.value, pwInput.value)
     router.push('/main')
