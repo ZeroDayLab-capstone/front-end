@@ -119,7 +119,7 @@
 import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from 'src/boot/axios'
-import jwtDecode from 'jwt-decode/dist/jwt-decode.esm.js'
+import jwtDecode from 'jwt-decode'
 import { useAuthStore } from 'src/stores/auth'
 
 export default {
@@ -131,7 +131,8 @@ export default {
     const userId = computed(() => {
       if (!auth.token) return null
       const decoded = jwtDecode(auth.token)
-      return decoded.user_id || decoded.sub || null
+      console.log('Decoded user ID:', decoded)
+      return decoded.sub || null
     })
 
     // 1) 서버에서 받아 올 내 정보
@@ -160,11 +161,15 @@ export default {
 
     // 페이지 로드 시 내 정보 GET
     async function fetchProfile() {
+      if (!userId.value) {
+        console.error('userId가 null입니다. 프로필을 불러올 수 없습니다.')
+        return
+      }
+
       try {
         const res = await api.get(`/mypage/mypage/profile/${userId.value}`)
-        // { username, email, gender, nationality, job } 형태 리턴 가정
         userInfo.value = {
-          id: res.data.username, // 만약 id가 따로 있으면 그걸 쓰세요
+          id: res.data.username, // 서버에서 받은 데이터로 채움
           username: res.data.username,
           gender: res.data.gender,
           nationality: res.data.nationality,

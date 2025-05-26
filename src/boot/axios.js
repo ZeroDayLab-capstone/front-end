@@ -7,7 +7,7 @@ import { useAuthStore } from 'src/stores/auth'
 // 모듈 최상위에 api 인스턴스 정의 (module scope)
 const api = axios.create({
   // 환경 변수에 설정된 API URL 우선, 없으면 하드코딩된 백엔드 IP 사용
-  baseURL: process.env.API_BASE_URL || 'http://100.126.147.123:8000',
+  baseURL: process.env.API_BASE_URL || 'http://100.108.98.2:8000',
 })
 
 // 요청 인터셉터: Pinia 스토어의 토큰을 헤더에 자동 추가
