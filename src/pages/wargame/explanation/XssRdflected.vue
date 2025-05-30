@@ -8,28 +8,29 @@
             <div class="text-h5 text-weight-bold q-pb-md">📖해설</div>
             <div class="text-h6 q-pl-lg">
               <div>
-                1. <code style="color: red">index.php</code>는 검색어 파라미터
+                1. <span style="color: red">index.php</span>는 검색어 파라미터
                 <code style="color: red">q</code>를 그대로 HTML에 삽입함
               </div>
               <div class="q-py-sm">
-                2. <code style="color: red">{{ scripttag }}</code> 태그가 그대로 반영되면서
+                2. <span style="color: red">{{ scripttag }}</span> 태그가 그대로 반영되면서
                 JavaScript 실행 가능
               </div>
               <div>
-                3. 페이지에 포함된 <code style="color: red">javaScript</code> 는 alert 발생 후
-                <code style="color: red">flag.php</code>로 자동 리디렉션 수행
+                3. 페이지에 포함된 <span style="color: red">javaScript</span> 는 alert 발생 후
+                <span style="color: red">flag.php</span>로 자동 리디렉션 수행
               </div>
               <div class="q-py-sm">
-                4. 이 때 <code style="color: red">Referer</code>이
-                <code style="color: red">index.php</code>이므로
-                <code style="color: red">flag.php</code>는 정상적으로 FLAG를 출력
+                4. 이 때 <span style="color: red">Referer</span>이
+                <span style="color: red">index.php</span>이므로
+                <span style="color: red">flag.php</span>는 정상적으로 FLAG를 출력
               </div>
               <div>
-                5. 만약 직접 <code style="color: red">flag.php</code>를 열 경우 Referer이 없으므로
+                5. 만약 직접 <span style="color: red">flag.php</span>를 열 경우 Referer이 없으므로
                 FlAG는 숨겨짐
               </div>
             </div>
           </q-card-section>
+          <q-separator spaced />
           <q-card-section>
             <div class="text-h5 text-weight-bold">🌟XSS 간단 요약</div>
             <!-- 요약약 본문 -->
@@ -42,7 +43,7 @@
               <div>
                 ✅ 사용자 입력을 HTML·JavaScript 콘텍스트별로 적절히 이스케이프하거나 필터링하지
                 않을 때 발생하며,<br />
-                <code style="color: red">innerHTML·document.write()</code> 같은 안전하지 않은 API
+                <span style="color: red">innerHTML·document.write()</span> 같은 안전하지 않은 API
                 사용이 주요 원인입니다.
               </div>
               <div>
@@ -51,7 +52,7 @@
               </div>
               <div>
                 ✅ 가장 효과적인 방어는 컨텍스트별 출력 이스케이프, CSP 적용, 안전한 DOM
-                API(textContent 등) 사용입<br />니다.
+                API(textContent 등) 사용입니다.
               </div>
             </div>
           </q-card-section>

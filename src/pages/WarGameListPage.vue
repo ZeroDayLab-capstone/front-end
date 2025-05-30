@@ -134,8 +134,8 @@ export default {
     // SQL Injection 취약점 문제
     const sqlInjectionVulns = ref([
       { id: 'sql-injection1', name: '비밀번호 없이 관리자 로그인', image: sql1 },
+      { id: 'sql-injection3', name: 'BookStore: UNION Injection', image: sql3 },
       { id: 'sql-injection2', name: 'VIP 닉네임을 훔쳐라', image: sql2 },
-      { id: 'sql-injection3', name: '관리자 권한 탈취 작전', image: sql3 },
     ])
 
     const commandInjectionVulns = ref([
@@ -156,8 +156,8 @@ export default {
 
     // 기타 취약점 문제
     const otherVulns = ref([
-      { id: 'file-vulnerability', name: '악성 PHP 스크립트를 통한 FLAG 획득', image: filevuln },
       { id: 'file-vulnerability2', name: '경로 조작 스크립트를 통한 FLAG 획득', image: path },
+      { id: 'file-vulnerability', name: '악성 PHP 스크립트를 통한 FLAG 획득', image: filevuln },
     ])
 
     function solveProblem(id) {

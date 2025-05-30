@@ -22,7 +22,7 @@
           <q-card-section>
             <div class="text-h5">1️⃣실습 목표🎯</div>
             <div class="text-h6">
-              <ul>
+              <ul class="q-mt-none">
                 <li>파일 업로드 기능을 악용한 RCE(Remote Code Execution) 시나리오를 실습합니다.</li>
                 <li>검증되지 않은 파일 업로드와 실행 경로 노출의 위험성을 이해합니다.</li>
                 <li>
@@ -34,7 +34,7 @@
 
             <div class="text-h5 q-mt-md">2️⃣문제 시나리오🎭</div>
 
-            <div class="text-h6 q-pa-md">
+            <div class="text-h6 q-pl-md">
               <div>{{ problemScenario }}</div>
               <div>
                 백엔드 <span style="color: red">/upload</span> API는 업로드된 파일을 프론트엔드

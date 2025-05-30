@@ -147,7 +147,7 @@ import { ref, computed } from 'vue'
 //import { QCard, QInput, QBtn, QBadge, QBanner, QExpansionItem } from 'quasar'
 
 // 예시: 문제 정보
-const problemTitle = ref('관리자 권한 탈취 작전')
+const problemTitle = ref('BookStore: UNION Injection')
 const difficulty = ref('medium') // 예: 'easy' / 'medium' / 'hard'
 
 // 난이도 표시용

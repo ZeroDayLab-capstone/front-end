@@ -10,36 +10,36 @@
             <div class="text-h6">
               <span class="text-weight-bold">1. 컬럼 개수 파악</span>
               <div class="q-pl-md">
-                <code style="color: red">ORDER BY 1--</code>,
-                <code style="color: red">ORDER BY 3--</code> 등을 시도하여 컬럼 개수가 3개임을
+                <span style="color: red">ORDER BY 1--</span>,
+                <span style="color: red">ORDER BY 3--</span> 등을 시도하여 컬럼 개수가 3개임을
                 확인합니다.
               </div>
               <div class="q-pt-sm">
                 <span class="text-weight-bold">2. 데이터 타입 매핑</span>
               </div>
               <ul class="q-mt-none">
-                <li><code style="color: red">name</code> 컬럼: 문자열(VARCHAR)</li>
-                <li><code style="color: red">description</code> 컬럼: 텍스트(TEXT)</li>
-                <li><code style="color: red">price</code> 컬럼: 숫자(DECIMAL)</li>
+                <li><span style="color: red">name</span> 컬럼: 문자열(VARCHAR)</li>
+                <li><span style="color: red">description</span> 컬럼: 텍스트(TEXT)</li>
+                <li><span style="color: red">price</span> 컬럼: 숫자(DECIMAL)</li>
               </ul>
 
               <div><strong>3. UNION SELECT 구성</strong></div>
               <div class="q-pl-md">
-                위 타입에 맞춰 더미값(<code style="color: red">'dummy'</code>,
-                <code style="color: red">0</code>)을 채우고,
-                <code style="color: red">flags</code> 테이블의
-                <code style="color: red">flag</code> 컬럼을 세 번째 컬럼에 매핑합니다.
+                위 타입에 맞춰 더미값(<span style="color: red">'dummy'</span>,
+                <span style="color: red">0</span>)을 채우고,
+                <span style="color: red">flags</span> 테이블의
+                <span style="color: red">flag</span> 컬럼을 세 번째 컬럼에 매핑합니다.
               </div>
               <div class="q-pt-sm"><strong>4. 플래그 노출</strong></div>
               <div class="q-pl-md">
                 최종 페이로드로
-                <code style="color: red"
-                  >/product.php?id=1 UNION SELECT flag,'dummy',0 FROM flags--</code
+                <span style="color: red"
+                  >/product.php?id=1 UNION SELECT flag,'dummy',0 FROM flags--</span
                 >를 전송하면, 웹 페이지에 <strong>FLAG{…}</strong> 형태의 플래그가 출력됩니다.
               </div>
             </div>
           </q-card-section>
-
+          <q-separator spaced />
           <q-card-section>
             <div class="text-h5 text-weight-bold q-pb-md">🌟SQL Injection 간단 요약</div>
 

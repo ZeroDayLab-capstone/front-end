@@ -22,7 +22,7 @@
           <q-card-section>
             <div class="text-h5">1️⃣실습 목표🎯</div>
             <div class="text-h6">
-              <ul>
+              <ul class="q-mt-none">
                 <li>저장형 XSS를 통한 쿠키 탈취 시나리오를 이해합니다.</li>
                 <li>
                   Selenium 봇의 동작을 유도하여 관리자 세션을 탈취하고, 이를 기반으로 FLAG에
@@ -31,7 +31,7 @@
               </ul>
             </div>
 
-            <div class="q-my-md text-h5">2️⃣문제 시나리오🎭</div>
+            <div class="q-my-sm text-h5">2️⃣문제 시나리오🎭</div>
             <div class="text-h6 q-pl-md">
               <div class="q-pb-sm">💡 당신은 일반 사용자로 로그인한 상태입니다.</div>
               <div>
@@ -73,13 +73,13 @@
               <div style="display: list-item; list-style-type: disc">
                 탈취한 쿠키는 정확히 <span style="color: red">ADMIN</span> 이름이어야 하며,
                 <span style="color: red">claim_admin_session.php</span>에 복사해 넣으면
+                <span style="color: red">setcookie()</span> 로 세션 주입됩니다.
               </div>
-              <div><span style="color: red">setcookie()</span> 로 세션 주입됩니다.</div>
               <div style="display: list-item; list-style-type: disc">
                 관리자 전용 글은 <span style="color: red">is_read_by_admin</span> 이나 별도
                 <span style="color: red">admin_only</span>플래그로 표시되어 있으며, 일반 사용자는
+                열람 불가합니다
               </div>
-              <div>열람 불가합니다</div>
             </div>
           </q-expansion-item>
 

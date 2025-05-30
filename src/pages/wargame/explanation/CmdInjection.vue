@@ -10,11 +10,11 @@
             <ul class="text-h6 q-mt-none q-pt-none">
               <li>서버는 사용자의 입력을 쉘 명령어에 직접 삽입하고 있습니다.</li>
               <li>
-                입력값 뒤에 <code style="color: red">;, |, &&</code> 등을 사용하면 추가 명령어를
+                입력값 뒤에 <span style="color: red">;, |, &&</span> 등을 사용하면 추가 명령어를
                 실행할 수 있습니다.
               </li>
               <li>
-                <code style="color: red">/flag.txt</code>는 플래그가 저장된 파일이며, 이를 읽기 위해
+                <span style="color: red">/flag.txt</span>는 플래그가 저장된 파일이며, 이를 읽기 위해
                 명령어 주입이 활용됩니다.
               </li>
               <li>
@@ -23,6 +23,7 @@
               </li>
             </ul>
           </q-card-section>
+          <q-separator spaced />
           <q-card-section>
             <div class="text-h5 text-weight-bold">🌟Command Injection 간단 요약</div>
             <!-- 요약약 본문 -->
@@ -30,13 +31,13 @@
             <div class="text-h6 q-pl-md">
               <div class="q-pt-md">
                 ✅ Command Injection은 웹 애플리케이션이 <strong>사용자 입력을 검증 없이</strong>
-                <code style="color: red">system(), exec()</code> 등의 함수로 직 <br />접 전달할 때
+                <span style="color: red">system(), exec()</span> 등의 함수로 직 <br />접 전달할 때
                 발생하는 취약점으로, 공격자가 <strong>쉘 메타문자</strong>를 이용해 임의의 시스템
                 명령을 실행할 수 있습니다.
               </div>
               <div class="q-py-sm">
                 ✅ 이를 통해 서버 권한 탈취, 파일 유출·조작, 리버스 쉘 생성 등 치명적인 피해가
-                발생하며, <code style="color: red">ping</code>, 파일 백업, <br />관리자 기능 등
+                발생하며, <span style="color: red">ping</span>, 파일 백업, <br />관리자 기능 등
                 시스템 명령 실행 기능 전반에서 주로 발견됩니다.
               </div>
               <div>

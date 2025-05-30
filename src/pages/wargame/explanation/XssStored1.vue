@@ -17,8 +17,8 @@
               <div class="q-pt-md">2. <strong>취약점 핵심</strong></div>
               <div class="q-pl-lg">
                 <div style="display: list-item; list-style-type: disc">
-                  저장된 게시글을 열람할 때 <code style="color: red">{{ scripttag }}</code> 또는
-                  <code style="color: red">{{ imgtag }}</code> 태그가 <br />HTML로 렌더링되어 그대로
+                  저장된 게시글을 열람할 때 <span style="color: red">{{ scripttag }}</span> 또는
+                  <span style="color: red">{{ imgtag }}</span> 태그가 <br />HTML로 렌더링되어 그대로
                   실행됨
                 </div>
               </div>
@@ -33,6 +33,7 @@
               </div>
             </div>
           </q-card-section>
+          <q-separator spaced />
           <q-card-section>
             <div class="text-h5 text-weight-bold">🌟XSS 간단 요약</div>
             <!-- 요약약 본문 -->
@@ -45,7 +46,7 @@
               <div>
                 ✅ 사용자 입력을 HTML·JavaScript 콘텍스트별로 적절히 이스케이프하거나 필터링하지
                 않을 때 발생하며,<br />
-                <code style="color: red">innerHTML·document.write()</code> 같은 안전하지 않은 API
+                <span style="color: red">innerHTML·document.write()</span> 같은 안전하지 않은 API
                 사용이 주요 원인입니다.
               </div>
               <div>

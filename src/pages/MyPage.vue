@@ -199,6 +199,10 @@ export default {
           payload.password = editData.value.password
         }
         const res = await api.put(`/mypage/mypage/profile/${userId.value}`, payload)
+
+        // 2) 저장 후 프로필 다시 조회
+        await fetchProfile()
+
         // 성공 메시지 보여주기 (optional)
         console.log(res.data.message)
         // UI 반영

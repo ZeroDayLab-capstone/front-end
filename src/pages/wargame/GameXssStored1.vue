@@ -22,7 +22,7 @@
           <q-card-section>
             <div class="text-h5">1️⃣실습 목표🎯</div>
             <div class="text-h6">
-              <ul>
+              <ul class="q-mt-none">
                 <li>Stored XSS의 개념과 동작 원리를 이해합니다.</li>
                 <li>사용자 입력값이 저장되어 다른 사용자에게 자동 실행되는 상황을 실습합니다.</li>
               </ul>

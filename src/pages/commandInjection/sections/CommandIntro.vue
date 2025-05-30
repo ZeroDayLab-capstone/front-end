@@ -2,7 +2,7 @@
   <q-page class="q-pa-md">
     <div class="text-h5 text-weight-bold">✅소개</div>
     <div class="row justify-center q-my-lg">
-      <q-img :src="command1" style="width: 500px"></q-img>
+      <q-img :src="command1" style="width: 450dvh"></q-img>
     </div>
     <div class="text-h6">
       <div class="q-py-md" style="display: list-item; list-style-type: disc">

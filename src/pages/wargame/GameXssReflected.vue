@@ -22,7 +22,7 @@
           <q-card-section>
             <div class="text-h5">1️⃣실습 목표🎯</div>
             <div class="text-h6">
-              <ul>
+              <ul class="q-mt-none">
                 <li>Reflected XSS의 원리와 위험성을 이해합니다.</li>
                 <li>입력값이 escape 없이 HTML에 반영될 때 발생하는 XSS를 실습합니다.</li>
                 <li>
@@ -32,7 +32,7 @@
               </ul>
             </div>
 
-            <div class="q-py-md text-h5">2️⃣문제 시나리오🎭</div>
+            <div class="q-py-sm text-h5">2️⃣문제 시나리오🎭</div>
             <div class="text-h6">
               <div class="q-pb-sm">
                 💡 당신은 검색 기능이 있는 웹 페이지에서, 검색어가 escape 없이 출력되는 것을
@@ -43,9 +43,8 @@
                 <span style="color: red">flag.php</span>로 리디렉션 되도록 하세요.
                 <span style="color: red">flag.php</span>는 <span style="color: red">Referer</span>가
                 <span style="color: red">index.php</span>일 경우에만 FLAG를 보여줍니다. 목표는
-                검색어 입력
+                검색어 입력만으로 FLAG를 획득하는 것입니다.
               </div>
-              <div>만으로 FLAG를 획득하는 것입니다.</div>
             </div>
           </q-card-section>
 

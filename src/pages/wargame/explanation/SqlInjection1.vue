@@ -19,7 +19,7 @@ SELECT * FROM users WHERE username = '입력값' AND password = '입력값';
 
               <div class="q-pl-lg q-mt-md">
                 <div style="display: list-item; list-style-type: disc">
-                  공격자는 Username에 <code style="color: red">admin' --</code>를 입력하면 다음과
+                  공격자는 Username에 <span style="color: red">admin' --</span>를 입력하면 다음과
                   같이 변환됩니다:
                 </div>
               </div>
@@ -30,11 +30,11 @@ SELECT * FROM users WHERE username = 'admin' -- ' AND password = '';
 
               <div class="q-pl-lg q-mt-md">
                 <div style="display: list-item; list-style-type: disc">
-                  <code style="color: red">--</code>는 SQL 주석 처리 구문이므로 뒤의
-                  <code style="color: red">AND password = …</code> 부분은 무시됩니다.
+                  <span style="color: red">--</span>는 SQL 주석 처리 구문이므로 뒤의
+                  <span style="color: red">AND password = …</span> 부분은 무시됩니다.
                 </div>
                 <div style="display: list-item; list-style-type: disc">
-                  따라서 <code style="color: red">username='admin'</code> 조건만으로 쿼리가
+                  따라서 <span style="color: red">username='admin'</span> 조건만으로 쿼리가
                   수행되고, 비밀번호는 확인하지 않게 됩니다.
                 </div>
                 <div style="display: list-item; list-style-type: disc">

@@ -22,7 +22,7 @@
           <q-card-section>
             <div class="text-h5">1️⃣실습 목표🎯</div>
             <div class="text-h6">
-              <ul>
+              <ul class="q-mt-none">
                 <li>
                   <strong>경로 조작</strong>(Path Traversal)<strong>의 원리와 위험성</strong>을
                   이해합니다.

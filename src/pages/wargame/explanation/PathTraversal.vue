@@ -8,27 +8,28 @@
             <div class="text-h5 text-weight-bold q-pb-md">📖해설</div>
             <div class="text-h6 q-pl-lg">
               <div>
-                1. 업로드된 파일은 <code style="color: red">uploads/</code>디렉토리에 저장되고, 읽을
-                때 <code style="color: red">read.php</code>에서 파일명을 쿼리 파라미터로 전달
+                1. 업로드된 파일은 <span style="color: red">uploads/</span>디렉토리에 저장되고, 읽을
+                때 <span style="color: red">read.php</span>에서 파일명을 쿼리 파라미터로 전달
               </div>
               <div class="q-py-sm">
-                2. 백앤드는 해당 이름을 그대로 <code style="color: red">uploads/</code> 하위 경로에
+                2. 백앤드는 해당 이름을 그대로 <span style="color: red">uploads/</span> 하위 경로에
                 붙여 파일을 열람
               </div>
               <div>
                 3. 경로 필터링이 업로드 시에는 존재하지만, 읽기 시에는 적용되지 않아
-                <code style="color: red">../</code> 우회가 가능
+                <span style="color: red">../</span> 우회가 가능
               </div>
               <div class="q-py-sm">
-                4. 이를 통해 <code style="color: red">uploads/../flag.py</code> 경로로 상위
-                디렉토리의 <code style="color: red">flag.py</code> 파일을 열람
+                4. 이를 통해 <span style="color: red">uploads/../flag.py</span> 경로로 상위
+                디렉토리의 <span style="color: red">flag.py</span> 파일을 열람
               </div>
               <div>
-                5. <code style="color: red">flag.py</code> 파일은 출력 가능한 텍스트 파일이며,
+                5. <span style="color: red">flag.py</span> 파일은 출력 가능한 텍스트 파일이며,
                 내부에 FLAG 문자열이 포함되어 있음
               </div>
             </div>
           </q-card-section>
+          <q-separator spaced />
           <q-card-section>
             <div class="text-h5 text-weight-bold">🌟File vulnerability 간단 요약</div>
             <!-- 요약약 본문 -->
@@ -43,7 +44,7 @@
               <div>
                 ✅ <strong>파일 다운로드 취약점</strong>은
                 <strong>다운로드 파라미터를 검증 없이 경로에 사용해</strong>
-                <code style="color: red">/etc/passwd</code> 등 <strong>민감 파일을 탈취</strong>
+                <span style="color: red">/etc/passwd</span> 등 <strong>민감 파일을 탈취</strong>
                 <br />할 수 있는 Path Traversal 공격입니다.
               </div>
               <div>

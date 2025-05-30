@@ -137,9 +137,6 @@ import { ref, computed } from 'vue'
 // 예시: 문제 정보
 const problemTitle = ref('명령어 주입으로 플래그 탈취')
 const problemObjective = ref(';, |, &&, $(...), <code>`...`</code>')
-// const problemScenario = ref(
-//   '',
-// )
 const difficulty = ref('medium') // 예: 'easy' / 'medium' / 'hard'
 const hintText = ref('; 기호는 한 줄에 여러 명령어를 순차 실행할 수 있게 해줍니다.')
 

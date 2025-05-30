@@ -22,7 +22,7 @@
           <q-card-section>
             <div class="text-h5">1️⃣실습 목표🎯</div>
             <div class="text-h6">
-              <ul>
+              <ul class="q-mt-none">
                 <li>Stored XSS의 필터링 우회 기법을 이해합니다.</li>
                 <li>
                   기본적인 <span style="color: red">{{ problemObjective }}</span> 공격이 차단된
@@ -31,7 +31,7 @@
               </ul>
             </div>
 
-            <div class="q-my-md text-h5">2️⃣문제 시나리오🎭</div>
+            <div class="q-my-sm text-h5">2️⃣문제 시나리오🎭</div>
             <div class="text-h6 q-pl-md">
               <div>💡 당신은 웹 게시판의 일반 사용자입니다.</div>
               <div>
@@ -70,9 +70,8 @@
                 대신
                 <span style="color: red"
                   >{{ payloadImg }}, {{ payloadSvg }}, {{ payloadIframe }}</span
-                >등의 우회 페
+                >등의 우회 페이로드를 시도해보세요.
               </div>
-              <div>이로드를 시도해보세요.</div>
             </div>
           </q-expansion-item>
 

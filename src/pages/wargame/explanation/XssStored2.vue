@@ -11,15 +11,15 @@
               <div>1. <strong>기본 필터링이 존재</strong></div>
               <div class="q-pl-lg">
                 <div style="display: list-item; list-style-type: disc">
-                  서버 또는 프론트엔드에서 <code style="color: red">{{ scripttag }}</code> 태그는
+                  서버 또는 프론트엔드에서 <span style="color: red">{{ scripttag }}</span> 태그는
                   차단되도록 설정되어 있음
                 </div>
               </div>
               <div class="q-pt-md">2. <strong>우회 페이로드 통과</strong></div>
               <div class="q-pl-lg">
                 <div style="display: list-item; list-style-type: disc">
-                  <code style="color: red">{{ imgtag }}</code> 나
-                  <code style="color: red">{{ svgtag }}</code> 는 필터링 되지 않고 HTML로 렌더링되어
+                  <span style="color: red">{{ imgtag }}</span> 나
+                  <span style="color: red">{{ svgtag }}</span> 는 필터링 되지 않고 HTML로 렌더링되어
                   실행됨
                 </div>
               </div>
@@ -31,6 +31,7 @@
               </div>
             </div>
           </q-card-section>
+          <q-separator spaced />
           <q-card-section>
             <div class="text-h5 text-weight-bold">🌟XSS 간단 요약</div>
             <!-- 요약약 본문 -->
@@ -43,7 +44,7 @@
               <div>
                 ✅ 사용자 입력을 HTML·JavaScript 콘텍스트별로 적절히 이스케이프하거나 필터링하지
                 않을 때 발생하며,<br />
-                <code style="color: red">innerHTML·document.write()</code> 같은 안전하지 않은 API
+                <span style="color: red">innerHTML·document.write()</span> 같은 안전하지 않은 API
                 사용이 주요 원인입니다.
               </div>
               <div>

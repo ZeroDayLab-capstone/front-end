@@ -10,21 +10,22 @@
             <div class="text-h6 q-pl-md">
               <div>
                 1. 백앤드는 파일 확장자 제한 없이 모든 파일을
-                <code style="color: red">/upload/</code>에 저장
+                <span style="color: red">/upload/</span>에 저장
               </div>
               <div>
-                2. 프론트엔드는 Apache 설정상 <code style="color: red">/upload/</code>경로에 있는
-                <code style="color: red">.php</code>파일도 실행 가능
+                2. 프론트엔드는 Apache 설정상 <span style="color: red">/upload/</span>경로에 있는
+                <span style="color: red">.php</span>파일도 실행 가능
               </div>
 
               <div>3. 공격자는 PHP로 작성된 간단한 RCE 스크립트를 업로드</div>
               <div>
-                4. 해당 스크립트를 실행하면 서버 루트의 <code style="color: red">/flag.txt</code>를
+                4. 해당 스크립트를 실행하면 서버 루트의 <span style="color: red">/flag.txt</span>를
                 읽고 브라우저에 출력
               </div>
               <div>파일 실행에 실패할 경우 업로드 경로, 권한, 파일 확장자 등을 재확인</div>
             </div>
           </q-card-section>
+          <q-separator spaced />
           <q-card-section>
             <div class="text-h5 text-weight-bold">🌟File vulnerability 간단 요약</div>
             <!-- 요약약 본문 -->
@@ -39,7 +40,7 @@
               <div>
                 ✅ <strong>파일 다운로드 취약점</strong>은
                 <strong>다운로드 파라미터를 검증 없이 경로에 사용해</strong>
-                <code style="color: red">/etc/passwd</code> 등 <strong>민감 파일을 탈취</strong>
+                <span style="color: red">/etc/passwd</span> 등 <strong>민감 파일을 탈취</strong>
                 <br />할 수 있는 Path Traversal 공격입니다.
               </div>
               <div>
