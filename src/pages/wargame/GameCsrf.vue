@@ -73,9 +73,9 @@
                 v-if="submitSuccess"
                 type="positive"
                 icon="check_circle"
-                label="성공! 문제를 해결하셨습니다."
+                :label="successMessage"
               />
-              <q-banner v-else type="negative" icon="warning" label="실패! 다시 시도해 보세요." />
+              <q-banner v-else type="negative" icon="warning" :label="failMessage" />
             </div>
           </q-card-section>
 
@@ -94,7 +94,7 @@
               color="accent"
               icon="build"
               class="full-width q-my-sm"
-              @click="onCreateServer(1, userInfo.email)"
+              @click="onCreateServer(1)"
             />
             <div v-if="serverCreated" class="text-positive q-my-sm">
               서버가 생성되었습니다! 실습 환경으로 이동해 보세요.
@@ -117,6 +117,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { api } from 'src/boot/axios'
+import { useAuthStore } from 'src/stores/auth'
 
 // 예시: 문제 정보
 const problemTitle = ref('관리자 권한 탈취 작전')
@@ -126,9 +127,7 @@ const hintText = ref(
   '/change_role 엔드포인트의 if token: 조건문이 토큰이 없는 요청을 검증 없이 통과시킨다는 점에 주목하세요.',
 )
 
-const userInfo = ref({
-  email: '',
-})
+const auth = useAuthStore()
 
 // 난이도 표시용
 const difficultyLabel = computed(() => {
@@ -142,26 +141,54 @@ const difficultyColor = computed(() => {
   return 'orange'
 })
 
-// 정답 제출
+// 정답 제출 및 결과 관리
 const userAnswer = ref('')
 const submitResult = ref(false)
 const submitSuccess = ref(false)
+const successMessage = ref('성공! 문제를 해결하셨습니다.')
+const failMessage = ref('실패! 다시 시도해 보세요.')
 
-function onSubmitAnswer() {
-  // 실제 정답 체크 로직...
-  if (userAnswer.value.trim() === '1234') {
-    submitSuccess.value = true
-  } else {
+async function onSubmitAnswer() {
+  const email = auth.user?.email
+  const labId = 1 // 문제 id 고정
+
+  // 정답 로직 (여기서만 하드코딩 예시, 실제로는 동적으로)
+  const correct = userAnswer.value.trim() === '1234'
+  const status = correct ? 'completed' : 'in-progress'
+
+  // 서버에 결과 전송
+  try {
+    const res = await api.post('/labs/labs/submit', {
+      email: email,
+      lab_id: labId,
+      is_correct: correct,
+      status: status,
+    })
+    // 성공여부 & 메시지
+    submitSuccess.value = correct
+    submitResult.value = true
+    if (res.data && res.data.status) {
+      successMessage.value = correct ? `성공! 서버 응답: ${res.data.status}` : successMessage.value
+      failMessage.value = !correct ? `실패! 서버 응답: ${res.data.status}` : failMessage.value
+    }
+  } catch (e) {
     submitSuccess.value = false
+    submitResult.value = true
+    failMessage.value = '서버 오류! 다시 시도해 주세요.'
+    console.error(e)
   }
-  submitResult.value = true
 }
 
 const serverCreated = ref(false)
 const frontendPort = ref(null)
 const frontendHost = '100.108.98.2' // 실습환경 도커 컨테이너 host (고정)
 
-async function onCreateServer(lab_id, email) {
+async function onCreateServer(lab_id) {
+  const email = auth.user?.email
+  if (!email) {
+    alert('로그인 먼저 해주세요!')
+    return
+  }
   try {
     await api.post('/labs/labs/environment', {
       email: email,
@@ -181,7 +208,6 @@ async function onCreateServer(lab_id, email) {
 
 function onStartPractice() {
   if (serverCreated.value && frontendPort.value) {
-    // 반드시 http:// 붙이기!
     window.open(`http://${frontendHost}:${frontendPort.value}`, '_blank')
   } else {
     alert('먼저 서버를 생성하세요!')
