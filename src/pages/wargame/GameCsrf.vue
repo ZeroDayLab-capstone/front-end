@@ -155,7 +155,7 @@ function onSubmitAnswer() {
 
 const serverCreated = ref(false)
 const frontendPort = ref(null)
-const frontendHost = 'http://localhost' // 실습환경 도커 컨테이너 host (고정)
+const frontendHost = '100.108.98.2' // 실습환경 도커 컨테이너 host (고정)
 
 async function onCreateServer() {
   try {
@@ -173,7 +173,8 @@ async function onCreateServer() {
 
 function onStartPractice() {
   if (serverCreated.value && frontendPort.value) {
-    window.open(`${frontendHost}:${frontendPort.value}`, '_blank')
+    // 반드시 http:// 붙이기!
+    window.open(`http://${frontendHost}:${frontendPort.value}`, '_blank')
   } else {
     alert('먼저 서버를 생성하세요!')
   }

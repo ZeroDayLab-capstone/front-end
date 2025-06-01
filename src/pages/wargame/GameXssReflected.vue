@@ -143,7 +143,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-//import { QCard, QInput, QBtn, QBadge, QBanner, QExpansionItem } from 'quasar'
+import { api } from 'src/boot/axios'
 
 // 예시: 문제 정보
 const problemTitle = ref('검색어 기반 XSS 실행을 통한 FLAG 획득')
@@ -179,17 +179,31 @@ function onSubmitAnswer() {
   submitResult.value = true
 }
 
-// 서버 생성
 const serverCreated = ref(false)
-function onCreateServer() {
-  // 서버 생성 API 호출 등...
-  serverCreated.value = true
+const frontendPort = ref(null)
+const frontendHost = '100.108.98.2' // 실습환경 도커 컨테이너 host (고정)
+
+async function onCreateServer() {
+  try {
+    // 문제 id 고정(1)
+    const res = await api.post('/containers/start', { problem_id: 8 })
+    frontendPort.value = res.data.frontend_port
+    serverCreated.value = true
+  } catch (err) {
+    serverCreated.value = false
+    frontendPort.value = null
+    alert('서버 생성에 실패했습니다.')
+    console.error(err)
+  }
 }
 
-// 실습 시작
 function onStartPractice() {
-  // 해당 실습 페이지(혹은 서버 URL)로 이동 처리
-  console.log('실습 시작!')
+  if (serverCreated.value && frontendPort.value) {
+    // 반드시 http:// 붙이기!
+    window.open(`http://${frontendHost}:${frontendPort.value}/index.php`, '_blank')
+  } else {
+    alert('먼저 서버를 생성하세요!')
+  }
 }
 </script>
 

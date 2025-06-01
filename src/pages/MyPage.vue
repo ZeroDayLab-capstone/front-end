@@ -37,7 +37,7 @@
 
           <!-- 읽기 모드 -->
           <div class="q-mt-sm" v-if="!editMode">
-            <div>ID: {{ userInfo.id }}</div>
+            <div>이름: {{ userInfo.username }}</div>
             <div>성별: {{ userInfo.gender }}</div>
             <div>국적: {{ userInfo.nationality }}</div>
             <div>Email: {{ userInfo.email }}</div>
@@ -45,7 +45,7 @@
 
           <!-- 편집 모드 -->
           <div class="q-mt-sm" v-else>
-            <q-input v-model="editData.id" label="ID" filled />
+            <q-input v-model="editData.username" label="이름" filled />
             <q-input v-model="editData.gender" label="성별" filled class="q-mt-sm" />
             <q-input v-model="editData.nationality" label="국적" filled class="q-mt-sm" />
             <q-input v-model="editData.email" label="Email" filled class="q-mt-sm" />
@@ -122,13 +122,27 @@ import { api } from 'src/boot/axios'
 import jwtDecode from 'jwt-decode'
 import { useAuthStore } from 'src/stores/auth'
 
+const LAB_NAMES = {
+  1: 'CSRF: 고급',
+  2: 'SQL Injection: 초급',
+  3: 'SQL Injection: 중급',
+  4: 'SQL Injection: 고급',
+  5: 'Command Injection: 중급',
+  6: 'XSS Stored: 초급',
+  7: 'XSS Stored: 중급',
+  8: 'XSS Stored: 고급',
+  9: 'XSS Reflected: 중급',
+  10: 'File Vulnerability: 초급',
+  11: 'File Vulnerability: 고급',
+}
+
 export default {
   name: 'MyPage',
   setup() {
     const router = useRouter()
     const auth = useAuthStore()
 
-    const userId = computed(() => {
+    const userEmail = computed(() => {
       if (!auth.token) return null
       const decoded = jwtDecode(auth.token)
       console.log('Decoded user ID:', decoded)
@@ -137,7 +151,6 @@ export default {
 
     // 1) 서버에서 받아 올 내 정보
     const userInfo = ref({
-      id: '',
       username: '',
       gender: '',
       nationality: '',
@@ -161,15 +174,14 @@ export default {
 
     // 페이지 로드 시 내 정보 GET
     async function fetchProfile() {
-      if (!userId.value) {
+      if (!userEmail.value) {
         console.error('userId가 null입니다. 프로필을 불러올 수 없습니다.')
         return
       }
 
       try {
-        const res = await api.get(`/mypage/mypage/profile/${userId.value}`)
+        const res = await api.get(`/mypage/mypage/profile/${userEmail.value}`)
         userInfo.value = {
-          id: res.data.username, // 서버에서 받은 데이터로 채움
           username: res.data.username,
           gender: res.data.gender,
           nationality: res.data.nationality,
@@ -194,11 +206,13 @@ export default {
           gender: editData.value.gender,
           nationality: editData.value.nationality,
           job: editData.value.job,
+          //
+          password: editData.value.password || '',
         }
         if (editData.value.password) {
           payload.password = editData.value.password
         }
-        const res = await api.put(`/mypage/mypage/profile/${userId.value}`, payload)
+        const res = await api.put(`/mypage/mypage/profile/${userEmail.value}`, payload)
 
         // 2) 저장 후 프로필 다시 조회
         await fetchProfile()
@@ -217,15 +231,13 @@ export default {
 
     // 진행 중인 실습 목록 조회
     async function fetchOngoingLabs() {
-      if (!userId.value) return
+      if (!userEmail.value) return
       try {
-        const res = await api.get(`/mypage/mypage/ongoing-labs/${userId.value}`)
-        // { additionalProp1: [...], additionalProp2: [...], … }
+        const res = await api.get(`/mypage/mypage/ongoing-labs/${userEmail.value}`)
         const lists = Object.values(res.data).flat()
-        // 예시: lab_id 만 있으므로 name/ progress 기본값 설정
         courses.value = lists.map((item) => ({
           id: item.lab_id,
-          name: `실습 ${item.lab_id}`,
+          name: LAB_NAMES[item.lab_id] || `실습 ${item.lab_id}`,
           progress: 0,
         }))
       } catch (err) {
@@ -234,13 +246,13 @@ export default {
     }
 
     async function fetchCompletedLabs() {
-      if (!userId.value) return
+      if (!userEmail.value) return
       try {
-        const res = await api.get(`/mypage/mypage/completed-labs/${userId.value}`)
+        const res = await api.get(`/mypage/mypage/completed-labs/${userEmail.value}`)
         const lists = Object.values(res.data).flat()
         completedLabs.value = lists.map((item) => ({
           id: item.lab_id,
-          name: `실습 ${item.lab_id}`,
+          name: LAB_NAMES[item.lab_id] || `실습 ${item.lab_id}`,
         }))
       } catch (err) {
         console.error('완료된 실습 조회 실패', err)
