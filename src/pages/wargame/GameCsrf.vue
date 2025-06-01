@@ -94,7 +94,7 @@
               color="accent"
               icon="build"
               class="full-width q-my-sm"
-              @click="onCreateServer"
+              @click="onCreateServer(1, userInfo.email)"
             />
             <div v-if="serverCreated" class="text-positive q-my-sm">
               서버가 생성되었습니다! 실습 환경으로 이동해 보세요.
@@ -125,6 +125,10 @@ const difficulty = ref('medium') // 예: 'easy' / 'medium' / 'hard'
 const hintText = ref(
   '/change_role 엔드포인트의 if token: 조건문이 토큰이 없는 요청을 검증 없이 통과시킨다는 점에 주목하세요.',
 )
+
+const userInfo = ref({
+  email: '',
+})
 
 // 난이도 표시용
 const difficultyLabel = computed(() => {
@@ -157,8 +161,12 @@ const serverCreated = ref(false)
 const frontendPort = ref(null)
 const frontendHost = '100.108.98.2' // 실습환경 도커 컨테이너 host (고정)
 
-async function onCreateServer() {
+async function onCreateServer(lab_id, email) {
   try {
+    await api.post('/labs/labs/environment', {
+      email: email,
+      lab_id: lab_id,
+    })
     // 문제 id 고정(1)
     const res = await api.post('/containers/start', { problem_id: 1 })
     frontendPort.value = res.data.frontend_port
