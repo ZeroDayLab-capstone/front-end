@@ -46,8 +46,24 @@
           <!-- 편집 모드 -->
           <div class="q-mt-sm" v-else>
             <q-input v-model="editData.username" label="이름" filled />
-            <q-input v-model="editData.gender" label="성별" filled class="q-mt-sm" />
-            <q-input v-model="editData.nationality" label="국적" filled class="q-mt-sm" />
+            <q-select
+              v-model="editData.gender"
+              label="성별"
+              :options="genderOptions"
+              emit-value
+              map-options
+              filled
+              class="q-mt-sm"
+            />
+            <q-select
+              v-model="editData.nationality"
+              label="국적"
+              :options="nationalityOptions"
+              emit-value
+              map-options
+              filled
+              class="q-mt-sm"
+            />
             <q-input v-model="editData.email" label="Email" filled class="q-mt-sm" />
             <q-input
               v-model="editData.password"
@@ -56,7 +72,15 @@
               filled
               class="q-mt-sm"
             />
-            <q-input v-model="editData.job" label="직업" filled class="q-mt-sm" />
+            <q-select
+              v-model="editData.job"
+              label="직업"
+              :options="jobOptions"
+              emit-value
+              map-options
+              filled
+              class="q-mt-sm"
+            />
           </div>
         </q-card-section>
       </q-card>
@@ -149,6 +173,18 @@ export default {
       return decoded.sub || null
     })
 
+    const genderOptions = ['남', '여']
+    const nationalityOptions = [
+      '대한민국',
+      '미국',
+      '일본',
+      '중국',
+      '영국',
+      '독일',
+      '프랑스',
+      '캐나다',
+    ]
+    const jobOptions = ['직장인', '프리랜서', '학생', '무직']
     // 1) 서버에서 받아 올 내 정보
     const userInfo = ref({
       username: '',
@@ -258,6 +294,27 @@ export default {
         console.error('완료된 실습 조회 실패', err)
       }
     }
+    const LAB_ROUTE_PATHS = {
+      1: 'gamecsrf',
+      2: 'gamesqlinjection1',
+      3: 'gamesqlinjection2',
+      4: 'gamesqlinjection3',
+      5: 'gamecommandinjection',
+      6: 'gamexssstored1',
+      7: 'gamexssstored2',
+      8: 'gamexssstored3',
+      9: 'gamexssreflected',
+      10: 'gamefilevuln1',
+      11: 'gamefilevuln2',
+    }
+    function goToCourse(courseId) {
+      const path = LAB_ROUTE_PATHS[courseId]
+      if (path) {
+        router.push(`/${path}`)
+      } else {
+        alert('아직 설명 페이지가 없는 문제입니다.')
+      }
+    }
 
     onMounted(async () => {
       await fetchProfile()
@@ -274,13 +331,11 @@ export default {
       editMode.value = false
     }
 
-    // 과목 클릭
-    function goToCourse(courseId) {
-      router.push(`/course/${courseId}`)
-    }
-
     return {
       userInfo,
+      genderOptions,
+      nationalityOptions,
+      jobOptions,
       editMode,
       editData,
       courses,

@@ -169,7 +169,7 @@ const failMessage = ref('실패! 다시 시도해 보세요.')
 
 async function onSubmitAnswer() {
   const email = auth.user?.email
-  const labId = 8 // lab_id 고정(이 문제 기준)
+  const labId = 9 // lab_id 고정(이 문제 기준)
 
   // 정답 비교 로직(임시로 '1234'가 정답)
   const correct = userAnswer.value.trim() === '1234'
@@ -182,13 +182,14 @@ async function onSubmitAnswer() {
       is_correct: correct,
       status: status,
     })
-    submitSuccess.value = correct
-    submitResult.value = true
+    successMessage.value = '성공! 문제를 해결하셨습니다.'
+    failMessage.value = '실패! 다시 시도해 보세요.'
     if (res.data && res.data.status) {
-      // 서버 status 값을 결과 메시지에 표시
       successMessage.value = correct ? `성공! 서버 응답: ${res.data.status}` : successMessage.value
       failMessage.value = !correct ? `실패! 서버 응답: ${res.data.status}` : failMessage.value
     }
+    submitSuccess.value = correct
+    submitResult.value = true
   } catch (e) {
     submitSuccess.value = false
     submitResult.value = true
@@ -203,7 +204,7 @@ const frontendHost = '100.108.98.2' // 실습환경 도커 컨테이너 host (�
 
 async function onCreateServer() {
   const email = auth.user?.email
-  const lab_id = 8
+  const lab_id = 9
   if (!email) {
     alert('로그인 먼저 해주세요!')
     return
@@ -227,7 +228,7 @@ async function onCreateServer() {
 
 function onStartPractice() {
   if (serverCreated.value && frontendPort.value) {
-    window.open(`http://${frontendHost}:${frontendPort.value}`, '_blank')
+    window.open(`http://${frontendHost}:${frontendPort.value}/index.php`, '_blank')
   } else {
     alert('먼저 서버를 생성하세요!')
   }

@@ -153,7 +153,7 @@ async function onSubmitAnswer() {
   const labId = 1 // 문제 id 고정
 
   // 정답 로직 (여기서만 하드코딩 예시, 실제로는 동적으로)
-  const correct = userAnswer.value.trim() === '1234'
+  const correct = userAnswer.value.trim() === 'FLAG{9c926de27b8995b218c8b1f51806ce21}'
   const status = correct ? 'completed' : 'in-progress'
 
   // 서버에 결과 전송
@@ -164,13 +164,14 @@ async function onSubmitAnswer() {
       is_correct: correct,
       status: status,
     })
-    // 성공여부 & 메시지
-    submitSuccess.value = correct
-    submitResult.value = true
+    successMessage.value = '성공! 문제를 해결하셨습니다.'
+    failMessage.value = '실패! 다시 시도해 보세요.'
     if (res.data && res.data.status) {
       successMessage.value = correct ? `성공! 서버 응답: ${res.data.status}` : successMessage.value
       failMessage.value = !correct ? `실패! 서버 응답: ${res.data.status}` : failMessage.value
     }
+    submitSuccess.value = correct
+    submitResult.value = true
   } catch (e) {
     submitSuccess.value = false
     submitResult.value = true
