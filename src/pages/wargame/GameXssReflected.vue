@@ -172,7 +172,7 @@ async function onSubmitAnswer() {
   const labId = 9 // lab_id 고정(이 문제 기준)
 
   // 정답 비교 로직(임시로 '1234'가 정답)
-  const correct = userAnswer.value.trim() === '1234'
+  const correct = userAnswer.value.trim() === '9f8e7d6c5b4a392817261504030201ff'
   const status = correct ? 'completed' : 'in-progress'
 
   try {

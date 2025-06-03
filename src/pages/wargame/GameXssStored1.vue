@@ -155,7 +155,7 @@ async function onSubmitAnswer() {
   const labId = 6 // 문제마다 고유 lab_id 부여(이 문제 예: 6)
 
   // 정답 비교 (예: '1234'가 정답)
-  const correct = userAnswer.value.trim() === '1234'
+  const correct = userAnswer.value.trim() === 'e2f1d0c3b4a5968778695a4b3c2d1e0f'
   const status = correct ? 'completed' : 'in-progress'
 
   try {
