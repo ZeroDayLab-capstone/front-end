@@ -82,17 +82,23 @@
               <q-btn
                 label="해설"
                 color="black"
-                :to="{ name: 'WargameExplanationXssStored2' }"
+                :to="{ name: 'WargameExplanationCmdInjection' }"
               ></q-btn>
             </div>
+            <!--
+  <div v-if="submitResult" class="q-mt-sm">
+    <q-banner
+      v-if="submitSuccess"
+      type="positive"
+      icon="check_circle"
+      :label="successMessage"
+    />
+    <q-banner v-else type="negative" icon="warning" :label="failMessage" />
+  </div>
+  -->
             <div v-if="submitResult" class="q-mt-sm">
-              <q-banner
-                v-if="submitSuccess"
-                type="positive"
-                icon="check_circle"
-                :label="successMessage"
-              />
-              <q-banner v-else type="negative" icon="warning" :label="failMessage" />
+              <div v-if="submitSuccess" style="color: green">{{ successMessage }}</div>
+              <div v-else style="color: red">{{ failMessage }}</div>
             </div>
           </q-card-section>
           <q-separator spaced />
@@ -179,12 +185,14 @@ async function onSubmitAnswer() {
       is_correct: correct,
       status: status,
     })
+    console.log('서버 응답:', res.data)
+
     successMessage.value = '성공! 문제를 해결하셨습니다.'
     failMessage.value = '실패! 다시 시도해 보세요.'
-    if (res.data && res.data.status) {
-      successMessage.value = correct ? `성공! 서버 응답: ${res.data.status}` : successMessage.value
-      failMessage.value = !correct ? `실패! 서버 응답: ${res.data.status}` : failMessage.value
-    }
+    // if (res.data && res.data.status) {
+    //   successMessage.value = correct ? `성공! 서버 응답: ${res.data.status}` : successMessage.value
+    //   failMessage.value = !correct ? `실패! 서버 응답: ${res.data.status}` : failMessage.value
+    // }
     submitSuccess.value = correct
     submitResult.value = true
   } catch (e) {
@@ -208,6 +216,10 @@ async function onCreateServer() {
   }
   try {
     // 문제 id 고정(7)
+    await api.post('/labs/labs/environment', {
+      email: email,
+      lab_id: lab_id,
+    })
     const res = await api.post('/containers/start', { problem_id: lab_id })
     frontendPort.value = res.data.frontend_port
     serverCreated.value = true

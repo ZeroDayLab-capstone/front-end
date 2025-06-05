@@ -37,6 +37,7 @@
                 따라서, 개발자 도구 콘솔에서 제공된 JS 스니펫을 이용해 CSRF 취약점을 이용해 관리자
                 권한을 탈취하고, 플래그를 획득하세요.
               </p>
+              <p>일반 학생 아이디: student <br />일반 학생 비번: password</p>
             </div>
           </q-card-section>
 
@@ -55,7 +56,7 @@
           <q-separator spaced />
           <q-expansion-item group="hint" icon="help_outline" label="힌트" expand-separator>
             <div class="q-mt-sm">
-              <p>{{ hintText }}</p>
+              <pre>{{ hintText }}</pre>
             </div>
           </q-expansion-item>
 
@@ -68,6 +69,8 @@
               <q-btn label="제출" color="black" @click="onSubmitAnswer" />
               <q-btn label="해설" color="black" :to="{ name: 'WargameExplanationCsrfEx' }"></q-btn>
             </div>
+
+            <!--
             <div v-if="submitResult" class="q-mt-sm">
               <q-banner
                 v-if="submitSuccess"
@@ -76,6 +79,12 @@
                 :label="successMessage"
               />
               <q-banner v-else type="negative" icon="warning" :label="failMessage" />
+            </div>
+            -->
+
+            <div v-if="submitResult" class="q-mt-sm">
+              <div v-if="submitSuccess" style="color: green">{{ successMessage }}</div>
+              <div v-else style="color: red">{{ failMessage }}</div>
             </div>
           </q-card-section>
 
@@ -123,9 +132,28 @@ import { useAuthStore } from 'src/stores/auth'
 const problemTitle = ref('관리자 권한 탈취 작전')
 const problemScenario = ref('당신은 학교 성적 관리 시스템에 일반 학생으로 가입했습니다.')
 const difficulty = ref('medium') // 예: 'easy' / 'medium' / 'hard'
-const hintText = ref(
-  '/change_role 엔드포인트의 if token: 조건문이 토큰이 없는 요청을 검증 없이 통과시킨다는 점에 주목하세요.',
-)
+const hintText = ref(`
+(async function(){
+  try {
+    // 1) 로그인 (student/password)
+    let loginRes = await fetch('/api/login', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ username: 'student', password: 'password' })
+    });
+    if (!loginRes.ok) throw new Error('로그인 실패: ' + loginRes.status);
+
+    // 2) CSRF 취약점 우회: 토큰 없이 권한 탈취 (이 부분에 코드를 작성해주세요.)
+
+    // 3) 성공하면 플래그 페이지로 이동
+    location.href = '/flag.php';
+  } catch (e) {
+    console.error(e);
+    alert('오류 발생: ' + e.message);
+  }
+})();
+`)
 
 const auth = useAuthStore()
 
@@ -156,7 +184,6 @@ async function onSubmitAnswer() {
   const correct = userAnswer.value.trim() === 'FLAG{9c926de27b8995b218c8b1f51806ce21}'
   const status = correct ? 'completed' : 'in-progress'
 
-  // 서버에 결과 전송
   try {
     const res = await api.post('/labs/labs/submit', {
       email: email,
@@ -164,12 +191,14 @@ async function onSubmitAnswer() {
       is_correct: correct,
       status: status,
     })
+    console.log('서버 응답:', res.data)
+
     successMessage.value = '성공! 문제를 해결하셨습니다.'
     failMessage.value = '실패! 다시 시도해 보세요.'
-    if (res.data && res.data.status) {
-      successMessage.value = correct ? `성공! 서버 응답: ${res.data.status}` : successMessage.value
-      failMessage.value = !correct ? `실패! 서버 응답: ${res.data.status}` : failMessage.value
-    }
+    // if (res.data && res.data.status) {
+    //   successMessage.value = correct ? `성공! 서버 응답: ${res.data.status}` : successMessage.value
+    //   failMessage.value = !correct ? `실패! 서버 응답: ${res.data.status}` : failMessage.value
+    // }
     submitSuccess.value = correct
     submitResult.value = true
   } catch (e) {
