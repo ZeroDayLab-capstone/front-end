@@ -21,13 +21,11 @@
         />
         <span class="q-ml-sm text-h5 cursor-pointer" @click="goHome"> ZeroDay Lab </span>
 
-        <q-space />
         <!-- (B) 메인 메뉴 -->
         <div
           v-for="(item, idx) in mainMenu"
           :key="idx"
-          class="menu-item cursor-pointer"
-          :style="{ 'margin-left': idx === 0 ? '0' : '13%' }"
+          class="menu-item cursor-pointer q-ml-xl"
           @mouseover="hoverIndex = idx"
           @click="goPage(item.path)"
         >
@@ -177,6 +175,10 @@ const mainMenu = [
         ],
       },
     ],
+  },
+  {
+    label: 'COMMUNITY',
+    path: '/noticeboard',
   },
 ]
 

@@ -3,8 +3,8 @@
     <div class="row justify-center q-pb-lg">
       <!-- <q-img :src="mainlogo1"  width="100%" height="600px" /> -->
       <q-img
-        :src="mainlogo1"
-        style="width: 100%; max-width: 1900px; height: 500px"
+        :src="mainpage"
+        style="width: 100%; height: 600px"
         :img-props="{ style: 'width: 100%; height: 100%; object-fit: fill;' }"
       />
     </div>
@@ -36,13 +36,15 @@
         clickable
         :href="card.link"
         target="_blank"
+        style="text-decoration: none; color: inherit"
       >
         <!-- ① 이미지 컨테이너에 클래스 추가 -->
         <div class="my-card-img">
-          <q-img :src="card.img" />
+          <q-img :src="card.img" style="height: 170px; object-fit: cover" />
+          <q-separator />
         </div>
         <q-card-section>
-          <div class="text-h5 q-mt-sm q-mb-xs">{{ card.title }}</div>
+          <div class="text-h5 q-mb-xs">{{ card.title }}</div>
         </q-card-section>
       </q-card>
     </div>
@@ -52,7 +54,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useAuthStore } from 'src/stores/auth'
-import mainlogo1 from 'src/assets/mainlogo1.png'
+import mainpage from 'src/assets/mainpage.png'
 
 import securityimg1 from 'src/assets/securityimg1.png'
 import securityimg2 from 'src/assets/securityimg2.png'

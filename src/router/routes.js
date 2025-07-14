@@ -24,7 +24,10 @@ const routes = [
         path: 'mypage',
         component: () => import('pages/MyPage.vue'),
       },
-
+      {
+        path: 'noticeboard',
+        component: () => import('pages/NoticeBoard.vue'),
+      },
       // wargame
       {
         path: 'gamecsrf',
