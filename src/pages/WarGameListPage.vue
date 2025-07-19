@@ -1,108 +1,112 @@
 <template>
   <q-page class="q-pa-md">
-    <!-- CSRF 문제 카테고리 -->
-    <div class="text-h5">CSRF</div>
-    <div class="row wrap q-gutter-md justify-start">
-      <div v-for="vuln in csrfVulns" :key="vuln.id" class="my-card-container">
-        <q-card
-          flat
-          bordered
-          class="my-card"
-          @click.stop="solveProblem(vuln.id)"
-          style="cursor: pointer"
-        >
-          <q-img :src="vuln.image" style="width: 230px; object-fit: cover" />
-          <div class="row items-center justify-between q-pa-sm">
-            <div class="text-subtitle2" @click="solveProblem(vuln.id)" style="cursor: pointer">
-              {{ vuln.name }}
-            </div>
+    <div class="row justify-center">
+      <q-card flat>
+        <!-- CSRF 문제 카테고리 -->
+        <div class="text-h5">CSRF</div>
+        <div class="row wrap q-gutter-md justify-start">
+          <div v-for="vuln in csrfVulns" :key="vuln.id" class="my-card-container">
+            <q-card
+              flat
+              bordered
+              class="my-card"
+              @click.stop="solveProblem(vuln.id)"
+              style="cursor: pointer"
+            >
+              <q-img :src="vuln.image" style="width: 230px; object-fit: cover" />
+              <div class="row items-center justify-between q-pa-sm">
+                <div class="text-subtitle2" @click="solveProblem(vuln.id)" style="cursor: pointer">
+                  {{ vuln.name }}
+                </div>
+              </div>
+            </q-card>
           </div>
-        </q-card>
-      </div>
-    </div>
+        </div>
 
-    <!-- SQL Injection 문제 카테고리 -->
-    <div class="text-h5 q-pt-xl">SQL Injection</div>
-    <div class="row wrap q-gutter-md justify-start">
-      <div v-for="vuln in sqlInjectionVulns" :key="vuln.id" class="my-card-container">
-        <q-card
-          flat
-          bordered
-          class="my-card"
-          @click.stop="solveProblem(vuln.id)"
-          style="cursor: pointer"
-        >
-          <q-img :src="vuln.image" style="width: 230px; object-fit: cover" />
-          <div class="row items-center justify-between q-pa-sm">
-            <div class="text-subtitle2" @click="solveProblem(vuln.id)" style="cursor: pointer">
-              {{ vuln.name }}
-            </div>
+        <!-- SQL Injection 문제 카테고리 -->
+        <div class="text-h5 q-pt-xl">SQL Injection</div>
+        <div class="row wrap q-gutter-md justify-start">
+          <div v-for="vuln in sqlInjectionVulns" :key="vuln.id" class="my-card-container">
+            <q-card
+              flat
+              bordered
+              class="my-card"
+              @click.stop="solveProblem(vuln.id)"
+              style="cursor: pointer"
+            >
+              <q-img :src="vuln.image" style="width: 230px; object-fit: cover" />
+              <div class="row items-center justify-between q-pa-sm">
+                <div class="text-subtitle2" @click="solveProblem(vuln.id)" style="cursor: pointer">
+                  {{ vuln.name }}
+                </div>
+              </div>
+            </q-card>
           </div>
-        </q-card>
-      </div>
-    </div>
+        </div>
 
-    <!-- Command Injection 문제 -->
-    <div class="text-h5 q-pt-xl">Command Injection</div>
-    <div class="row wrap q-gutter-md justify-start">
-      <div v-for="vuln in commandInjectionVulns" :key="vuln.id" class="my-card-container">
-        <q-card
-          flat
-          bordered
-          class="my-card"
-          @click.stop="solveProblem(vuln.id)"
-          style="cursor: pointer"
-        >
-          <q-img :src="vuln.image" style="width: 230px; object-fit: cover" />
-          <div class="row items-center justify-between q-pa-sm">
-            <div class="text-subtitle2" @click="solveProblem(vuln.id)" style="cursor: pointer">
-              {{ vuln.name }}
-            </div>
+        <!-- Command Injection 문제 -->
+        <div class="text-h5 q-pt-xl">Command Injection</div>
+        <div class="row wrap q-gutter-md justify-start">
+          <div v-for="vuln in commandInjectionVulns" :key="vuln.id" class="my-card-container">
+            <q-card
+              flat
+              bordered
+              class="my-card"
+              @click.stop="solveProblem(vuln.id)"
+              style="cursor: pointer"
+            >
+              <q-img :src="vuln.image" style="width: 230px; object-fit: cover" />
+              <div class="row items-center justify-between q-pa-sm">
+                <div class="text-subtitle2" @click="solveProblem(vuln.id)" style="cursor: pointer">
+                  {{ vuln.name }}
+                </div>
+              </div>
+            </q-card>
           </div>
-        </q-card>
-      </div>
-    </div>
+        </div>
 
-    <!-- XSS 문제 카테고리 -->
-    <div class="text-h5 q-pt-xl">XSS</div>
-    <div class="row wrap q-gutter-md justify-start">
-      <div v-for="vuln in xssVulns" :key="vuln.id" class="my-card-container">
-        <q-card
-          flat
-          bordered
-          class="my-card"
-          @click.stop="solveProblem(vuln.id)"
-          style="cursor: pointer"
-        >
-          <q-img :src="vuln.image" style="width: 230px; object-fit: cover" />
-          <div class="row items-center justify-between q-pa-sm">
-            <div class="text-subtitle2" @click="solveProblem(vuln.id)" style="cursor: pointer">
-              {{ vuln.name }}
-            </div>
+        <!-- XSS 문제 카테고리 -->
+        <div class="text-h5 q-pt-xl">XSS</div>
+        <div class="row wrap q-gutter-md justify-start">
+          <div v-for="vuln in xssVulns" :key="vuln.id" class="my-card-container">
+            <q-card
+              flat
+              bordered
+              class="my-card"
+              @click.stop="solveProblem(vuln.id)"
+              style="cursor: pointer"
+            >
+              <q-img :src="vuln.image" style="width: 230px; object-fit: cover" />
+              <div class="row items-center justify-between q-pa-sm">
+                <div class="text-subtitle2" @click="solveProblem(vuln.id)" style="cursor: pointer">
+                  {{ vuln.name }}
+                </div>
+              </div>
+            </q-card>
           </div>
-        </q-card>
-      </div>
-    </div>
+        </div>
 
-    <!-- 기타 취약점 문제 카테고리 -->
-    <div class="text-h5 q-pt-xl">File Vulnerability</div>
-    <div class="row wrap q-gutter-md justify-start">
-      <div v-for="vuln in otherVulns" :key="vuln.id" class="my-card-container">
-        <q-card
-          flat
-          bordered
-          class="my-card"
-          @click.stop="solveProblem(vuln.id)"
-          style="cursor: pointer"
-        >
-          <q-img :src="vuln.image" style="width: 230px; object-fit: cover" />
-          <div class="row items-center justify-between q-pa-sm">
-            <div class="text-subtitle2" @click="solveProblem(vuln.id)" style="cursor: pointer">
-              {{ vuln.name }}
-            </div>
+        <!-- 기타 취약점 문제 카테고리 -->
+        <div class="text-h5 q-pt-xl">File Vulnerability</div>
+        <div class="row wrap q-gutter-md justify-start">
+          <div v-for="vuln in otherVulns" :key="vuln.id" class="my-card-container">
+            <q-card
+              flat
+              bordered
+              class="my-card"
+              @click.stop="solveProblem(vuln.id)"
+              style="cursor: pointer"
+            >
+              <q-img :src="vuln.image" style="width: 230px; object-fit: cover" />
+              <div class="row items-center justify-between q-pa-sm">
+                <div class="text-subtitle2" @click="solveProblem(vuln.id)" style="cursor: pointer">
+                  {{ vuln.name }}
+                </div>
+              </div>
+            </q-card>
           </div>
-        </q-card>
-      </div>
+        </div>
+      </q-card>
     </div>
   </q-page>
 </template>

@@ -28,6 +28,10 @@ const routes = [
         path: 'noticeboard',
         component: () => import('pages/NoticeBoard.vue'),
       },
+      {
+        path: 'findpwd',
+        component: () => import('pages/FindPasswordPage.vue'),
+      },
       // wargame
       {
         path: 'gamecsrf',
@@ -266,6 +270,11 @@ const routes = [
           // 기본 /admin 로 접근 시 리다이렉트하려면 아래 한 줄 추가
           { path: '', redirect: '/admin/users' },
         ],
+      },
+
+      {
+        path: '/mdtest',
+        component: () => import('pages/TestMarkdownPage.vue'),
       },
     ],
   },

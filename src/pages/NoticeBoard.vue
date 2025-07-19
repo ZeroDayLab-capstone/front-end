@@ -1,13 +1,15 @@
 <template>
-  <div>
-    <!-- 탭 메뉴 -->
-    <q-tabs v-model="selectedTab" class="q-mb-md">
-      <q-tab v-for="tab in tabs" :key="tab.key" :name="tab.key" :label="tab.label" />
-    </q-tabs>
+  <q-page class="q-ma-lg">
+    <div class="justify-center">
+      <!-- 탭 메뉴 -->
+      <q-tabs v-model="selectedTab" class="q-mb-md">
+        <q-tab v-for="tab in tabs" :key="tab.key" :name="tab.key" :label="tab.label" />
+      </q-tabs>
 
-    <!-- 게시글 표 -->
-    <q-table :rows="filteredRows" :columns="columns" row-key="no" />
-  </div>
+      <!-- 게시글 표 -->
+      <q-table :rows="filteredRows" :columns="columns" row-key="no" />
+    </div>
+  </q-page>
 </template>
 
 <script setup>
@@ -17,8 +19,6 @@ const tabs = [
   { key: 'notice', label: 'NOTICE' },
   { key: 'faq', label: 'FAQ' },
   { key: 'qna', label: 'Q&A' },
-  { key: 'class', label: 'CLASS' },
-  { key: 'stock', label: '입고정보' },
 ]
 const selectedTab = ref('faq')
 
