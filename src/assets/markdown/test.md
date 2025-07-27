@@ -1,14 +1,14 @@
-# 1️⃣**웹**
+# 1️⃣웹
 
-## **웹(Web)이란?🕸️**
+## 웹(Web)이란?🕸️
 
-![image.png](97374c1e-6526-4c54-98c3-0039dc566228.png)
+![web1.png](src\assets\web1.png)
 
 - 정의: 인터넷을 기반으로 구현된 서비스 중 HTTP를 이용하여 정보를 공유하는 서비스
 
-## 웹의 기본 구성 **요소**
+## 웹의 기본 구성 요소
 
-![ChatGPT Image 2025년 4월 19일 오후 04_51_56.png](ChatGPT_Image_2025%EB%85%84_4%EC%9B%94_19%EC%9D%BC_%EC%98%A4%ED%9B%84_04_51_56.png)
+![web2.png](src\assets\web2.png)
 
 ### 1. 웹 서버
 
@@ -30,7 +30,7 @@
 
 ## 웹의 동작 방식
 
-![ChatGPT Image 2025년 4월 19일 오후 04_57_31.png](417ee36c-f836-45d5-89d6-ea84d2f0e1b4.png)
+![web3.png](src\assets\web3.png)
 
 웹은 **클라이언트-서버 모델**을 기반으로 동작합니다.
 사용자가 웹 브라우저에서 URL을 입력하면 다음과 같은 과정이 수행됩니다:
@@ -42,7 +42,7 @@
 
 ## 웹 기술
 
-![ChatGPT Image 2025년 4월 19일 오후 05_04_06.png](a65a94cc-0c86-4d62-a2cc-17b0a78429ef.png)
+![web4.png](src\assets\web4.png)
 
 ### 1. **HTML**
 
