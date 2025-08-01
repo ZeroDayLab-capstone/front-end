@@ -11,7 +11,6 @@ const routes = [
         component: () => import('pages/IndexPage.vue'),
         meta: { hasDrawer: false },
       },
-
       {
         path: 'login',
         component: () => import('pages/LoginPage.vue'),
@@ -174,7 +173,7 @@ const routes = [
         component: () => import('pages/StudyPage.vue'),
       },
 
-      // 취약점 페이지들 (예시)
+      // 취약점 페이지들
       {
         path: 'sqlinjection',
         component: () => import('src/pages/sqlInjection/SqlInjectionLayoutPage.vue'),

@@ -11,6 +11,7 @@
     <!-- 상단 헤더 -->
     <q-header flat pinned style="background-color: white; color: black">
       <div class="row no-wrap items-center q-px-md" style="height: 60px">
+        <q-space />
         <!-- 로고 -->
         <q-img
           :src="logo"
@@ -44,6 +45,7 @@
           <q-btn flat dense label="로그아웃" class="q-ml-md" @click="onLogout" />
           <q-btn flat dense label="마이페이지" class="q-ml-md" @click="goMyPage" />
         </template>
+        <q-space />
       </div>
     </q-header>
 
@@ -76,7 +78,7 @@
 
     <!-- (F) 푸터 -->
     <q-footer class="bg-grey-2 text-black">
-      <div class="text-center q-pa-md">© 2025 ZeroDay Lab. All Rights Reserved.</div>
+      <div class="text-center q-pa-xl">© 2025 ZeroDay Lab. All Rights Reserved.</div>
     </q-footer>
   </q-layout>
 </template>

@@ -2,7 +2,7 @@
   <q-page class="q-pa-md problem-explanation-page">
     <div class="row justify-center">
       <div class="col-12 col-md-7">
-        <q-card flat class="bg-grey-1 text-dark q-px-sm q-pb-sm">
+        <q-card flat class="text-dark q-px-sm q-pb-sm">
           <!-- 헤더 (문제 제목, 난이도, etc.) -->
           <q-card-section>
             <div class="text-h5">{{ problemTitle }}</div>
@@ -81,17 +81,7 @@
                 :to="{ name: 'WargameExplanationCmdInjection' }"
               ></q-btn>
             </div>
-            <!--
-  <div v-if="submitResult" class="q-mt-sm">
-    <q-banner
-      v-if="submitSuccess"
-      type="positive"
-      icon="check_circle"
-      :label="successMessage"
-    />
-    <q-banner v-else type="negative" icon="warning" :label="failMessage" />
-  </div>
-  -->
+
             <div v-if="submitResult" class="q-mt-sm">
               <div v-if="submitSuccess" style="color: green">{{ successMessage }}</div>
               <div v-else style="color: red">{{ failMessage }}</div>
@@ -183,10 +173,6 @@ async function onSubmitAnswer() {
 
     successMessage.value = '성공! 문제를 해결하셨습니다.'
     failMessage.value = '실패! 다시 시도해 보세요.'
-    // if (res.data && res.data.status) {
-    //   successMessage.value = correct ? `성공! 서버 응답: ${res.data.status}` : successMessage.value
-    //   failMessage.value = !correct ? `실패! 서버 응답: ${res.data.status}` : failMessage.value
-    // }
     submitSuccess.value = correct
     submitResult.value = true
   } catch (e) {

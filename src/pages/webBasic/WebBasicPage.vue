@@ -1,27 +1,33 @@
 <template>
-  <q-page class="q-pa-md">
-    <div class="centered-container">
-      <!-- 섹션 제목 -->
-      <h2 class="text-h4 text-weight-bold q-mb-md">{{ currentSection.title }}</h2>
+  <q-page class="q-pa-md bg-grey-2">
+    <div class="row justify-center">
+      <div class="col-12 col-md-7">
+        <q-card flat>
+          <div class="centered-container">
+            <!-- 섹션 제목 -->
+            <h2 class="text-h4 text-weight-bold q-mb-md">{{ currentSection.title }}</h2>
 
-      <!-- 동적 컴포넌트 렌더링 -->
-      <component :is="currentSection.component" />
+            <!-- 동적 컴포넌트 렌더링 -->
+            <component :is="currentSection.component" />
 
-      <!-- 이전/다음 버튼 -->
-      <div class="bottom-right-buttons">
-        <q-btn
-          v-if="currentIndex > 0"
-          label="이전"
-          class="q-mr-sm"
-          color="black"
-          @click="goPrevious"
-        />
-        <q-btn
-          v-if="currentIndex < sections.length - 1"
-          label="다음"
-          color="black"
-          @click="goNext"
-        />
+            <!-- 이전/다음 버튼 -->
+            <div class="bottom-right-buttons">
+              <q-btn
+                v-if="currentIndex > 0"
+                label="이전"
+                class="q-mr-sm"
+                color="black"
+                @click="goPrevious"
+              />
+              <q-btn
+                v-if="currentIndex < sections.length - 1"
+                label="다음"
+                color="black"
+                @click="goNext"
+              />
+            </div>
+          </div>
+        </q-card>
       </div>
     </div>
   </q-page>
