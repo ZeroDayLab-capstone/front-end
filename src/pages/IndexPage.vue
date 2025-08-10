@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pb-xl">
+  <q-page>
     <div class="row justify-center">
       <q-img
         :src="mainpage"
@@ -7,8 +7,8 @@
         :img-props="{ style: 'width: 100%; height: 100%; object-fit: fill;' }"
       >
         <div
-          class="absolute-full flex flex-center"
-          style="color: white; font-size: 7rem; font-weight: bold; text-shadow: 0 2px 12px #000b"
+          class="absolute-full flex flex-center text-h1"
+          style="color: white; font-weight: bold; text-shadow: 0 2px 12px #000b"
         >
           Welcome To ZeroDay Lab!
         </div>
@@ -17,27 +17,19 @@
 
     <div class="row justify-center">
       <q-img
-        :src="mainpage2"
-        style="width: 100%; height: 890px"
+        :src="mainpage1"
+        style="width: 100%"
         :img-props="{ style: 'width: 100%; height: 100%; object-fit: fill;' }"
       >
         <div
           v-intersect
+          ref="animatedBox"
           :class="['q-pa-xl q-ma-xl text-left animated-fadein-up', { show: isVisible }]"
-          style="
-            background: transparent;
-            color: white;
-            font-size: 7rem;
-            font-weight: bold;
-            text-shadow: 0 2px 12px #000b;
-          "
+          style="background: transparent; color: #000000; font-size: 7rem; font-weight: bold"
         >
-          <div
-            ref="animatedBox"
-            :class="['q-pa-xl q-ma-xl text-left animated-fadein-up', { show: isVisible }]"
-          >
-            <div class="text-h1 text-bold q-py-xl">What is ZeroDay Lab?</div>
-            <div class="text-h5">
+          <div style="padding: 100px">
+            <div class="text-bold" style="font-size: 7rem">What is ZeroDay Lab?</div>
+            <div class="text-bold q-pt-md" style="font-size: 1.88rem">
               <div>제로데이 랩에 오신 것을 환영합니다!</div>
               <div class="q-pt-md">
                 제로데이 랩은 웹 보안에 입문한 공학도들이 SQL Injection, XSS, CSRF 등의 핵심
@@ -58,32 +50,35 @@
       </q-img>
     </div>
 
-    <q-card class="bg-grey-3" style="padding: 420px">
-      <div class="text-h4 text-bold">ZeroDay Lab 정복하기</div>
-    </q-card>
-
-    <div class="q-pa-md row q-gutter-xl flex flex-center">
-      <q-card
-        v-for="(card, index) in cards"
-        :key="index"
-        tag="a"
-        class="my-card"
-        flat
-        bordered
-        clickable
-        :href="card.link"
-        target="_blank"
-        style="text-decoration: none; color: inherit"
-      >
-        <!-- ① 이미지 컨테이너에 클래스 추가 -->
-        <div class="my-card-img">
-          <q-img :src="card.img" style="height: 170px; object-fit: cover" />
-          <q-separator />
+    <div style="padding: 200px" class="bg-grey-2 text-center">
+      <div class="text-h2 text-bold q-pb-xl">How it works</div>
+      <div class="text-h6 q-mt-sm" style="max-width: 800px; margin: auto">
+        This is the website we wish we had when we were learning on our own. We scour the internet
+        looking for only the best resources to supplement your learning and present them in a
+        logical order.
+      </div>
+      <div class="row q-mt-xl q-gutter-xl justify-center no-wrap">
+        <div class="col-4">
+          <q-img :src="mainpageLearn" style="width: 300px" class="q-mb-md"></q-img>
+          <div class="text-h6 q-mt-sm">
+            Learn from a curriculum with the best curated online tutorials, blogs, and courses.
+          </div>
         </div>
-        <q-card-section>
-          <div class="text-h5 q-mb-xs">{{ card.title }}</div>
-        </q-card-section>
-      </q-card>
+        <div class="col-4">
+          <q-img :src="mainpagePractice" style="width: 300px" class="q-mb-md"></q-img>
+          <div class="text-h6 q-mt-sm">
+            Strengthen your skills through hands-on Wargame challenges designed to simulate
+            real-world web vulnerabilities and exploitation techniques.
+          </div>
+        </div>
+        <div class="col-4">
+          <q-img :src="mainpageCommunity" style="width: 300px" class="q-mb-md"></q-img>
+          <div class="text-h6 q-mt-sm">
+            You're not alone. Join our community of cybersecurity learners, where beginners and
+            future experts support each other every step of the way
+          </div>
+        </div>
+      </div>
     </div>
   </q-page>
 </template>
@@ -92,14 +87,10 @@
 import { ref, onMounted } from 'vue'
 import { useAuthStore } from 'src/stores/auth'
 import mainpage from 'src/assets/mainpage.png'
-import mainpage2 from 'src/assets/mainpage2.png'
-
-import securityimg1 from 'src/assets/securityimg1.png'
-import securityimg2 from 'src/assets/securityimg2.png'
-import securityimg3 from 'src/assets/securityimg3.png'
-import securityimg4 from 'src/assets/securityimg4.png'
-import securityimg5 from 'src/assets/securityimg5.png'
-import securityimg6 from 'src/assets/securityimg6.png'
+import mainpage1 from 'src/assets/mainpage1.png'
+import mainpageLearn from 'src/assets/mainpageLearn.png'
+import mainpagePractice from 'src/assets/mainpagePractice.png'
+import mainpageCommunity from 'src/assets/mainpageCommunity.png'
 
 // text animation 처리
 const isVisible = ref(false)
@@ -129,38 +120,38 @@ onMounted(() => {
 })
 
 // 카드 데이터
-const cards = ref([
-  {
-    title: 'Global Cybersecurity',
-    img: securityimg1,
-    link: 'https://globalcybersecuritynetwork.com/blog/latest-cyber-security-news/',
-  },
-  {
-    title: 'SOC Investigation',
-    img: securityimg2,
-    link: 'https://www.socinvestigation.com/latest-cyber-security-news-hacker-news/',
-  },
-  {
-    title: 'PSA-국가 사이버보안',
-    img: securityimg3,
-    link: 'https://www.psa-gov.ie/',
-  },
-  {
-    title: '보안뉴스',
-    img: securityimg4,
-    link: 'https://www.boannews.com/',
-  },
-  {
-    title: 'KISIA',
-    img: securityimg5,
-    link: 'https://www.kisia.or.kr/announcement/today_news/',
-  },
-  {
-    title: 'Cybersecurity Dive',
-    img: securityimg6,
-    link: 'https://www.cybersecuritydive.com/',
-  },
-])
+// const cards = ref([
+//   {
+//     title: 'Global Cybersecurity',
+//     img: securityimg1,
+//     link: 'https://globalcybersecuritynetwork.com/blog/latest-cyber-security-news/',
+//   },
+//   {
+//     title: 'SOC Investigation',
+//     img: securityimg2,
+//     link: 'https://www.socinvestigation.com/latest-cyber-security-news-hacker-news/',
+//   },
+//   {
+//     title: 'PSA-국가 사이버보안',
+//     img: securityimg3,
+//     link: 'https://www.psa-gov.ie/',
+//   },
+//   {
+//     title: '보안뉴스',
+//     img: securityimg4,
+//     link: 'https://www.boannews.com/',
+//   },
+//   {
+//     title: 'KISIA',
+//     img: securityimg5,
+//     link: 'https://www.kisia.or.kr/announcement/today_news/',
+//   },
+//   {
+//     title: 'Cybersecurity Dive',
+//     img: securityimg6,
+//     link: 'https://www.cybersecuritydive.com/',
+//   },
+// ])
 </script>
 
 <style scoped>

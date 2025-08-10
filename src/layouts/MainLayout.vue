@@ -77,8 +77,8 @@
     </q-page-container>
 
     <!-- (F) 푸터 -->
-    <q-footer class="bg-grey-2 text-black">
-      <div class="text-center q-pa-xl">© 2025 ZeroDay Lab. All Rights Reserved.</div>
+    <q-footer class="bg-white text-black">
+      <div class="text-center q-pa-lg">© 2025 ZeroDay Lab. All Rights Reserved.</div>
     </q-footer>
   </q-layout>
 </template>
