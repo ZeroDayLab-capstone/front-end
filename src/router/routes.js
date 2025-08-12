@@ -24,10 +24,6 @@ const routes = [
         component: () => import('pages/MyPage.vue'),
       },
       {
-        path: 'noticeboard',
-        component: () => import('pages/NoticeBoard.vue'),
-      },
-      {
         path: 'findpwd',
         component: () => import('pages/FindPasswordPage.vue'),
       },
@@ -268,6 +264,19 @@ const routes = [
           { path: 'logs', component: () => import('pages/admin/SysLogs.vue') },
           // 기본 /admin 로 접근 시 리다이렉트하려면 아래 한 줄 추가
           { path: '', redirect: '/admin/users' },
+        ],
+      },
+
+      // community
+      {
+        path: 'community',
+        component: () => import('pages/CommunityPage.vue'),
+        children: [
+          { path: 'notice', component: () => import('pages/community/NoticeList.vue') },
+          { path: 'faq', component: () => import('pages/community/FaqList.vue') },
+          { path: 'qna', component: () => import('pages/community/QnaList.vue') },
+          { path: 'notice/:id', component: () => import('pages/community/NoticeDetail.vue') },
+          { path: 'qna/:id', component: () => import('pages/community/QnaDetail.vue') },
         ],
       },
 

@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pa-md">
+  <q-page class="q-pa-md bg-grey-2">
     <div class="row justify-center">
       <q-card flat>
         <!-- CSRF 문제 카테고리 -->

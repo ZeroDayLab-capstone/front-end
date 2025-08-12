@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pa-md">
+  <q-page class="q-pa-md bg-grey-2">
     <div class="row justify-center">
       <q-card flat class="q-px-sm q-pb-sm">
         <div class="text-h4 q-mb-xl">클라이언트 사이드 취약점</div>
