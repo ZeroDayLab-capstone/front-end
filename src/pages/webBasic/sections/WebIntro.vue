@@ -3,14 +3,16 @@
     <!-- 웹(Web)이란? 소제목 -->
     <div class="text-h5 q-mt-md"><span class="text-weight-bold">웹(Web)이란?</span>🕸️</div>
 
-    <q-img :src="web1" class="q-my-lg q-mx-auto" style="width: 550px" />
+    <!-- <q-img :src="web1" class="q-my-lg q-mx-auto" style="width: 550px" /> -->
+    <q-img :src="newwebbasic1" class="q-my-lg q-mx-auto" style="width: 550px" />
     <!-- 설명 텍스트 -->
     <div class="q-my-lg text-h6" style="display: list-item; list-style-type: disc">
       정의: 인터넷을 기반으로 구현된 서비스 중 HTTP를 이용하여 정보를 공유하는 서비스
     </div>
 
     <div class="text-h5 q-mt-xl"><span class="text-weight-bold">웹의 기본 구성 요소</span></div>
-    <q-img :src="web2" class="q-my-lg q-mx-auto" style="width: 550px" />
+    <!-- <q-img :src="web2" class="q-my-lg q-mx-auto" style="width: 550px" /> -->
+    <q-img :src="newweb2" class="q-my-lg q-mx-auto" style="width: 550px" />
     <div class="text-h5 q-mt-xl"><strong>1. 웹 서버</strong></div>
     <ul>
       <li class="text-h6">정의: 정보를 제공하는 주체</li>
@@ -78,10 +80,12 @@
 </template>
 
 <script setup>
-import web1 from 'src/assets/web1.png'
-import web2 from 'src/assets/web2.png'
+// import web1 from 'src/assets/web1.png'
+// import web2 from 'src/assets/web2.png'
 import web3 from 'src/assets/web3.png'
 import web4 from 'src/assets/web4.png'
+import newwebbasic1 from 'src/assets/newwebbasic1.png'
+import newweb2 from 'src/assets/newweb2.png'
 </script>
 
 <style scoped>
