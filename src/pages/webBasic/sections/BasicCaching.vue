@@ -29,6 +29,6 @@
 </template>
 
 <script setup>
-import caching1 from 'src/assets/caching1.png'
-import caching2 from 'src/assets/caching2.png'
+import caching1 from '@/assets/img/webbasic/caching/caching-01.png'
+import caching2 from '@/assets/img/webbasic/caching/caching-table-02.png'
 </script>

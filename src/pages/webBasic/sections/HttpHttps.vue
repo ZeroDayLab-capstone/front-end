@@ -59,7 +59,7 @@
 </template>
 
 <script setup>
-import http1 from 'src/assets/http1.png'
-import http2 from 'src/assets/http2.png'
-import http3 from 'src/assets/http3.png'
+import http1 from '@/assets/img/webbasic/http/http-01.png'
+import http2 from '@/assets/img/webbasic/http/http-table-02.png'
+import http3 from '@/assets/img/webbasic/http/http-table-03.png'
 </script>

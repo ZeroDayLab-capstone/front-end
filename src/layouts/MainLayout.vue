@@ -1,17 +1,27 @@
 <template>
   <q-layout view="hhh Lpr fff">
-    <!-- (A) 좌측 드로어: 라우트 메타에 따라 표시 -->
+    <!-- (A) 좌측 드로어 -->
     <q-drawer v-if="hasDrawer" v-model="leftDrawerOpen" show-if-above bordered>
       <q-list padding>
         <q-item-label header>ZeroDay Lab</q-item-label>
-        <q-item v-for="(link, idx) in drawerLinks" :key="idx" clickable @click="goPage(link.path)">
+
+        <!-- drawerLinks: meta에서 받아 온 { title, to } 사용 -->
+        <q-item
+          v-for="(link, idx) in drawerLinks"
+          :key="idx"
+          clickable
+          :to="normalizeTo(link)"
+          active-class="white"
+          exact
+          v-ripple
+        >
           <q-item-section>{{ link.title }}</q-item-section>
         </q-item>
       </q-list>
     </q-drawer>
 
     <!-- (B) 상단 헤더 -->
-    <q-header flat pinned style="background-color: white; color: black">
+    <q-header flat pinned class="bg-white text-black">
       <div class="row no-wrap items-center q-px-md" style="height: 60px">
         <q-space />
 
@@ -25,12 +35,12 @@
         />
         <span class="q-ml-sm text-h5 cursor-pointer" @click="goHome"> ZeroDay Lab </span>
 
-        <!-- (C) 메인 메뉴 (드롭다운 제거, 클릭 이동만) -->
+        <!-- (C) 메인 메뉴 -->
         <div
           v-for="(item, idx) in mainMenu"
           :key="idx"
           class="menu-item cursor-pointer q-ml-xl"
-          @click="goPage(item.path)"
+          @click="go(item)"
         >
           {{ item.label }}
         </div>
@@ -79,35 +89,44 @@ const drawerLinks = computed(() => route.meta.drawerLinks || [])
 const hasDrawer = computed(() => drawerLinks.value.length > 0)
 const leftDrawerOpen = ref(true)
 
-/** 네비게이션 */
-function goHome() {
-  router.push('/main')
-}
-function goToLogin() {
-  router.push('/login')
-}
-function goRegister() {
-  router.push('/register')
-}
-function goMyPage() {
-  router.push('/mypage')
-}
-function goPage(path) {
-  router.push(path)
+/** 라우팅 유틸: { to } 선호, 필요 시 { path }도 임시 지원 */
+function normalizeTo(link) {
+  if (link?.to) return link.to
+  if (link?.path) return link.path // 레거시 호환
+  return { name: 'main' }
 }
 
-/** 상단 메뉴 (드롭다운 제거 → 단일 경로만 사용) */
+/** 상단 메뉴: name + query 사용(가능하면) */
 const mainMenu = [
-  { label: '웹 기초', path: '/webbasic?sec=0' }, // 첫 섹션으로 진입
-  { label: '웹 취약점', path: '/study' }, // 랜딩/요약 페이지로 이동
-  { label: 'War Game', path: '/wargamelist' },
-  { label: 'COMMUNITY', path: '/community/faq' }, // routes에서 /community → ('' → faq) 리디렉트 설정 가정
+  { label: '웹 기초', to: { name: 'webbasic', query: { sec: 0 } } }, // ✅
+  { label: '웹 취약점', to: { name: 'study' } }, // ✅
+  { label: 'War Game', to: { name: 'wargame-list' } }, // ✅
+  { label: 'COMMUNITY', to: '/community/faq' }, // 라우트에 name 없으면 path로
 ]
+
+function goHome() {
+  router.push({ name: 'main' })
+}
+function goToLogin() {
+  router.push({ name: 'login' })
+}
+function goRegister() {
+  router.push({ name: 'register' })
+}
+function goMyPage() {
+  router.push({ name: 'mypage' })
+}
+
+/** 공통 이동 핸들러 (to 객체/문자열 모두 지원) */
+function go(item) {
+  const dest = item?.to ?? item?.path ?? item
+  router.push(dest)
+}
 
 /** 로그아웃 */
 function onLogout() {
   auth.logout()
-  router.push('/login')
+  router.push({ name: 'login' })
 }
 </script>
 
@@ -115,6 +134,4 @@ function onLogout() {
 .menu-item {
   line-height: 60px;
 }
-
-/* 드롭다운 관련 스타일 제거됨 */
 </style>

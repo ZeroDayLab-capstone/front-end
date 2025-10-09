@@ -19,6 +19,6 @@
 </template>
 
 <script setup>
-import browser1 from 'src/assets/browser1.png'
-import browser2 from 'src/assets/browser2.png'
+import browser1 from '@/assets/img/webbasic/browser/browser-01.png'
+import browser2 from '@/assets/img/webbasic/browser/browser-table-02.png'
 </script>

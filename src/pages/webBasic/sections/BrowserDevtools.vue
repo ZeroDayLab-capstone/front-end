@@ -7,6 +7,6 @@
 </template>
 
 <script setup>
-import devtool1 from 'src/assets/devtool1.png'
-import devtool2 from 'src/assets/devtool2.png'
+import devtool1 from '@/assets/img/webbasic/devtools/devtool-01.png'
+import devtool2 from '@/assets/img/webbasic/devtools/devtool-table-02.png'
 </script>

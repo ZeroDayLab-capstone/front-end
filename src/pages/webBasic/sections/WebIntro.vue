@@ -4,15 +4,17 @@
     <div class="text-h5 q-mt-md"><span class="text-weight-bold">웹(Web)이란?</span>🕸️</div>
 
     <!-- <q-img :src="web1" class="q-my-lg q-mx-auto" style="width: 550px" /> -->
-    <q-img :src="newweb1" class="q-my-lg q-mx-auto" style="width: 550px" />
+    <q-img :src="web1" class="q-my-lg q-mx-auto" style="width: 550px" />
     <!-- 설명 텍스트 -->
-    <div class="q-my-lg text-h6" style="display: list-item; list-style-type: disc">
-      정의: 인터넷을 기반으로 구현된 서비스 중 HTTP를 이용하여 정보를 공유하는 서비스
+    <div class="q-my-lg text-h6 q-pl-md" style="display:">
+      인터넷을 기반으로 구현된 서비스 중 HTTP를 이용하여 정보를 공유하는 서비스
     </div>
+
+    <q-separator />
 
     <div class="text-h5 q-mt-xl"><span class="text-weight-bold">웹의 기본 구성 요소</span></div>
     <!-- <q-img :src="web2" class="q-my-lg q-mx-auto" style="width: 550px" /> -->
-    <q-img :src="newweb2" class="q-my-lg q-mx-auto" style="width: 550px" />
+    <q-img :src="web2" class="q-my-lg q-mx-auto" style="width: 550px" />
     <div class="text-h5 q-mt-xl"><strong>1. 웹 서버</strong></div>
     <ul>
       <li class="text-h6">정의: 정보를 제공하는 주체</li>
@@ -37,14 +39,16 @@
       <li>ex) HTML, Javascript, CSS 등</li>
     </ul>
 
+    <q-separator />
+
     <div class="text-h5 q-mt-xl"><strong>웹의 동작 방식</strong></div>
-    <q-img :src="newweb3" class="q-my-lg q-mx-auto" style="width: 550px" />
+    <q-img :src="web3" class="q-my-lg q-mx-auto" style="width: 550px" />
     <div class="text-h6">
       웹은 <strong>클라이언트-서버 모델</strong>을 기반으로 동작합니다. <br />
       사용자가 웹 브라우저에서 URL을 입력하면 다음과 같은 과정이 수행됩니다:
     </div>
 
-    <div class="q-pa-sm text-h6">
+    <div class="q-pa-sm q-pb-lg text-h6">
       <div><strong>1. DNS 조회:</strong> 입력한 도메인(URL)이 IP 주소로 변환됨</div>
       <div><strong>2. 서버 요청:</strong> 반환된 IP 주소의 웹 서버에 HTTP 요청 전송</div>
       <div>
@@ -56,8 +60,10 @@
       </div>
     </div>
 
+    <q-separator />
+
     <div class="text-h5 q-pt-xl"><span class="text-weight-bold">웹 기술</span></div>
-    <q-img :src="newweb4" class="q-my-lg q-mx-auto" style="width: 550px"></q-img>
+    <q-img :src="web4" class="q-my-lg q-mx-auto" style="width: 550px"></q-img>
 
     <div class="text-h5 q-pt-lg"><strong>1. HTML</strong></div>
     <ul class="text-h6">
@@ -80,10 +86,10 @@
 </template>
 
 <script setup>
-import newweb1 from 'src/assets/newweb1.png'
-import newweb2 from 'src/assets/newweb2.png'
-import newweb3 from 'src/assets/newweb3.png'
-import newweb4 from 'src/assets/newweb4.png'
+import web1 from '@/assets/img/webbasic/web/web-01.png'
+import web2 from '@/assets/img/webbasic/web/web-02.png'
+import web3 from '@/assets/img/webbasic/web/web-03.png'
+import web4 from '@/assets/img/webbasic/web/web-04.png'
 </script>
 
 <style scoped>

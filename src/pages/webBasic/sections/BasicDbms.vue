@@ -1,6 +1,5 @@
 <template>
   <q-page class="q-pa-md">
-    <div class="text-h5 text-weight-bold">DBMS</div>
     <div class="row justify-center q-mb-lg">
       <q-img :src="dbms1" style="width: 550px"></q-img>
     </div>
@@ -49,6 +48,6 @@
 </template>
 
 <script setup>
-import dbms1 from 'src/assets/dbms1.png'
-import dbms2 from 'src/assets/dbms2.png'
+import dbms1 from '@/assets/img/webbasic/dbms/dbms-01.png'
+import dbms2 from '@/assets//img/webbasic/dbms/dbms-table-02.png'
 </script>

@@ -84,10 +84,10 @@
 </template>
 
 <script setup>
-import cookie1 from 'src/assets/cookie1.png'
-import cookie2 from 'src/assets/cookie2.png'
-import cookie3 from 'src/assets/cookie3.png'
-import cookie4 from 'src/assets/cookie4.png'
+import cookie1 from '@/assets/img/webbasic/cookie/cookie-01.png'
+import cookie2 from '@/assets/img/webbasic/cookie/cookie-02.png'
+import cookie3 from '@/assets/img/webbasic/cookie/cookie-table-03.png'
+import cookie4 from '@/assets/img/webbasic/cookie/cookie-table-04.png'
 
 const scriptTag = '<script>'
 </script>
