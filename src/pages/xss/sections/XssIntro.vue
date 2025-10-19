@@ -2,7 +2,7 @@
   <q-page class="q-pa-md">
     <div class="text-h5 text-weight-bold">✅소개</div>
     <div class="row justify-center q-my-lg">
-      <q-img :src="xss1" style="width: 500px"></q-img>
+      <q-img :src="xss1" style="width: 100%"></q-img>
     </div>
 
     <div class="text-h6">
@@ -51,7 +51,11 @@
         행하기 위한 태그로는 <span style="color: red">{{ codeSnippet2 }}</span> 가 있습니다
       </div>
       <div class="text-h5 text-weight-bold q-pt-lg">✅XSS 작동 원리</div>
-      <div class="text-h6 q-pa-sm">
+      <div class="row justify-center q-my-lg">
+        <q-img :src="xss3" style="width: 100%"></q-img>
+      </div>
+
+      <div class="text-h6 q-pa-sm q-pt-md">
         <div>
           1. 사용자가 웹사이트에 입력값을 전달 ( <span style="color: red">{{ codeSnippet }}</span> )
         </div>
@@ -68,8 +72,9 @@
 </template>
 
 <script setup>
-import xss1 from 'src/assets/xss1.png'
-import xss2 from 'src/assets/xss2.png'
+import xss1 from 'src/assets/img/xss/intro/xss-intro-01.png'
+import xss2 from 'src/assets/img/xss/intro/xss-intro-02.png'
+import xss3 from 'src/assets/img/xss/intro/xss-intro-03.png'
 
 const codeSnippet2 = '<script>'
 const codeSnippet = '<script>alert("XSS")<' + '/script>'

@@ -2,7 +2,7 @@
   <q-page class="q-pa-md">
     <div class="text-weight-bold text-h5 q-mt-md">🔥 Gmail CSRF 공격 (2007년)</div>
     <div class="row justify-center q-my-lg">
-      <q-img :src="csrf3" style="width: 500px"></q-img>
+      <q-img :src="csrf3" style="width: 800px"></q-img>
     </div>
     <div class="text-h6">
       <div style="display: list-item; list-style-type: disc">
@@ -18,7 +18,7 @@
 
     <div class="text-weight-bold text-h5 q-mt-xl">🔥 온라인 뱅킹 CSRF 공격 (2007년)</div>
     <div class="row justify-center q-my-lg">
-      <q-img :src="csrf4" style="width: 500px"></q-img>
+      <q-img :src="csrf4" style="width: 800px"></q-img>
     </div>
     <div class="text-h6">
       <div style="display: list-item; list-style-type: disc">
@@ -33,6 +33,6 @@
 </template>
 
 <script setup>
-import csrf3 from 'src/assets/csrf3.png'
-import csrf4 from 'src/assets/csrf4.png'
+import csrf3 from 'src/assets/img/csrf/incidents/csrf-incidents-01.png'
+import csrf4 from 'src/assets/img/csrf/incidents/csrf-incidents-02.png'
 </script>

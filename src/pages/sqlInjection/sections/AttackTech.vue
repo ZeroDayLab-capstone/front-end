@@ -8,5 +8,5 @@
 </template>
 
 <script setup>
-import sql6 from 'src/assets/sql6.png'
+import sql6 from 'src/assets/img/sqlinjection/attacktech/sql-attacktech-01.png'
 </script>

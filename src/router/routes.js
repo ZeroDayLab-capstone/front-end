@@ -1,4 +1,3 @@
-// src/router/routes.js
 const routes = [
   // ========== Main site ==========
   {
@@ -69,7 +68,7 @@ const routes = [
         path: 'gamefilevuln2',
         name: 'game-path-traversal',
         component: () => import('pages/wargame/GamePathTraversal.vue'),
-      }, // ← Paht -> Path 고침
+      },
       {
         path: 'gamefilevuln1',
         name: 'game-file-vuln',
@@ -111,7 +110,7 @@ const routes = [
         path: 'xss-reflected',
         name: 'wg-exp-xss-ref',
         component: () => import('pages/wargame/explanation/XssReflected.vue'),
-      }, // ← Rdflected -> Reflected
+      },
       {
         path: 'xss-stored-1',
         name: 'wg-exp-xss-st1',
@@ -216,6 +215,25 @@ const routes = [
         },
       },
       {
+        path: 'csrf',
+        name: 'csrf',
+        component: () => import('pages/csrf/CsrfLayoutPage.vue'),
+        meta: {
+          hasDrawer: true,
+          drawerLinks: [
+            { title: 'Back to Home', to: { name: 'main' } },
+            { title: '1. 취약점 소개/작동 원리', to: { name: 'csrf', query: { sec: 0 } } },
+            { title: '2. 취약점이 발생하는 위치', to: { name: 'csrf', query: { sec: 1 } } },
+            { title: '3. 발생 이유', to: { name: 'csrf', query: { sec: 2 } } },
+            { title: '4. 실제 보안 사고 사례', to: { name: 'csrf', query: { sec: 3 } } },
+            { title: '5. 공격 기법', to: { name: 'csrf', query: { sec: 4 } } },
+            { title: '6. 방어 기법', to: { name: 'csrf', query: { sec: 5 } } },
+            { title: '7. MITRE ATT&CK 연관', to: { name: 'csrf', query: { sec: 6 } } },
+          ],
+          moduleKey: 'csrf',
+        },
+      },
+      {
         path: 'xss',
         name: 'xss',
         component: () => import('pages/xss/XssLayoutPage.vue'),
@@ -252,6 +270,40 @@ const routes = [
           ],
           moduleKey: 'filevuln',
         },
+      },
+
+      {
+        path: 'community',
+        name: 'community',
+        component: () => import('pages/CommunityPage.vue'),
+        children: [
+          { path: '', redirect: { name: 'community-faq' } }, // 기본 진입시 faq로
+          {
+            path: 'notice',
+            name: 'community-notice',
+            component: () => import('pages/community/NoticeList.vue'),
+          },
+          {
+            path: 'faq',
+            name: 'community-faq',
+            component: () => import('pages/community/FaqList.vue'),
+          },
+          {
+            path: 'qna',
+            name: 'community-qna',
+            component: () => import('pages/community/QnaList.vue'),
+          },
+          {
+            path: 'notice/:id',
+            name: 'community-notice-detail',
+            component: () => import('pages/community/NoticeDetail.vue'),
+          },
+          {
+            path: 'qna/:id',
+            name: 'community-qna-detail',
+            component: () => import('pages/community/QnaDetail.vue'),
+          },
+        ],
       },
 
       // md test (children 안에 둘 거면 절대경로 금지)

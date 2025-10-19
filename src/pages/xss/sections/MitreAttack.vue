@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pa-md">
     <div class="row justify-center q-my-lg">
-      <q-img :src="xss1" style="width: 750px"></q-img>
+      <q-img :src="xss1" style="width: 100%"></q-img>
     </div>
 
     <div class="text-h5 text-weight-bold q-pt-lg">✅후속 공격</div>
@@ -24,5 +24,5 @@
 </template>
 
 <script setup>
-import xss1 from 'src/assets/xss6.png'
+import xss1 from 'src/assets/img/xss/mitre/xss-mitre-01.png'
 </script>

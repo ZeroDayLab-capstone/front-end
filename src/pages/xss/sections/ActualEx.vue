@@ -2,7 +2,10 @@
   <q-page class="q-pa-md">
     <div class="text-h5 text-weight-bold">🔥MySpace Samy 윔 (2005년)</div>
     <div class="row justify-center q-my-lg">
-      <q-img :src="xss3" style="width: 500px"></q-img>
+      <q-img :src="xss3" style="width: 400px"></q-img>
+    </div>
+    <div class="row justify-center q-my-lg">
+      <q-img :src="xss4" style="width: 100%"></q-img>
     </div>
 
     <div class="q-pl-md text-h6">
@@ -20,7 +23,10 @@
 
     <div class="text-h5 text-weight-bold q-pt-xl">🔥트위터 XSS 자동 실행 공격 (2010년)</div>
     <div class="row justify-center q-my-lg">
-      <q-img :src="xss4" style="width: 500px"></q-img>
+      <q-img :src="xss5" style="width: 500px"></q-img>
+    </div>
+    <div class="row justify-center q-my-lg">
+      <q-img :src="xss6" style="width: 100%"></q-img>
     </div>
 
     <div class="q-pl-md text-h6">
@@ -38,8 +44,10 @@
 </template>
 
 <script setup>
-import xss3 from 'src/assets/xss3.png'
-import xss4 from 'src/assets/xss4.jpg'
+import xss3 from 'src/assets/img/xss/incidents/xss-incident-01.png'
+import xss4 from 'src/assets/img/xss/incidents/xss-incident-02.png'
+import xss5 from 'src/assets/img/xss/incidents/xss-incident-03.jpg'
+import xss6 from 'src/assets/img/xss/incidents/xss-incident-04.png'
 
 const codeSnippet = '<script>'
 </script>

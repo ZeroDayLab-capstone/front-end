@@ -8,5 +8,5 @@
 </template>
 
 <script setup>
-import sql7 from 'src/assets/sql7.png'
+import sql7 from 'src/assets/img/sqlinjection/defendtech/sql-defendtech-01.png'
 </script>

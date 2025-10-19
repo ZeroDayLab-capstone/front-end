@@ -2,7 +2,7 @@
   <q-page class="q-pa-md">
     <div class="text-h5 text-weight-bold">🔥2008년 Heartland Payment Systems 해킹 사건</div>
     <div class="row justify-center q-my-lg">
-      <q-img :src="sql3" style="width: 450px"></q-img>
+      <q-img :src="sql3" style="width: 100%"></q-img>
     </div>
     <div class="text-h6">
       <div style="display: list-item; list-style-type: disc">
@@ -18,7 +18,7 @@
 
     <div class="text-h5 text-weight-bold q-pt-xl">🔥2014년 eBay 데이터 유출</div>
     <div class="row justify-center q-my-lg">
-      <q-img :src="sql4" style="width: 450px"></q-img>
+      <q-img :src="sql4" style="width: 100%"></q-img>
     </div>
     <div class="text-h6">
       <div style="display: list-item; list-style-type: disc">
@@ -35,7 +35,7 @@
 
     <div class="text-h5 text-weight-bold q-pt-xl">🔥2019년 Suprema BioStar 2 데이터 유출</div>
     <div class="row justify-center q-my-lg">
-      <q-img :src="sql5" style="width: 450px"></q-img>
+      <q-img :src="sql5" style="width: 100%"></q-img>
     </div>
     <div class="text-h6">
       <div style="display: list-item; list-style-type: disc">
@@ -52,7 +52,7 @@
 </template>
 
 <script setup>
-import sql3 from 'src/assets/sql3.png'
-import sql4 from 'src/assets/sql4.png'
-import sql5 from 'src/assets/sql5.png'
+import sql3 from 'src/assets/img/sqlinjection/incidents/spl-incident-01.png'
+import sql4 from 'src/assets/img/sqlinjection/incidents/spl-incident-02.png'
+import sql5 from 'src/assets/img/sqlinjection/incidents/spl-incident-03.png'
 </script>

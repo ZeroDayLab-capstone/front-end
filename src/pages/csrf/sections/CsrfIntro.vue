@@ -1,11 +1,11 @@
 <template>
   <q-page class="q-pa-md">
     <div class="text-h5 text-weight-bold">✅소개</div>
-    <div class="row justify-center q-mb-lg">
-      <q-img :src="csrf1" style="width: 500px"></q-img>
+    <div class="row justify-center">
+      <q-img :src="csrf1" style="width: 900px"></q-img>
     </div>
     <div class="text-h6">
-      <div class="q-mt-md" style="display: list-item; list-style-type: disc">
+      <div style="display: list-item; list-style-type: disc">
         CSRF(Cross-Site Request Forgery, 사이트 간 요청 위조)는 공격자가 사용자를 속여 원하지 않는
         요청을 특정 웹사이트에 보내도록 유도하는 공격 기법입니다.
       </div>
@@ -17,7 +17,7 @@
 
     <div class="text-h5 text-weight-bold q-mt-xl">✅CSRF 작동 원리</div>
     <div class="row justify-center q-mb-lg">
-      <q-img :src="csrf2" style="width: 400px"></q-img>
+      <q-img :src="csrf2" style="width: 100%"></q-img>
     </div>
     <div class="text-h6">
       <div>1. 사용자가 `example.com`에 로그인하면 브라우저에 세션 쿠키가 저장</div>
@@ -33,6 +33,6 @@
 </template>
 
 <script setup>
-import csrf1 from 'src/assets/csrf1.png'
-import csrf2 from 'src/assets/csrf2.png'
+import csrf1 from 'src/assets/img/csrf/intro/csrf-intro-01.png'
+import csrf2 from 'src/assets/img/csrf/intro/csrf-intro-02.png'
 </script>

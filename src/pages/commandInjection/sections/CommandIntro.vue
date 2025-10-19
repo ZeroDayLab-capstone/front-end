@@ -18,7 +18,7 @@
 
     <div class="text-h5 q-pt-xl text-weight-bold">✅Command-Injection 작동 원리</div>
     <div class="row justify-center q-my-lg">
-      <q-img :src="command2" style="width: 400px"></q-img>
+      <q-img :src="command2" style="width: 100%"></q-img>
     </div>
     <div class="text-h6">
       <div class="q-py-sm">
@@ -33,6 +33,6 @@
 </template>
 
 <script setup>
-import command1 from 'src/assets/command1.png'
-import command2 from 'src/assets/command2.png'
+import command1 from 'src/assets/img/command/intro/command-intro-01.png'
+import command2 from 'src/assets/img/command/intro/command-intro-02.png'
 </script>

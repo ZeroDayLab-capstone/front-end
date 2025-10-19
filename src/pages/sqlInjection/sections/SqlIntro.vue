@@ -2,7 +2,7 @@
   <q-page class="q-pa-md">
     <div class="text-h5 text-weight-bold">✅소개</div>
     <div class="row justify-center q-my-lg">
-      <q-img :src="sql1" style="width: 500px"></q-img>
+      <q-img :src="sql1" style="width: 100%"></q-img>
     </div>
     <div class="text-h6">
       <div>
@@ -17,7 +17,7 @@
 
     <div class="text-h5 text-weight-bold q-mt-xl">✅CSRF 작동 원리</div>
     <div class="row justify-center q-my-lg">
-      <q-img :src="sql2" style="width: 400px"></q-img>
+      <q-img :src="sql2" style="width: 100%"></q-img>
     </div>
     <div class="text-h6">
       <div>1. 웹 애플리케이션에서 사용자 입력을 포함한 SQL 쿼리를 실행</div>
@@ -28,6 +28,6 @@
 </template>
 
 <script setup>
-import sql1 from 'src/assets/sql1.png'
-import sql2 from 'src/assets/sql2.png'
+import sql1 from 'src/assets/img/sqlinjection/intro/sql-intro-01.png'
+import sql2 from 'src/assets/img/sqlinjection/intro/spl-intro-02.png'
 </script>

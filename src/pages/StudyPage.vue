@@ -54,11 +54,11 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-import sql from 'src/assets/sql.png'
+import sql from 'src/assets/sqlinjection.png'
 import xss from 'src/assets/xss.png'
 import command from 'src/assets/command.png'
 import filevuln from 'src/assets/filevuln.png'
-import csrf from 'src/assets/csrf.png'
+import csrf from 'src/assets/csrfex.png'
 
 export default {
   name: 'VulnerabilitiesGallery',

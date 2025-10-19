@@ -27,5 +27,5 @@
 </template>
 
 <script setup>
-import sql7 from 'src/assets/sql7.png'
+import sql7 from 'src/assets/img/sqlinjection/mitre/sql-mitre-01.png'
 </script>

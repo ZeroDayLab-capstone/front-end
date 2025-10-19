@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pa-md">
     <div class="row justify-center q-my-lg">
-      <q-img :src="command5" style="width: 750px"></q-img>
+      <q-img :src="command5" style="width: 100%"></q-img>
     </div>
 
     <div class="text-h5 q-pt-xl text-weight-bold">✅후속 공격</div>
@@ -28,5 +28,5 @@
 </template>
 
 <script setup>
-import command5 from 'src/assets/command5.png'
+import command5 from 'src/assets/img/command/mitre/command-mitre-01.png'
 </script>

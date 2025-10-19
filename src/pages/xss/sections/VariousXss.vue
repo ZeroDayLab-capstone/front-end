@@ -207,13 +207,13 @@ if re.search(r"[{{ codeSnippet2 }}\"]", user_input):
       </div>
     </div>
     <div class="row justify-center q-my-xl">
-      <q-img :src="xss5" style="width: 750px"></q-img>
+      <q-img :src="xss5" style="width: 100%"></q-img>
     </div>
   </q-page>
 </template>
 
 <script setup>
-import xss5 from 'src/assets/xss5.png'
+import xss5 from 'src/assets/img/xss/variousxss/xss-various-01.png'
 
 const codeSnippet = '?input=<script>'
 const codeSnippet2 = '<>'

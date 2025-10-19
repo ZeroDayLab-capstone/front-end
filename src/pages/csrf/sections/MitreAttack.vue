@@ -24,5 +24,5 @@
 </template>
 
 <script setup>
-import csrf5 from 'src/assets/csrf5.png'
+import csrf5 from 'src/assets/img/csrf/mitre/csrf-mitre-table-01.png'
 </script>
