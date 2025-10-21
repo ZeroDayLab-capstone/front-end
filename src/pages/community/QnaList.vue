@@ -51,7 +51,7 @@ const rows = ref([
   },
   {
     id: 1,
-    title: '프로필 사진이 안 바뀌어요',
+    title: '프로필 사진 변경이 안돼요.',
     writer: 'carol',
     answers: 0,
     accepted: false,

@@ -1,13 +1,13 @@
 import { defineAsyncComponent } from 'vue'
 
-export const sqliSections = [
+export const ssrfSections = [
   {
     title: '1️⃣ 취약점 소개/작동 원리',
     component: defineAsyncComponent(() => import('src/pages/ssrf/sections/SsrfIntro.vue')),
   },
   {
     title: '2️⃣ 취약점이 발생하는 위치',
-    component: defineAsyncComponent(() => import('src/pages/sqlInjection/ssrf/VulnLocation.vue')),
+    component: defineAsyncComponent(() => import('src/pages/ssrf/sections/VulnLocation.vue')),
   },
   {
     title: '3️⃣ 발생 이유',
@@ -18,7 +18,9 @@ export const sqliSections = [
     component: defineAsyncComponent(() => import('src/pages/ssrf/sections/ActualEx.vue')),
   },
   {
-    title: '7️⃣ MITRE ATT&CK 연관',
+    title: '5️⃣ MITRE ATT&CK 연관',
     component: defineAsyncComponent(() => import('src/pages/ssrf/sections/MitreAttack.vue')),
   },
 ]
+
+export default ssrfSections

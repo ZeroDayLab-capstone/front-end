@@ -271,6 +271,26 @@ const routes = [
           moduleKey: 'filevuln',
         },
       },
+      {
+        path: 'ssrf',
+        name: 'ssrf',
+        component: () => import('pages/ssrf/SsrfLayoutPage.vue'),
+        meta: {
+          hasDrawer: true,
+          drawerLinks: [
+            { title: 'Back to Home', to: { name: 'main' } },
+            { title: '1. 취약점 소개/작동 원리', to: { name: 'ssrf', query: { sec: 0 } } },
+            { title: '2. 취약점이 발생하는 위치', to: { name: 'ssrf', query: { sec: 1 } } },
+            {
+              title: '3. 발생 이유',
+              to: { name: 'ssrf', query: { sec: 2 } },
+            },
+            { title: '4. 실제 보안 사고 사례', to: { name: 'ssrf', query: { sec: 3 } } },
+            { title: '5. MITRE ATT&CK 연관', to: { name: 'ssrf', query: { sec: 4 } } },
+          ],
+          moduleKey: 'ssrf',
+        },
+      },
 
       {
         path: 'community',

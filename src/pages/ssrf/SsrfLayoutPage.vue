@@ -30,7 +30,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import { filevulnSections as sections } from '@/data/ssrf/sections'
+import { ssrfSections as sections } from '@/data/ssrf/sections'
 import { useSectionRouter } from '@/composables/useSectionRouter'
 const { index, go } = useSectionRouter(sections.length)
 const currentSection = computed(() => sections[index.value])

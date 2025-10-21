@@ -54,11 +54,12 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-import sql from 'src/assets/sqlinjection.png'
-import xss from 'src/assets/xss.png'
-import command from 'src/assets/command.png'
-import filevuln from 'src/assets/filevuln.png'
-import csrf from 'src/assets/csrfex.png'
+import sql from 'src/assets/sqlinjection-study.png'
+import xss from 'src/assets/xss-study.png'
+import command from 'src/assets/command-study.png'
+import filevuln from 'src/assets/filevuln-study.png'
+import csrf from 'src/assets/csrf-study.png'
+import ssrf from 'src/assets/ssrf-study.png'
 
 export default {
   name: 'VulnerabilitiesGallery',
@@ -76,6 +77,7 @@ export default {
       { id: 'sql-injection', name: 'SQL Injection', image: sql },
       { id: 'command-injection', name: 'Command Injection', image: command },
       { id: 'file-vulnerability', name: 'File Vulnerability', image: filevuln },
+      { id: 'ssrf', name: 'SSRF', image: ssrf },
     ])
 
     function startCourse(id) {
@@ -89,6 +91,8 @@ export default {
         router.push('/commandinjection')
       } else if (id === 'file-vulnerability') {
         router.push('/filevuln')
+      } else if (id === 'ssrf') {
+        router.push('/ssrf')
       }
     }
 
