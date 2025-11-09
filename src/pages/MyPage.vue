@@ -6,7 +6,7 @@
       <div class="row q-gutter-md q-mb-lg items-center justify-center">
         <div class="col-auto">
           <q-avatar size="100px">
-            <img src="https://cdn.quasar.dev/img/avatar.png" />
+            <img :src="profileImage" />
           </q-avatar>
         </div>
       </div>
@@ -143,9 +143,10 @@
 import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from 'src/boot/axios'
-import jwtDecode from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode'
 import { useAuthStore } from 'src/stores/auth'
 
+// === 상수/유틸 (파일 내부에만 둠) ==========================
 const LAB_NAMES = {
   1: 'CSRF: 고급',
   2: 'SQL Injection: 초급',
@@ -159,6 +160,20 @@ const LAB_NAMES = {
   10: 'File Vulnerability: 초급',
   11: 'File Vulnerability: 고급',
 }
+const LAB_ROUTE_PATHS = {
+  1: 'gamecsrf',
+  2: 'gamesqlinjection1',
+  3: 'gamesqlinjection2',
+  4: 'gamesqlinjection3',
+  5: 'gamecommandinjection',
+  6: 'gamexssstored1',
+  7: 'gamexssstored2',
+  8: 'gamexssstored3',
+  9: 'gamexssreflected',
+  10: 'gamefilevuln1',
+  11: 'gamefilevuln2',
+}
+const asLabelValue = (arr) => arr.map((v) => ({ label: v, value: v }))
 
 export default {
   name: 'MyPage',
@@ -166,15 +181,21 @@ export default {
     const router = useRouter()
     const auth = useAuthStore()
 
+    // 1) JWT 안전 파싱 (토큰 없거나 깨져도 안전)
     const userEmail = computed(() => {
-      if (!auth.token) return null
-      const decoded = jwtDecode(auth.token)
-      console.log('Decoded user ID:', decoded)
-      return decoded.sub || null
+      const t = auth.token
+      if (!t) return null
+      try {
+        const d = jwtDecode(t)
+        return d.email || d.user_email || d.sub || null
+      } catch {
+        return null
+      }
     })
 
-    const genderOptions = ['남', '여']
-    const nationalityOptions = [
+    // 2) 셀렉트 옵션(emit-value/map-options 유지해도 안전)
+    const genderOptions = asLabelValue(['남', '여'])
+    const nationalityOptions = asLabelValue([
       '대한민국',
       '미국',
       '일본',
@@ -183,10 +204,19 @@ export default {
       '독일',
       '프랑스',
       '캐나다',
-    ]
-    const jobOptions = ['직장인', '프리랜서', '학생', '무직']
-    // 1) 서버에서 받아 올 내 정보
+    ])
+    const jobOptions = asLabelValue(['직장인', '프리랜서', '학생', '무직'])
+
+    // 3) 상태들
     const userInfo = ref({
+      username: '',
+      gender: '',
+      nationality: '',
+      email: '',
+      job: '',
+    })
+    const editMode = ref(false)
+    const editData = ref({
       username: '',
       gender: '',
       nationality: '',
@@ -194,69 +224,80 @@ export default {
       password: '',
       job: '',
     })
-
-    // 편집 모드 / 임시 데이터
-    const editMode = ref(false)
-    const editData = ref({ ...userInfo.value })
-
-    // 저장 중 로딩 표시
+    const profileImage = computed(() => {
+      const g = userInfo.value.gender
+      if (g === '남') return 'src/assets/img/mypage/male.png'
+      if (g === '여') return 'src/assets/img/mypage/female.png'
+      return 'https://cdn.quasar.dev/img/avatar.png'
+    })
     const saving = ref(false)
+    const loading = ref(false)
+    const courses = ref([]) // 진행 중
+    const completedLabs = ref([]) // 완료
 
-    // 2) 수강 중인 과목 (기존)
-    const courses = ref([])
-
-    // 완료된 실습 목록 상태
-    const completedLabs = ref([])
-
-    // 페이지 로드 시 내 정보 GET
-    async function fetchProfile() {
-      if (!userEmail.value) {
-        console.error('userId가 null입니다. 프로필을 불러올 수 없습니다.')
-        return
-      }
-
+    // 4) API: 단일 fetchAll로 병렬 호출
+    async function fetchAll() {
+      if (!userEmail.value) return
+      loading.value = true
       try {
-        const res = await api.get(`/mypage/mypage/profile/${userEmail.value}`)
+        const [p, on, done] = await Promise.all([
+          api.get(`/mypage/mypage/profile/${userEmail.value}`),
+          api.get(`/mypage/mypage/ongoing-labs/${userEmail.value}`),
+          api.get(`/mypage/mypage/completed-labs/${userEmail.value}`),
+        ])
+
         userInfo.value = {
-          username: res.data.username,
-          gender: res.data.gender,
-          nationality: res.data.nationality,
-          email: res.data.email,
-          password: '',
-          job: res.data.job,
+          username: p.data.username,
+          gender: p.data.gender,
+          nationality: p.data.nationality,
+          email: p.data.email,
+          job: p.data.job,
         }
-        editData.value = { ...userInfo.value }
+        // 편집 폼 초기화
+        editData.value = { ...userInfo.value, password: '' }
+
+        const toOngoing = Object.values(on.data)
+          .flat()
+          .map((item) => ({
+            id: item.lab_id,
+            name: LAB_NAMES[item.lab_id] || `실습 ${item.lab_id}`,
+            progress: 0,
+          }))
+        const toCompleted = Object.values(done.data)
+          .flat()
+          .map((item) => ({
+            id: item.lab_id,
+            name: LAB_NAMES[item.lab_id] || `실습 ${item.lab_id}`,
+          }))
+
+        courses.value = toOngoing
+        completedLabs.value = toCompleted
       } catch (err) {
-        console.error('프로필 조회 실패', err)
+        console.error('마이페이지 데이터 조회 실패', err)
+      } finally {
+        loading.value = false
       }
     }
 
-    // 프로필 정보 수정
+    // 5) 프로필 저장 (비밀번호 키 조건부 포함)
     async function saveEdit() {
+      if (!userEmail.value) return
       saving.value = true
       try {
-        // 비밀번호가 있을 때만 포함하는 payload
-        const payload = {
-          username: editData.value.username,
-          email: editData.value.email,
+        const basePayload = {
+          username: (editData.value.username || '').trim(),
+          email: (editData.value.email || '').trim(),
           gender: editData.value.gender,
           nationality: editData.value.nationality,
           job: editData.value.job,
-          //
-          password: editData.value.password || '',
         }
-        if (editData.value.password) {
+        const payload = { ...basePayload }
+        if (editData.value.password && editData.value.password.trim() !== '') {
           payload.password = editData.value.password
         }
-        const res = await api.put(`/mypage/mypage/profile/${userEmail.value}`, payload)
 
-        // 2) 저장 후 프로필 다시 조회
-        await fetchProfile()
-
-        // 성공 메시지 보여주기 (optional)
-        console.log(res.data.message)
-        // UI 반영
-        userInfo.value = { ...editData.value }
+        await api.put(`/mypage/mypage/profile/${userEmail.value}`, payload)
+        await fetchAll() // 서버값으로 재동기화
         editMode.value = false
       } catch (err) {
         console.error('프로필 저장 실패', err)
@@ -265,86 +306,48 @@ export default {
       }
     }
 
-    // 진행 중인 실습 목록 조회
-    async function fetchOngoingLabs() {
-      if (!userEmail.value) return
-      try {
-        const res = await api.get(`/mypage/mypage/ongoing-labs/${userEmail.value}`)
-        const lists = Object.values(res.data).flat()
-        courses.value = lists.map((item) => ({
-          id: item.lab_id,
-          name: LAB_NAMES[item.lab_id] || `실습 ${item.lab_id}`,
-          progress: 0,
-        }))
-      } catch (err) {
-        console.error('진행 중인 실습 조회 실패', err)
-      }
-    }
-
-    async function fetchCompletedLabs() {
-      if (!userEmail.value) return
-      try {
-        const res = await api.get(`/mypage/mypage/completed-labs/${userEmail.value}`)
-        const lists = Object.values(res.data).flat()
-        completedLabs.value = lists.map((item) => ({
-          id: item.lab_id,
-          name: LAB_NAMES[item.lab_id] || `실습 ${item.lab_id}`,
-        }))
-      } catch (err) {
-        console.error('완료된 실습 조회 실패', err)
-      }
-    }
-    const LAB_ROUTE_PATHS = {
-      1: 'gamecsrf',
-      2: 'gamesqlinjection1',
-      3: 'gamesqlinjection2',
-      4: 'gamesqlinjection3',
-      5: 'gamecommandinjection',
-      6: 'gamexssstored1',
-      7: 'gamexssstored2',
-      8: 'gamexssstored3',
-      9: 'gamexssreflected',
-      10: 'gamefilevuln1',
-      11: 'gamefilevuln2',
-    }
+    // 6) 라우팅
     function goToCourse(courseId) {
       const path = LAB_ROUTE_PATHS[courseId]
-      if (path) {
-        router.push(`/${path}`)
-      } else {
-        alert('아직 설명 페이지가 없는 문제입니다.')
-      }
+      if (path) router.push(`/${path}`)
+      else alert('아직 설명 페이지가 없는 문제입니다.')
     }
 
-    onMounted(async () => {
-      await fetchProfile()
-      await fetchOngoingLabs()
-      await fetchCompletedLabs()
-    })
-
-    // 편집 시작
+    // 7) 편집 모드 토글
     function startEdit() {
-      editData.value = { ...userInfo.value }
+      editData.value = { ...userInfo.value, password: '' }
       editMode.value = true
     }
     function cancelEdit() {
       editMode.value = false
+      editData.value = { ...userInfo.value, password: '' }
     }
 
+    onMounted(async () => {
+      // 토큰이 없으면 로그인으로 보내고 싶다면 아래 2줄만 (원치 않으면 제거)
+      // if (!userEmail.value) return router.replace('/login')
+      await fetchAll()
+    })
+
     return {
+      // state
       userInfo,
+      editMode,
+      editData,
+      saving,
+      loading,
+      courses,
+      completedLabs,
+      // options
       genderOptions,
       nationalityOptions,
       jobOptions,
-      editMode,
-      editData,
-      courses,
-      completedLabs,
+      // actions
       startEdit,
       cancelEdit,
       saveEdit,
       goToCourse,
-      saving,
+      profileImage,
     }
   },
 }

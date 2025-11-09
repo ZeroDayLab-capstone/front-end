@@ -17,6 +17,7 @@ const routes = [
       { path: 'register', name: 'register', component: () => import('pages/RegisterPage.vue') },
       { path: 'mypage', name: 'mypage', component: () => import('pages/MyPage.vue') },
       { path: 'findpwd', name: 'findpwd', component: () => import('pages/FindPasswordPage.vue') },
+      { path: 'findid', name: 'findid', component: () => import('pages/FindIdPage.vue') },
 
       // wargame (games)
       {
@@ -32,12 +33,12 @@ const routes = [
       {
         path: 'gamesqlinjection2',
         name: 'game-sqli-2',
-        component: () => import('pages/wargame/GameSql2.vue'),
+        component: () => import('src/pages/wargame/GameSql2.vue'),
       },
       {
         path: 'gamesqlinjection3',
         name: 'game-sqli-3',
-        component: () => import('pages/wargame/GameSql3.vue'),
+        component: () => import('src/pages/wargame/GameSql3.vue'),
       },
       {
         path: 'gamecommandinjection',

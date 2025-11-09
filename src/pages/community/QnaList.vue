@@ -5,6 +5,13 @@
       <q-td :props="p">{{ p.rowIndex + 1 }}</q-td>
     </template>
 
+    <template #body-cell-title="p">
+      <q-td :props="p">
+        <q-icon v-if="p.row.pinned" name="push_pin" class="q-mr-xs" />
+        {{ p.row.title }}
+      </q-td>
+    </template>
+
     <template #body-cell-status="p">
       <q-td :props="p">
         <q-chip :color="p.row.accepted ? 'positive' : 'grey-6'" text-color="white" dense>
@@ -13,51 +20,50 @@
       </q-td>
     </template>
   </q-table>
+
   <div class="q-my-md text-right">
     <q-btn unelevated color="black" label="질문하기" @click="$router.push('/community/qna/0')" />
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { api } from 'src/boot/axios'
+
 const router = useRouter()
 
 const columns = [
-  { name: 'no', label: 'No', field: 'no', align: 'left' }, // ← 번호 전용
+  { name: 'no', label: 'No', field: 'no', align: 'left' },
   { name: 'title', label: '제목', field: 'title' },
-  { name: 'writer', label: '작성자', field: 'writer' },
-  { name: 'answers', label: '답변', field: 'answers' },
-  { name: 'date', label: '작성시간', field: 'date' },
-  { name: 'status', label: '상태', field: 'accepted' },
+  { name: 'writer', label: '작성자', field: 'writer' }, // author → writer
+  { name: 'answers', label: '답변', field: 'answers' }, // comment_count → answers
+  { name: 'date', label: '작성시간', field: 'date' }, // created_at → date
+  { name: 'status', label: '상태', field: 'accepted' }, // accepted(boolean)
 ]
 
-const rows = ref([
-  {
-    id: 3,
-    title: '로그인이 안돼요',
-    writer: 'alice',
-    answers: 2,
-    accepted: true,
-    date: '2025-08-10',
-  },
-  {
-    id: 2,
-    title: '비밀번호 규칙이 궁금합니다',
-    writer: 'bob',
-    answers: 1,
-    accepted: false,
-    date: '2025-08-08',
-  },
-  {
-    id: 1,
-    title: '프로필 사진 변경이 안돼요.',
-    writer: 'carol',
-    answers: 0,
-    accepted: false,
-    date: '2025-08-05',
-  },
-])
+const rows = ref([])
+
+onMounted(load)
+
+async function load() {
+  try {
+    const res = await api.get('/qna/qna/posts/')
+    const list = Array.isArray(res.data) ? res.data : []
+    rows.value = list.map((p) => ({
+      id: p.id,
+      title: p.title,
+      writer: p.author, // 매핑
+      answers: p.comment_count ?? 0, // 없으면 0
+      accepted: p.accepted ?? false, // 없으면 false
+      date: p.created_at,
+      pinned: p.pinned ?? false, // (있으면 사용 / 없으면 무시)
+    }))
+  } catch (e) {
+    console.error('QnA 목록 조회 실패', e)
+    rows.value = []
+  }
+}
 
 function go(_, row) {
   router.push(`/community/qna/${row.id}`)

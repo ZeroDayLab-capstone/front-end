@@ -59,7 +59,10 @@ export default defineConfig((/* ctx */) => {
 
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
-        'jwt-decode': 'jwt-decode/dist/jwt-decode.esm.js',
+        'jwt-decode/dist/jwt-decode.esm.js': 'jwt-decode',
+        'jwt-decode/build/jwt-decode.esm.js': 'jwt-decode',
+        'jwt-decode/esm/index.js': 'jwt-decode',
+        'jwt-decode/es/index.js': 'jwt-decode',
       },
 
       vitePlugins: [

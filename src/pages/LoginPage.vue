@@ -14,7 +14,7 @@
       />
 
       <div class="row items-center q-gutter-lg flex flex-center">
-        <span class="cursor-pointer">아이디 찾기</span>
+        <span class="cursor-pointer" @click="toFindId">아이디 찾기</span>
         <span class="cursor-pointer" @click="toFindPwd">비밀번호 찾기</span>
         <span class="cursor-pointer" @click="toSignUp">회원가입</span>
       </div>
@@ -60,4 +60,5 @@ async function login() {
 
 const toSignUp = () => router.push('/register')
 const toFindPwd = () => router.push('/findpwd')
+const toFindId = () => router.push('/findid')
 </script>

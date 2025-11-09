@@ -138,8 +138,8 @@ export default {
     // SQL Injection 취약점 문제
     const sqlInjectionVulns = ref([
       { id: 'sql-injection1', name: '비밀번호 없이 관리자 로그인', image: sql1 },
-      { id: 'sql-injection3', name: 'BookStore: UNION Injection', image: sql3 },
-      { id: 'sql-injection2', name: 'VIP 닉네임을 훔쳐라', image: sql2 },
+      { id: 'sql-injection2', name: 'BookStore: UNION Injection', image: sql3 },
+      { id: 'sql-injection3', name: 'VIP 닉네임을 훔쳐라', image: sql2 },
     ])
 
     const commandInjectionVulns = ref([

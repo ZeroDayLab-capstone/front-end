@@ -67,7 +67,7 @@
             <q-input v-model="userAnswer" filled placeholder="정답을 입력하세요" class="q-my-sm" />
             <div class="colunm q-gutter-x-sm">
               <q-btn label="제출" color="black" @click="onSubmitAnswer" />
-              <q-btn label="해설" color="black" :to="{ name: 'WargameExplanationCsrfEx' }"></q-btn>
+              <q-btn label="해설" color="black" :to="{ name: 'wg-exp-csrf' }"></q-btn>
             </div>
 
             <!--

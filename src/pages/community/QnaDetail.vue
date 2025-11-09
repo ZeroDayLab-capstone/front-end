@@ -1,7 +1,6 @@
 <template>
   <!-- 작성 모드: /community/qna/0 -->
   <div v-if="isWriteMode" class="q-pa-md q-gutter-sm">
-    <!-- 작성 / 미리보기 토글 -->
     <q-btn-toggle
       v-model="mode"
       unelevated
@@ -12,7 +11,10 @@
       ]"
     />
 
-    <!-- 작성 -->
+    <!-- ✅ 제목 입력 추가 -->
+    <q-input v-model="title" label="제목" class="q-mt-md" filled />
+
+    <!-- 본문 작성 -->
     <div v-if="mode === 'edit'">
       <q-editor v-model="editor" min-height="10rem" />
     </div>
@@ -24,8 +26,6 @@
           <div v-html="safeHtml"></div>
         </q-card-section>
       </q-card>
-
-      <!-- 필요할 때만 원문(HTML) 확인 -->
       <q-expansion-item dense label="원문(HTML) 보기">
         <q-card flat bordered>
           <q-card-section>
@@ -51,6 +51,7 @@
 
     <q-card flat bordered class="q-pa-md q-mb-lg">
       <div class="text-subtitle1 q-mb-md">답변 {{ answers.length }}</div>
+
       <q-list bordered v-if="answers.length">
         <q-item v-for="a in answers" :key="a.id">
           <q-item-section>
@@ -65,10 +66,11 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
 import DOMPurify from 'dompurify'
+import { api } from 'src/boot/axios'
 
 const route = useRoute()
 const router = useRouter()
@@ -78,63 +80,74 @@ const $q = useQuasar()
 const isWriteMode = computed(() => String(route.params.id) === '0')
 
 // 작성 모드 상태
+const title = ref('')
 const editor = ref('')
 const mode = ref('edit')
 const safeHtml = computed(() => DOMPurify.sanitize(editor.value))
 
-// 데모용 데이터 (상세 모드)
-const list = [
-  {
-    id: 3,
-    title: '로그인이 안돼요',
-    writer: 'alice',
-    date: '2025-08-10',
-    body: '오류 메시지가 뜹니다.',
-  },
-  {
-    id: 2,
-    title: '비밀번호 규칙이 궁금합니다',
-    writer: 'bob',
-    date: '2025-08-08',
-    body: '특수문자 포함인가요?',
-  },
-  {
-    id: 1,
-    title: '프로필 사진이 안 바뀌어요',
-    writer: 'carol',
-    date: '2025-08-05',
-    body: '저장 후에도 반영이 안됩니다.',
-  },
-]
+// 상세 모드 상태
+const item = ref({ id: null, title: '', writer: '', date: '', body: '' })
+const answers = ref([]) // [{id, body, writer, date}]
 
-const item = computed(() => {
-  const id = Number(route.params.id)
-  return (
-    list.find((v) => v.id === id) ?? { title: '존재하지 않는 질문', writer: '', date: '', body: '' }
-  )
+onMounted(() => {
+  if (!isWriteMode.value) loadDetail()
 })
 
-const answers = ref([
-  ...(Number(route.params.id) === 3
-    ? [
-        { id: 1, body: '캐시를 비우고 다시 시도해보세요.', writer: 'admin', date: '2025-08-10' },
-        {
-          id: 2,
-          body: '동일 현상이면 스크린샷 부탁드립니다.',
-          writer: 'moderator',
-          date: '2025-08-10',
-        },
-      ]
-    : []),
-])
-
-function submit() {
-  if (!editor.value.trim()) {
-    $q.notify({ type: 'warning', message: '내용을 입력하세요.', position: 'top' })
-    return
+async function loadDetail() {
+  try {
+    const id = Number(route.params.id)
+    const res = await api.get(`/qna/qna/posts/${id}`)
+    // 기대 스키마: { id,title,author,created_at,content,comments:[{id,content,author,created_at}] }
+    const p = res.data || {}
+    item.value = {
+      id: p.id,
+      title: p.title,
+      writer: p.author, // author → writer
+      date: p.created_at, // created_at → date
+      body: p.content, // content → body
+    }
+    answers.value = Array.isArray(p.comments)
+      ? p.comments.map((c) => ({
+          id: c.id ?? c.comment_id,
+          body: c.content,
+          writer: c.author,
+          date: c.created_at,
+        }))
+      : []
+  } catch (e) {
+    console.error('QnA 상세 조회 실패', e)
+    $q.notify({ type: 'negative', message: '게시글을 불러올 수 없습니다.' })
+    router.push('/community/qna')
   }
-  // 데모: 실제 저장 없이 목록으로 이동
-  $q.notify({ type: 'positive', message: '등록(데모): 서버 연결 후 적용됩니다.', position: 'top' })
-  router.push('/community/qna')
+}
+
+function submitGuard() {
+  if (!title.value.trim()) {
+    $q.notify({ type: 'warning', message: '제목을 입력하세요.' })
+    return false
+  }
+  if (!editor.value.trim()) {
+    $q.notify({ type: 'warning', message: '내용을 입력하세요.' })
+    return false
+  }
+  return true
+}
+
+async function submit() {
+  if (!submitGuard()) return
+  try {
+    // 로그인 필요: axios 인터셉터가 Authorization 헤더를 알아서 추가
+    const res = await api.post('/qna/qna/posts/', {
+      title: title.value,
+      content: editor.value, // 백엔드 스키마에 맞춤
+    })
+    const newId = res.data?.id
+    $q.notify({ type: 'positive', message: '등록되었습니다.' })
+    if (newId) router.push(`/community/qna/${newId}`)
+    else router.push('/community/qna')
+  } catch (e) {
+    console.error('QnA 작성 실패', e)
+    $q.notify({ type: 'negative', message: '등록에 실패했습니다.' })
+  }
 }
 </script>

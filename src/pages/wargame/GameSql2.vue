@@ -20,41 +20,32 @@
           <q-card-section>
             <div class="text-h5">1️⃣실습 목표🎯</div>
             <div class="text-h6">
-              <ul class="q-mt-none">
-                <li>Blind SQL Injection (Time-based) 기법을 이해하고 실습합니다.</li>
+              <ul>
                 <li>
-                  에러 메시지 없이 <strong>응답 지연</strong>만으로 내부 정보를
-                  <strong>한 글자</strong>씩 추출하는 방법을 학습합니다.
-                </li>
-                <li>
-                  <strong>SQLite 환경</strong>에서도 <span style="color: red">SLEEP()</span> 함수가
-                  없는 상황을 우회하여 <span style="color: red">time.sleep()</span> 을 유도하는
-                  로직을 활용해 Blind SQLi 문제를 구성하고 공격합니다.
+                  UNION 기반 SQL Injection 기법을 이용해
+                  <span style="color: red">flags</span> 테이블의 플래그를 화면에 노출시키세요.
                 </li>
               </ul>
             </div>
-
             <div class="q-my-sm text-h6">2️⃣문제 시나리오🎭</div>
             <div class="text-h6 q-pl-md">
               <div>
-                💡당신은 한 커뮤니티 사이트의 VIP 회원 명단을 조사 중입니다.
-                <div class="q-pa-sm">
-                  이 사이트는 로그인 없이 <span style="color: red">id</span> 파라미터만으로 닉네임을
-                  조회할 수 있으나, <br />플래그는 별도 테이블에 숨겨져 있습니다.
-                </div>
+                BookStore 웹 애플리케이션은 책 상세 정보를
+                <span style="color: red">/product.php?id=숫자</span> 경로로 보여줍니다.
               </div>
               <div>
-                <q-card flat bordered class="code-block">
-                  <pre><code>  GET /?id=3
-  → 사용자 정보: bob</code></pre>
-                </q-card>
+                그러나 <span style="color: red">id</span> 파라미터가 검증 없이 SQL 쿼리에 직접
+                삽입되어 있습니다.
               </div>
-
-              사용자 정보는 닉네임만 반환하며, 빈 결과 시 "사용자 정보가 없습니다." 만 표시 됩니다.
-              <br />플래그는 <span style="color: red">flags</span> 테이블에 있으며, 직접
-              노출(UNION등) 이 불가합니다.
-
-              <div>Blind 방식으로 flag 값을 획득하세요.</div>
+              <div>
+                데이터베이스에는 책 정보를 담은 <span style="color: red">products</span> 테이블 외에
+                비밀 플래그가 저장된 <span style="color: red">flags</span> 테이블이
+              </div>
+              <div>존재합니다.</div>
+              <div>
+                이 취약점을 이용해 <span style="color: red">flags</span> 테이블의 플래그 값을
+                획득하세요.
+              </div>
             </div>
           </q-card-section>
 
@@ -73,21 +64,14 @@
           <q-separator spaced />
           <q-expansion-item group="hint" icon="help_outline" label="힌트" expand-separator>
             <div class="q-mt-sm">
-              <div class="text-h6">
-                <q-card flat bordered class="code-block">
-                  <pre><code>  ?id=4' AND (
-    CASE
-      WHEN ascii(substr((SELECT flag FROM flags), P, 1)) = X
-      THEN sleep(1)
-      ELSE 0
-    END
-  )-- </code></pre>
-                </q-card>
-                <ul>
-                  <li><span style="color: red">P</span>: 플래그 문자 위치 (1부터 시작)</li>
-                  <li><span style="color: red">X</span>: 테스트할 ASCII 값</li>
-                  <li>1초 지연을 기준으로 응답 지연 여부를 확인</li>
-                </ul>
+              <div class="text-body1">
+                <div>
+                  <span style="color: red">UNION SELECT</span> 할 때는
+                  <span style="color: red">products</span> 테이블의 컬럼 순서(name – VARCHAR,
+                  description – TEXT, price – DECIMAL)에 맞춰 첫 번째에 flag, 두 번째에 문자열 더미(
+                  <span style="color: red">'dummy'</span> 등), 세 번째에 숫자 더미(
+                  <span style="color: red">0</span> 등)를 채워야 합니다.
+                </div>
               </div>
             </div>
           </q-expansion-item>
@@ -129,7 +113,6 @@
               실습 환경을 생성하고, 문제를 직접 풀어볼 수 있습니다.
             </p>
           </q-card-section>
-
           <q-card-section>
             <!-- 서버 생성 버튼 -->
             <q-btn
@@ -163,8 +146,8 @@ import { api } from 'src/boot/axios'
 import { useAuthStore } from 'src/stores/auth'
 
 // 문제 정보
-const problemTitle = ref('VIP 닉네임을 훔쳐라')
-const difficulty = ref('hard')
+const problemTitle = ref('BookStore: UNION Injection')
+const difficulty = ref('medium')
 
 const auth = useAuthStore()
 
@@ -179,7 +162,7 @@ const difficultyColor = computed(() => {
   return 'orange'
 })
 
-// 정답 제출
+// 정답 제출 관련
 const userAnswer = ref('')
 const submitResult = ref(false)
 const submitSuccess = ref(false)
@@ -188,10 +171,10 @@ const failMessage = ref('실패! 다시 시도해 보세요.')
 
 async function onSubmitAnswer() {
   const email = auth.user?.email
-  const labId = 3
+  const labId = 5 // 문제마다 고유 lab_id 부여(이 문제 예: 5)
 
   // 정답 비교 (예: '1234'가 정답)
-  const correct = userAnswer.value.trim() === 'FLAG{AB12CD34}'
+  const correct = userAnswer.value.trim() === 'FLAG{edd07f1c9b01bcf121c6c6cfae60a51b}'
   const status = correct ? 'completed' : 'in-progress'
 
   try {
@@ -225,13 +208,13 @@ const frontendPort = ref(null)
 const frontendHost = '100.108.98.2' // 실습환경 도커 컨테이너 host (고정)
 async function onCreateServer() {
   const email = auth.user?.email
-  const lab_id = 3
+  const lab_id = 5
   if (!email) {
     alert('로그인 먼저 해주세요!')
     return
   }
   try {
-    // 문제 id 고정(3)
+    // 문제 id 고정(5)
     await api.post('/labs/labs/environment', {
       email: email,
       lab_id: lab_id,
@@ -267,10 +250,5 @@ function onStartPractice() {
 }
 .full-width {
   width: 100%;
-}
-.code-block {
-  background-color: #f6f8fa;
-  border: 1px solid #e1e4e8;
-  border-radius: 4px;
 }
 </style>
