@@ -36,10 +36,10 @@ const router = useRouter()
 const columns = [
   { name: 'no', label: 'No', field: 'no', align: 'left' },
   { name: 'title', label: '제목', field: 'title' },
-  { name: 'writer', label: '작성자', field: 'writer' }, // author → writer
-  { name: 'answers', label: '답변', field: 'answers' }, // comment_count → answers
-  { name: 'date', label: '작성시간', field: 'date' }, // created_at → date
-  { name: 'status', label: '상태', field: 'accepted' }, // accepted(boolean)
+  { name: 'writer', label: '작성자', field: 'writer' }, // ← author
+  { name: 'answers', label: '답변', field: 'answers' }, // ← comment_count
+  { name: 'date', label: '작성시간', field: 'date' }, // ← created_at
+  { name: 'status', label: '상태', field: 'accepted' }, // ← accepted
 ]
 
 const rows = ref([])
@@ -48,16 +48,16 @@ onMounted(load)
 
 async function load() {
   try {
-    const res = await api.get('/qna/qna/posts/')
+    const res = await api.get('/qna/qna/qna/posts/')
     const list = Array.isArray(res.data) ? res.data : []
     rows.value = list.map((p) => ({
       id: p.id,
       title: p.title,
       writer: p.author, // 매핑
-      answers: p.comment_count ?? 0, // 없으면 0
-      accepted: p.accepted ?? false, // 없으면 false
-      date: p.created_at,
-      pinned: p.pinned ?? false, // (있으면 사용 / 없으면 무시)
+      answers: p.comment_count, // 매핑
+      accepted: p.accepted, // 매핑
+      date: p.created_at, // 매핑
+      pinned: p.pinned ?? false, // (옵션)
     }))
   } catch (e) {
     console.error('QnA 목록 조회 실패', e)

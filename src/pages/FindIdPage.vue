@@ -140,7 +140,7 @@ const dateNotFuture = (ymd) => {
   return d <= today
 }
 
-const maskedEmail = computed(() => maskEmail(foundEmail.value))
+const maskedEmail = computed(() => foundEmail.value)
 
 function isValidBirth(v) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(v || '')) return false
@@ -158,14 +158,6 @@ function normalizeDate(v) {
   if (!m) return s
   const [, y, mo, d] = m
   return `${y}-${mo.padStart(2, '0')}-${d.padStart(2, '0')}`
-}
-
-function maskEmail(email) {
-  if (!email) return ''
-  const [id, domain] = email.split('@')
-  if (!id || !domain) return email
-  const keep = Math.min(3, id.length)
-  return id.slice(0, keep) + '*'.repeat(Math.max(1, id.length - keep)) + '@' + domain
 }
 
 function goLogin() {
@@ -205,9 +197,10 @@ async function findId() {
       birthdate: normalizeDate(birthdate.value),
       gender: gender.value,
     }
-    const res = await api.post('/auth/find-id', payload)
-    // 백엔드가 "string"을 반환한다고 되어 있으니 그대로 수용
-    foundEmail.value = String(res.data || '')
+    const { data } = await api.post('/auth/find-id', payload)
+    // 백엔드: { message: "...", email_hint: "ab***cd@example.com" }
+    foundEmail.value = data.email_hint || ''
+
     if (!foundEmail.value) {
       $q.notify({ type: 'negative', message: '일치하는 계정을 찾을 수 없습니다.' })
       return
