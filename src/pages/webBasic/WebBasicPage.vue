@@ -1,38 +1,33 @@
 <template>
-  <q-page class="q-pa-md bg-grey-2">
-    <div class="row justify-center">
+  <q-page class="q-pa-md bg-grey-2 q-pb-xl">
+    <div class="row justify-center q-mb-xl">
       <div class="col-12 col-md-7">
         <q-card flat>
           <div class="centered-container">
-            <h2 class="text-h4 text-weight-bold q-mb-md">{{ currentSection.title }}</h2>
+            <h2 class="text-h4 text-weight-bold q-mb-md">
+              {{ currentSection.title }}
+            </h2>
 
             <component :is="currentSection.component" />
-
-            <div class="bottom-right-buttons">
-              <q-btn
-                v-if="index > 0"
-                label="이전"
-                class="q-mr-sm"
-                color="black"
-                @click="go(index - 1)"
-              />
-              <q-btn
-                v-if="index < sections.length - 1 || (hasQuizzes && !sectionPassed[index])"
-                :label="
-                  index < sections.length - 1
-                    ? '다음'
-                    : sectionPassed[index]
-                      ? '완료'
-                      : '퀴즈 풀고 완료'
-                "
-                color="black"
-                @click="onNext()"
-              />
-            </div>
           </div>
         </q-card>
       </div>
     </div>
+
+    <!-- 🔥 푸터를 자동으로 피해서 떠 있는 네비게이션 버튼 -->
+    <q-page-sticky position="bottom-right" :offset="[24, 24]">
+      <div class="row q-gutter-sm">
+        <q-btn v-if="index > 0" label="이전" color="black" @click="go(index - 1)" />
+        <q-btn
+          v-if="index < sections.length - 1 || (hasQuizzes && !sectionPassed[index])"
+          :label="
+            index < sections.length - 1 ? '다음' : sectionPassed[index] ? '완료' : '퀴즈 풀고 완료'
+          "
+          color="black"
+          @click="onNext()"
+        />
+      </div>
+    </q-page-sticky>
 
     <QuizDialog
       v-model="show"
@@ -116,12 +111,7 @@ function onNextQuiz() {
   margin: 0 auto;
   padding: 24px;
 }
-.bottom-right-buttons {
-  position: fixed;
-  bottom: 80px;
-  right: 32px;
-  display: flex;
-}
+
 .q-mr-sm {
   margin-right: 8px;
 }

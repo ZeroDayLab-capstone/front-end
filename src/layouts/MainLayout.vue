@@ -68,8 +68,71 @@
     </q-page-container>
 
     <!-- (F) 푸터 -->
-    <q-footer class="bg-white text-black">
+    <!-- <q-footer class="bg-white text-black">
       <div class="text-center q-pa-lg">© 2025 ZeroDay Lab. All Rights Reserved.</div>
+    </q-footer> -->
+    <q-footer class="bg-white text-black q-pt-lg q-pb-md">
+      <div class="q-pa-md q-mx-auto" style="max-width: 1200px">
+        <!-- 상단 3열 영역 -->
+        <div class="row items-start q-col-gutter-lg">
+          <!-- 1. 브랜드 / 소개 -->
+          <div class="col-12 col-md-4">
+            <div class="text-h6 text-weight-bold">ZeroDay Lab</div>
+            <div class="text-caption q-mt-sm">
+              웹 취약점 실습과 이론을 한 번에 학습할 수 있는
+              <br />
+              보안 교육 플랫폼입니다.
+            </div>
+          </div>
+
+          <!-- 2. 빠른 링크 -->
+          <div class="col-6 col-md-4 q-mt-md q-mt-md-none">
+            <div class="text-subtitle2 text-weight-bold q-mb-sm">Quick Links</div>
+            <div class="column text-caption q-gutter-xs">
+              <router-link to="/main" class="text-black">메인 홈</router-link>
+              <router-link to="/wargamelist" class="text-black">워게임 · 실습</router-link>
+              <router-link to="/community" class="text-black">Q&amp;A 커뮤니티</router-link>
+              <router-link to="/mypage" class="text-black">마이페이지</router-link>
+            </div>
+          </div>
+
+          <!-- 3. 연락 / 기타 -->
+          <div class="col-6 col-md-4 q-mt-md q-mt-md-none">
+            <div class="text-subtitle2 text-weight-bold q-mb-sm">Contact</div>
+            <div class="text-caption">
+              문의: support@zeroday.lab
+              <br />
+              팀 프로젝트 · 캡스톤 문의 환영
+            </div>
+
+            <div class="row q-gutter-sm q-mt-sm">
+              <!-- 아이콘은 필요 없으면 지워도 됨 -->
+              <q-btn flat round dense icon="code" size="sm" :to="{ name: 'main' }">
+                <q-tooltip>플랫폼 소개</q-tooltip>
+              </q-btn>
+
+              <q-btn flat round dense icon="email" size="sm" href="mailto:support@zeroday.lab">
+                <q-tooltip>이메일 문의</q-tooltip>
+              </q-btn>
+
+              <q-btn flat round dense icon="school" size="sm">
+                <q-tooltip>보안 학습 가이드</q-tooltip>
+              </q-btn>
+            </div>
+          </div>
+        </div>
+
+        <!-- 구분선 -->
+        <q-separator class="q-my-md" />
+
+        <!-- 하단 바 -->
+        <div class="row items-center justify-between text-caption">
+          <div>© 2025 ZeroDay Lab. All Rights Reserved.</div>
+          <div class="row items-center q-gutter-sm">
+            <span>Made for Web Security Learners</span>
+          </div>
+        </div>
+      </div>
     </q-footer>
   </q-layout>
 </template>
@@ -101,7 +164,7 @@ const mainMenu = [
   { label: '웹 기초', to: { name: 'webbasic', query: { sec: 0 } } }, // ✅
   { label: '웹 취약점', to: { name: 'study' } }, // ✅
   { label: 'War Game', to: { name: 'wargame-list' } }, // ✅
-  { label: 'COMMUNITY', to: '/community/faq' }, // 라우트에 name 없으면 path로
+  { label: 'COMMUNITY', to: '/community/notice' }, // 라우트에 name 없으면 path로
 ]
 
 function goHome() {

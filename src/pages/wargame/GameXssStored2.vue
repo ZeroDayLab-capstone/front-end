@@ -202,7 +202,7 @@ async function onSubmitAnswer() {
 // 서버 생성
 const serverCreated = ref(false)
 const frontendPort = ref(null)
-const frontendHost = '100.108.98.2' // 실습환경 도커 컨테이너 host (고정)
+const frontendHost = '100.70.143.103' // 실습환경 도커 컨테이너 host (고정)
 async function onCreateServer() {
   const email = auth.user?.email
   const lab_id = 7

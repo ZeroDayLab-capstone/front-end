@@ -1,109 +1,193 @@
 <template>
-  <q-page class="q-pa-md bg-grey-2">
-    <div class="row justify-center">
-      <q-card flat>
-        <!-- CSRF 문제 카테고리 -->
-        <div class="text-h5">CSRF</div>
-        <div class="row wrap q-gutter-md justify-start">
-          <div v-for="vuln in csrfVulns" :key="vuln.id" class="my-card-container">
-            <q-card
-              flat
-              bordered
-              class="my-card"
-              @click.stop="solveProblem(vuln.id)"
-              style="cursor: pointer"
-            >
-              <q-img :src="vuln.image" style="width: 230px; object-fit: cover" />
-              <div class="row items-center justify-between q-pa-sm">
-                <div class="text-subtitle2" @click="solveProblem(vuln.id)" style="cursor: pointer">
-                  {{ vuln.name }}
-                </div>
-              </div>
-            </q-card>
+  <q-page class="bg-grey-2 q-pa-lg q-pb-xl">
+    <div class="page-container">
+      <!-- 상단 헤더 + 난이도 필터 -->
+      <div class="row items-center justify-between q-mb-lg">
+        <div>
+          <div class="text-overline text-grey-7">War Game Challenges</div>
+          <div class="text-h4 text-weight-bold q-mt-xs">웹 취약점 워게임</div>
+          <div class="text-caption text-grey-7 q-mt-xs">
+            난이도(초급 · 중급 · 고급)에 맞춰 문제를 선택하고, 실제 공격·방어 과정을 경험해 보세요.
           </div>
         </div>
 
-        <!-- SQL Injection 문제 카테고리 -->
-        <div class="text-h5 q-pt-xl">SQL Injection</div>
-        <div class="row wrap q-gutter-md justify-start">
-          <div v-for="vuln in sqlInjectionVulns" :key="vuln.id" class="my-card-container">
-            <q-card
-              flat
-              bordered
-              class="my-card"
-              @click.stop="solveProblem(vuln.id)"
-              style="cursor: pointer"
-            >
-              <q-img :src="vuln.image" style="width: 230px; object-fit: cover" />
-              <div class="row items-center justify-between q-pa-sm">
-                <div class="text-subtitle2" @click="solveProblem(vuln.id)" style="cursor: pointer">
-                  {{ vuln.name }}
-                </div>
+        <q-btn-toggle
+          v-model="levelFilter"
+          dense
+          unelevated
+          rounded
+          color="grey-3"
+          text-color="black"
+          toggle-color="black"
+          toggle-text-color="white"
+          :options="levelOptions"
+        />
+      </div>
+
+      <q-card flat class="main-card q-pa-lg">
+        <!-- CSRF 카테고리 -->
+        <div class="section-card">
+          <div class="row items-center justify-between q-mb-sm">
+            <div>
+              <div class="text-h4 text-weight-bold">CSRF</div>
+              <div class="text-caption text-grey-7 q-mt-xs">
+                사용자를 가장해 악의적인 요청을 보내는 크로스 사이트 요청 위조 취약점 실습
+                문제입니다.
               </div>
-            </q-card>
+            </div>
+          </div>
+
+          <div class="row q-gutter-md justify-start">
+            <div v-for="vuln in filteredCsrfVulns" :key="vuln.id" class="problem-card-wrapper">
+              <q-card
+                flat
+                bordered
+                class="problem-card cursor-pointer"
+                @click="solveProblem(vuln.id)"
+              >
+                <q-img :src="vuln.image" fit="contain" :ratio="4 / 3" class="problem-img"> </q-img>
+
+                <q-card-section class="q-pa-sm">
+                  <div class="text-subtitle2 text-weight-bold">
+                    {{ vuln.name }}
+                  </div>
+                </q-card-section>
+              </q-card>
+            </div>
           </div>
         </div>
 
-        <!-- Command Injection 문제 -->
-        <div class="text-h5 q-pt-xl">Command Injection</div>
-        <div class="row wrap q-gutter-md justify-start">
-          <div v-for="vuln in commandInjectionVulns" :key="vuln.id" class="my-card-container">
-            <q-card
-              flat
-              bordered
-              class="my-card"
-              @click.stop="solveProblem(vuln.id)"
-              style="cursor: pointer"
-            >
-              <q-img :src="vuln.image" style="width: 230px; object-fit: cover" />
-              <div class="row items-center justify-between q-pa-sm">
-                <div class="text-subtitle2" @click="solveProblem(vuln.id)" style="cursor: pointer">
-                  {{ vuln.name }}
-                </div>
+        <!-- SQL Injection 카테고리 -->
+        <div class="section-card q-mt-xl">
+          <div class="row items-center justify-between q-mb-sm">
+            <div>
+              <div class="text-h4 text-weight-bold">SQL Injection</div>
+              <div class="text-caption text-grey-7 q-mt-xs">
+                쿼리 조작을 통해 로그인 우회, 데이터 조회·변조 등을 수행하는 인젝션 공격 문제입니다.
               </div>
-            </q-card>
+            </div>
+          </div>
+
+          <div class="row q-gutter-md justify-start">
+            <div
+              v-for="vuln in filteredSqlInjectionVulns"
+              :key="vuln.id"
+              class="problem-card-wrapper"
+            >
+              <q-card
+                flat
+                bordered
+                class="problem-card cursor-pointer"
+                @click="solveProblem(vuln.id)"
+              >
+                <q-img :src="vuln.image" fit="contain" :ratio="4 / 3" class="problem-img"> </q-img>
+
+                <q-card-section class="q-pa-sm">
+                  <div class="text-subtitle2 text-weight-bold">
+                    {{ vuln.name }}
+                  </div>
+                </q-card-section>
+              </q-card>
+            </div>
           </div>
         </div>
 
-        <!-- XSS 문제 카테고리 -->
-        <div class="text-h5 q-pt-xl">XSS</div>
-        <div class="row wrap q-gutter-md justify-start">
-          <div v-for="vuln in xssVulns" :key="vuln.id" class="my-card-container">
-            <q-card
-              flat
-              bordered
-              class="my-card"
-              @click.stop="solveProblem(vuln.id)"
-              style="cursor: pointer"
-            >
-              <q-img :src="vuln.image" style="width: 230px; object-fit: cover" />
-              <div class="row items-center justify-between q-pa-sm">
-                <div class="text-subtitle2" @click="solveProblem(vuln.id)" style="cursor: pointer">
-                  {{ vuln.name }}
-                </div>
+        <!-- Command Injection 카테고리 -->
+        <div class="section-card q-mt-xl">
+          <div class="row items-center justify-between q-mb-sm">
+            <div>
+              <div class="text-h4 text-weight-bold">Command Injection</div>
+              <div class="text-caption text-grey-7 q-mt-xs">
+                서버에서 OS 명령어가 실행되도록 만드는 고위험 명령어 주입 취약점 문제입니다.
               </div>
-            </q-card>
+            </div>
+          </div>
+
+          <div class="row q-gutter-md justify-start">
+            <div
+              v-for="vuln in filteredCommandInjectionVulns"
+              :key="vuln.id"
+              class="problem-card-wrapper"
+            >
+              <q-card
+                flat
+                bordered
+                class="problem-card cursor-pointer"
+                @click="solveProblem(vuln.id)"
+              >
+                <q-img :src="vuln.image" fit="contain" :ratio="4 / 3" class="problem-img"> </q-img>
+
+                <q-card-section class="q-pa-sm">
+                  <div class="text-subtitle2 text-weight-bold">
+                    {{ vuln.name }}
+                  </div>
+                </q-card-section>
+              </q-card>
+            </div>
           </div>
         </div>
 
-        <!-- 기타 취약점 문제 카테고리 -->
-        <div class="text-h5 q-pt-xl">File Vulnerability</div>
-        <div class="row wrap q-gutter-md justify-start">
-          <div v-for="vuln in otherVulns" :key="vuln.id" class="my-card-container">
-            <q-card
-              flat
-              bordered
-              class="my-card"
-              @click.stop="solveProblem(vuln.id)"
-              style="cursor: pointer"
-            >
-              <q-img :src="vuln.image" style="width: 230px; object-fit: cover" />
-              <div class="row items-center justify-between q-pa-sm">
-                <div class="text-subtitle2" @click="solveProblem(vuln.id)" style="cursor: pointer">
-                  {{ vuln.name }}
-                </div>
+        <!-- XSS 카테고리 -->
+        <div class="section-card q-mt-xl">
+          <div class="row items-center justify-between q-mb-sm">
+            <div>
+              <div class="text-h4 text-weight-bold">XSS</div>
+              <div class="text-caption text-grey-7 q-mt-xs">
+                스크립트 삽입을 통해 쿠키·세션 탈취 및 UI 변조를 수행하는 크로스 사이트 스크립팅
+                문제입니다.
               </div>
-            </q-card>
+            </div>
+          </div>
+
+          <div class="row q-gutter-md justify-start">
+            <div v-for="vuln in filteredXssVulns" :key="vuln.id" class="problem-card-wrapper">
+              <q-card
+                flat
+                bordered
+                class="problem-card cursor-pointer"
+                @click="solveProblem(vuln.id)"
+              >
+                <q-img :src="vuln.image" fit="contain" :ratio="4 / 3" class="problem-img"> </q-img>
+
+                <q-card-section class="q-pa-sm">
+                  <div class="text-subtitle2 text-weight-bold">
+                    {{ vuln.name }}
+                  </div>
+                </q-card-section>
+              </q-card>
+            </div>
+          </div>
+        </div>
+
+        <!-- File Vulnerability 카테고리 -->
+        <div class="section-card q-mt-xl">
+          <div class="row items-center justify-between q-mb-sm">
+            <div>
+              <div class="text-h4 text-weight-bold">File Vulnerability</div>
+              <div class="text-caption text-grey-7 q-mt-xs">
+                파일 업로드·다운로드 및 경로 조작을 통해 웹셸 업로드, 정보 유출 등을 유도하는
+                문제입니다.
+              </div>
+            </div>
+          </div>
+
+          <div class="row q-gutter-md justify-start">
+            <div v-for="vuln in filteredOtherVulns" :key="vuln.id" class="problem-card-wrapper">
+              <q-card
+                flat
+                bordered
+                class="problem-card cursor-pointer"
+                @click="solveProblem(vuln.id)"
+              >
+                <q-img :src="vuln.image" fit="contain" :ratio="4 / 3" class="problem-img"> </q-img>
+
+                <q-card-section class="q-pa-sm">
+                  <div class="text-subtitle2 text-weight-bold">
+                    {{ vuln.name }}
+                  </div>
+                </q-card-section>
+              </q-card>
+            </div>
           </div>
         </div>
       </q-card>
@@ -112,7 +196,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 import csrf from 'src/assets/problem_csrf.png'
@@ -132,37 +216,89 @@ export default {
   setup() {
     const router = useRouter()
 
-    // CSRF 취약점 문제
-    const csrfVulns = ref([{ id: 'csrf', name: '관리자 권한 탈취 작전', image: csrf }])
+    // 난이도 필터 상태
+    const levelFilter = ref('all') // 'all' | 'beginner' | 'intermediate' | 'advanced'
+    const levelOptions = [
+      { label: '전체', value: 'all' },
+      { label: '초급', value: 'beginner' },
+      { label: '중급', value: 'intermediate' },
+      { label: '고급', value: 'advanced' },
+    ]
+    const levelLabelMap = {
+      beginner: '초급',
+      intermediate: '중급',
+      advanced: '고급',
+    }
 
-    // SQL Injection 취약점 문제
+    // === 문제 리스트 (+ 난이도 정보 추가) ===
+    const csrfVulns = ref([
+      { id: 'csrf', name: '관리자 권한 탈취 작전', image: csrf, level: 'intermediate' },
+    ])
+
     const sqlInjectionVulns = ref([
-      { id: 'sql-injection1', name: '비밀번호 없이 관리자 로그인', image: sql1 },
-      { id: 'sql-injection2', name: 'BookStore: UNION Injection', image: sql3 },
-      { id: 'sql-injection3', name: 'VIP 닉네임을 훔쳐라', image: sql2 },
+      { id: 'sql-injection1', name: '비밀번호 없이 관리자 로그인', image: sql1, level: 'beginner' },
+      { id: 'sql-injection2', name: 'BookStore: UNION Injection', image: sql3, level: 'advanced' },
+      { id: 'sql-injection3', name: 'VIP 닉네임을 훔쳐라', image: sql2, level: 'intermediate' },
     ])
 
     const commandInjectionVulns = ref([
-      { id: 'command-injection', name: '명령어 주입으로 플래그 탈취', image: command },
+      {
+        id: 'command-injection',
+        name: '명령어 주입으로 플래그 탈취',
+        image: command,
+        level: 'advanced',
+      },
     ])
 
-    // XSS 취약점 문제
     const xssVulns = ref([
-      { id: 'xss-stored1', name: '악성 게시글로 경고창 띄우기', image: xss1 },
-      { id: 'xss-stored2', name: '우회 페이로드를 통한 FLAG 획득', image: xss2 },
+      { id: 'xss-stored1', name: '악성 게시글로 경고창 띄우기', image: xss1, level: 'beginner' },
+      {
+        id: 'xss-stored2',
+        name: '우회 페이로드를 통한 FLAG 획득',
+        image: xss2,
+        level: 'intermediate',
+      },
       {
         id: 'xss-stored3',
-        name: '괸리자 세션 탈취 및 괸리자 전용 게시글 열람을 통한 FLAG 획득',
+        name: '관리자 세션 탈취 및 관리자 전용 게시글 열람을 통한 FLAG 획득',
         image: xss3,
+        level: 'advanced',
       },
-      { id: 'xss-reflected', name: '검색어 기반 XSS 실행을 통한 FLAG 획득', image: xss4 },
+      {
+        id: 'xss-reflected',
+        name: '검색어 기반 XSS 실행을 통한 FLAG 획득',
+        image: xss4,
+        level: 'intermediate',
+      },
     ])
 
-    // 기타 취약점 문제
     const otherVulns = ref([
-      { id: 'file-vulnerability2', name: '경로 조작 스크립트를 통한 FLAG 획득', image: path },
-      { id: 'file-vulnerability', name: '악성 PHP 스크립트를 통한 FLAG 획득', image: filevuln },
+      {
+        id: 'file-vulnerability2',
+        name: '경로 조작 스크립트를 통한 FLAG 획득',
+        image: path,
+        level: 'beginner',
+      },
+      {
+        id: 'file-vulnerability',
+        name: '악성 PHP 스크립트를 통한 FLAG 획득',
+        image: filevuln,
+        level: 'advanced',
+      },
     ])
+
+    // 공통 필터 함수
+    const filterByLevel = (listRef) =>
+      computed(() => {
+        if (levelFilter.value === 'all') return listRef.value
+        return listRef.value.filter((v) => v.level === levelFilter.value)
+      })
+
+    const filteredCsrfVulns = filterByLevel(csrfVulns)
+    const filteredSqlInjectionVulns = filterByLevel(sqlInjectionVulns)
+    const filteredCommandInjectionVulns = filterByLevel(commandInjectionVulns)
+    const filteredXssVulns = filterByLevel(xssVulns)
+    const filteredOtherVulns = filterByLevel(otherVulns)
 
     function solveProblem(id) {
       if (id === 'csrf') router.push('/gamecsrf')
@@ -179,11 +315,14 @@ export default {
     }
 
     return {
-      csrfVulns,
-      sqlInjectionVulns,
-      commandInjectionVulns,
-      xssVulns,
-      otherVulns,
+      levelFilter,
+      levelOptions,
+      levelLabelMap,
+      filteredCsrfVulns,
+      filteredSqlInjectionVulns,
+      filteredCommandInjectionVulns,
+      filteredXssVulns,
+      filteredOtherVulns,
       solveProblem,
     }
   },
@@ -191,15 +330,55 @@ export default {
 </script>
 
 <style scoped>
-.my-card-container {
-  width: 300px;
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
 }
-.my-card {
-  width: 230px;
+
+.main-card {
+  border-radius: 18px;
 }
-.my-category-title {
-  font-size: 1.25em;
-  font-weight: bold;
-  margin-top: 20px;
+
+/* 카테고리 섹션 박스 */
+.section-card {
+  padding: 4px 0 4px;
 }
+
+/* 문제 카드 래퍼: 고정 폭으로 크기 통일 */
+.problem-card-wrapper {
+  width: 260px;
+}
+
+@media (max-width: 600px) {
+  .problem-card-wrapper {
+    width: 100%;
+  }
+}
+
+.problem-card {
+  border-radius: 16px;
+  overflow: hidden;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.problem-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border-color: #000000;
+}
+
+/* 이미지 영역: 전체 보이도록 contain + 연한 배경 */
+.problem-img {
+  background: #f5f5f5;
+}
+
+/* 난이도 칩이 잘 보이게 여백 */
+.q-chip {
+  font-size: 0.7rem;
+}
+
+/* 상단 헤더와 카드 간 간격 조정은 필요에 따라 추가 가능 */
 </style>

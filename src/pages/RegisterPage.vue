@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page class="flex flex-center q-py-xl">
     <q-card flat class="q-pa-md" style="border: 1px solid lightgrey">
       <div class="text-bold text-subtitle1" style="min-width: 400px">회원가입</div>
 

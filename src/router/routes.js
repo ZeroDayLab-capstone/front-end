@@ -298,7 +298,7 @@ const routes = [
         name: 'community',
         component: () => import('pages/CommunityPage.vue'),
         children: [
-          { path: '', redirect: { name: 'community-faq' } }, // 기본 진입시 faq로
+          { path: '', redirect: { name: 'community-notice' } },
           {
             path: 'notice',
             name: 'community-notice',
