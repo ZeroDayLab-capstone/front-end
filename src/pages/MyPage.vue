@@ -261,7 +261,7 @@ export default {
           .map((item) => ({
             id: item.lab_id,
             name: LAB_NAMES[item.lab_id] || `실습 ${item.lab_id}`,
-            progress: 0,
+            progress: item.progress ?? 0, // 가정 백앤드 코드 확인 필요
           }))
         const toCompleted = Object.values(done.data)
           .flat()
